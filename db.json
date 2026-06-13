@@ -1,3 +1,196 @@
 {
-  "pages": []
+  "pages": [
+    {
+      "id": "1",
+      "name": "Home",
+      "slug": "/",
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "type": "Hero",
+          "props": {
+            "title": "طراحی وب‌سایت حرفه‌ای",
+            "subtitle": "برای کسب‌وکار شما",
+            "description": "با تیم متخصص کاریار، وب‌سایتی بسازید که دیده شوید. تجربه کاربری مدرن، ریسپانسیو و بهینه برای موتورهای جستجو.",
+            "image": "/images/hero-bg.jpg",
+            "ctaText": "شروع کنید",
+            "ctaLink": "/contact"
+          }
+        },
+        {
+          "id": "section-2-features",
+          "type": "Features",
+          "props": {
+            "title": "خدمات ما",
+            "items": [
+              {
+                "icon": "/icons/web-design.svg",
+                "title": "طراحی وب‌سایت",
+                "description": "طراحی اختصاصی با React، فریمورک‌های مدرن و تجربه کاربری عالی"
+              },
+              {
+                "icon": "/icons/product-design.svg",
+                "title": "طراحی محصول",
+                "description": "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking"
+              }
+            ],
+            "ctaText": "خدمات ما",
+            "ctaLink": "/services"
+          }
+        },
+        {
+          "id": "section-3-projects",
+          "type": "ProjectsCarousel",
+          "props": {
+            "title": "پروژه‌های اخیر",
+            "autoplayInterval": 5000,
+            "slides": [
+              {
+                "logo": "/logos/digikala.svg",
+                "title": "دیجی‌کالا",
+                "description": "بازطراحی پنل مدیریت فروشندگان با تمرکز بر کارایی و سرعت. بهبود ۴۰٪ در رضایت کاربران.",
+                "image": "/mockups/digikala-mock.jpg"
+              },
+              {
+                "logo": "/logos/karyar.svg",
+                "title": "کاریار استودیو",
+                "description": "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا. پیاده‌سازی سیستم builder اختصاصی.",
+                "image": "/mockups/karyar-mock.jpg"
+              },
+              {
+                "logo": "/logos/akeep.svg",
+                "title": "aKeep",
+                "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا. دریافت جایزه بهترین تجربه کاربری سال.",
+                "image": "/mockups/akeep-mock.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-4-testimonials",
+          "type": "Testimonials",
+          "props": {
+            "title": "نظرات مشتریان",
+            "description": "آنچه مشتریان ما می‌گویند",
+            "autoplayInterval": 5000,
+            "items": [
+              {
+                "avatar": "/avatars/ahmad-rezaei.jpg",
+                "name": "احمد رضایی",
+                "role": "مدیرعامل استارتاپ A",
+                "quote": "تیم کاریار فراتر از انتظار ما عمل کرد. تحویل به موقع و کیفیت عالی."
+              },
+              {
+                "avatar": "/avatars/sara-karimi.jpg",
+                "name": "سارا کریمی",
+                "role": "مدیر بازاریابی دیجی‌کالا",
+                "quote": "طراحی حرفه‌ای و پشتیبانی فوق‌العاده. همکاری با کاریار یک تجربه لذت‌بخش بود."
+              },
+              {
+                "avatar": "/avatars/mohammad-ghasemi.jpg",
+                "name": "محمد قاسمی",
+                "role": "بنیانگذار aKeep",
+                "quote": "تیم کاریار ایده ما را به بهترین شکل پیاده‌سازی کرد. معماری کد بسیار تمیز و مقیاس‌پذیر."
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-5-footer",
+          "type": "Footer",
+          "props": {
+            "logo": "/logo-footer.svg",
+            "socialLinks": [
+              {
+                "icon": "linkedin",
+                "url": "https://linkedin.com/company/karyar-studio"
+              },
+              {
+                "icon": "instagram",
+                "url": "https://instagram.com/karyar.studio"
+              },
+              { "icon": "whatsapp", "url": "https://wa.me/1234567890" }
+            ],
+            "copyrightText": "تمام حقوق محفوظ است. © ۱۴۰۳ کاریار استودیو"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "About",
+      "slug": "about",
+      "sections": [
+        {
+          "id": "section-about-hero",
+          "type": "Hero",
+          "props": {
+            "title": "درباره کاریار",
+            "subtitle": "تخصص، نوآوری و تعهد",
+            "description": "ما یک تیم جوان و خلاق هستیم با هدف تحول دیجیتال کسب‌وکارها. از سال ۱۳۹۸، پروژه‌های موفق متعددی را به سرانجام رسانده‌ایم.",
+            "image": "/images/about-hero.jpg",
+            "ctaText": "تماس با ما",
+            "ctaLink": "/contact"
+          }
+        },
+        {
+          "id": "section-about-features",
+          "type": "Features",
+          "props": {
+            "title": "چرا کاریار؟",
+            "items": [
+              {
+                "icon": "/icons/team.svg",
+                "title": "تیم متخصص",
+                "description": "توسعه‌دهندگان ارشد با سابقه درخشان در پروژه‌های بزرگ"
+              },
+              {
+                "icon": "/icons/support.svg",
+                "title": "پشتیبانی ۲۴/۷",
+                "description": "تیم پشتیبانی همیشه در دسترس برای رفع مشکلات شما"
+              }
+            ],
+            "ctaText": "مشاهده نمونه کارها",
+            "ctaLink": "/portfolio"
+          }
+        },
+        {
+          "id": "section-about-testimonials",
+          "type": "Testimonials",
+          "props": {
+            "title": "چرا مشتریان ما را دوست دارند",
+            "description": "رضایت مشتریان اولویت اول ماست",
+            "autoplayInterval": 6000,
+            "items": [
+              {
+                "avatar": "/avatars/ali-mohammadi.jpg",
+                "name": "علی محمدی",
+                "role": "مدیر فنی مجموعه X",
+                "quote": "کاریار بهترین انتخاب برای راه‌اندازی سریع و حرفه‌ای وب‌سایت است."
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-about-footer",
+          "type": "Footer",
+          "props": {
+            "logo": "/logo-footer.svg",
+            "socialLinks": [
+              {
+                "icon": "linkedin",
+                "url": "https://linkedin.com/company/karyar-studio"
+              },
+              {
+                "icon": "instagram",
+                "url": "https://instagram.com/karyar.studio"
+              },
+              { "icon": "whatsapp", "url": "https://wa.me/1234567890" }
+            ],
+            "copyrightText": "تمام حقوق محفوظ است. © ۱۴۰۳ کاریار استودیو"
+          }
+        }
+      ]
+    }
+  ]
 }
