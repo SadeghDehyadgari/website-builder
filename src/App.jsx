@@ -1,5 +1,7 @@
+// Added react-hot-toast Toaster component for notifications
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// NEW: Import page components for main routes (Stage 5)
+import { Toaster } from "react-hot-toast"; // NEW
+// Import page components for main routes (Stage 5)
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import PageBuilder from "./pages/PageBuilder/PageBuilder";
 import PublicView from "./pages/PublicView/PublicView";
@@ -7,6 +9,18 @@ import PublicView from "./pages/PublicView/PublicView";
 function App() {
   return (
     <BrowserRouter>
+      {/* NEW: Toaster for toast notifications - positioned top-center, RTL support */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+          style: {
+            direction: "rtl",
+            fontFamily: "inherit",
+          },
+        }}
+      />
       <Routes>
         {/* NEW: Main routes for the Website Builder application (Stage 5) */}
         {/* Public view with default slug (home) - exact path "/" */}
