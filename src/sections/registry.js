@@ -1,7 +1,28 @@
+import React from "react";
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
 import FeaturesSection from "./Features/FeaturesSection";
 import FeaturesEditor from "./Features/FeaturesEditor";
+
+// Temporary placeholder components for missing sections (Stage 9 will replace)
+const PlaceholderSection = ({ type }) => {
+  return React.createElement(
+    "div",
+    {
+      style: {
+        padding: "2rem",
+        textAlign: "center",
+        border: "1px dashed #ccc",
+      },
+    },
+    "⚠️ سکشن ",
+    type,
+    " در حال توسعه است",
+  );
+};
+
+const PlaceholderEditor = () =>
+  React.createElement("div", null, "ویرایشگر این سکشن به زودی اضافه می‌شود");
 
 /**
  * Section Registry — the heart of extensibility.
@@ -17,61 +38,75 @@ import FeaturesEditor from "./Features/FeaturesEditor";
  */
 const sectionRegistry = {
   hero: {
-    label: "Hero",
+    label: "بخش قهرمان (Hero)",
     Component: HeroSection,
     Editor: HeroEditor,
     defaultProps: {
-      title: "Your Title Here",
-      subtitle: "Subtitle",
-      description: "A short description of your page.",
+      title: "عنوان شما اینجا قرار می‌گیرد",
+      subtitle: "زیرعنوان",
+      description: "توضیح کوتاهی درباره صفحه شما.",
       image: "",
-      ctaText: "Get Started",
+      ctaText: "شروع کنید",
       ctaLink: "#",
     },
   },
   features: {
-    label: "Features",
+    label: "ویژگی‌ها (Features)",
     Component: FeaturesSection,
     Editor: FeaturesEditor,
     defaultProps: {
-      title: "Our Features",
+      title: "ویژگی‌های ما",
       items: [
         {
           id: "f1",
           icon: "⚡",
-          title: "Fast",
-          description: "Lightning fast performance.",
+          title: "سریع",
+          description: "عملکرد فوق‌العاده سریع",
         },
         {
           id: "f2",
           icon: "🔒",
-          title: "Secure",
-          description: "Enterprise-grade security.",
+          title: "امن",
+          description: "امنیت در سطح سازمانی",
         },
         {
           id: "f3",
           icon: "🎨",
-          title: "Beautiful",
-          description: "Stunning out-of-the-box design.",
+          title: "زیبا",
+          description: "طراحی شگفت‌انگیز آماده استفاده",
         },
       ],
-      ctaText: "Learn More",
+      ctaText: "بیشتر بدانید",
       ctaLink: "#",
     },
   },
-  // Future sections (ProjectsCarousel, Testimonials, Footer, Process)
-  // are added here without touching any other file.
+  // Temporary placeholders for missing sections (Stage 9 will replace)
+  testimonials: {
+    label: "نظرات مشتریان (Testimonials)",
+    Component: () =>
+      React.createElement(PlaceholderSection, { type: "نظرات مشتریان" }),
+    Editor: PlaceholderEditor,
+    defaultProps: { items: [] },
+  },
+  footer: {
+    label: "فوتر (Footer)",
+    Component: () => React.createElement(PlaceholderSection, { type: "فوتر" }),
+    Editor: PlaceholderEditor,
+    defaultProps: { copyright: "© ۱۴۰۴ - تمامی حقوق محفوظ است", links: [] },
+  },
 };
 
 /**
  * Returns the registry entry for a given section type.
- * Returns null (not throws) so callers can render a graceful fallback.
+ * Case-insensitive: converts input type to lowercase.
  *
  * @param {string} type
  * @returns {{ label, Component, Editor, defaultProps } | null}
  */
 export function getSection(type) {
-  return sectionRegistry[type] ?? null;
+  if (!type) return null;
+  const normalizedType = type.toLowerCase();
+  return sectionRegistry[normalizedType] ?? null;
 }
 
 /**
