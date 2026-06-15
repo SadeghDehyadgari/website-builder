@@ -8,6 +8,11 @@
   text-align: center;
   direction: rtl;
   font-family: inherit;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  left: 50%;
+  min-width: 200px;
 }
 
 .icon {
@@ -37,4 +42,15 @@
 
 .retryBtn:hover {
   background-color: #2563eb;
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding: 0;
+  }
+
+  .message {
+    padding: 0;
+    font-size: 1rem;
+  }
 }

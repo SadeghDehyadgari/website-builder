@@ -1,11 +1,34 @@
 // Base API URL - change if using my-json-server or production
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
+// NEW: Timeout wrapper for fetch (default 10 seconds)
+async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(id);
+    return response;
+  } catch (error) {
+    clearTimeout(id);
+    if (error.name === "AbortError") {
+      // Attach the original error as 'cause' to satisfy ESLint rule
+      const timeoutError = new Error("درخواست با تاخیر مواجه شد (timeout)");
+      timeoutError.cause = error;
+      throw timeoutError;
+    }
+    throw error;
+  }
+}
+
 /**
  * Generic fetch wrapper to handle errors and JSON parsing
  */
 async function fetchJson(endpoint, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
     headers: { "Content-Type": "application/json", ...options.headers },
     ...options,
   });
