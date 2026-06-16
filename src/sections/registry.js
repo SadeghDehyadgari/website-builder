@@ -1,31 +1,15 @@
-// registry.js - updated footer defaultProps with correct copyright text
-import React from "react";
+// src/sections/registry.js
+// UPDATED: Replaced placeholder with real Testimonials component
+
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
 import FeaturesSection from "./Features/FeaturesSection";
 import FeaturesEditor from "./Features/FeaturesEditor";
 import FooterSection from "./Footer/FooterSection";
 import FooterEditor from "./Footer/FooterEditor";
-
-// Placeholders (same as before)
-const PlaceholderSection = ({ type }) => {
-  return React.createElement(
-    "div",
-    {
-      style: {
-        padding: "2rem",
-        textAlign: "center",
-        border: "1px dashed #ccc",
-      },
-    },
-    "⚠️ سکشن ",
-    type,
-    " در حال توسعه است",
-  );
-};
-
-const PlaceholderEditor = () =>
-  React.createElement("div", null, "ویرایشگر این سکشن به زودی اضافه می‌شود");
+// NEW import for Testimonials
+import TestimonialsSection from "./Testimonials/TestimonialsSection";
+import TestimonialsEditor from "./Testimonials/TestimonialsEditor";
 
 const sectionRegistry = {
   hero: {
@@ -71,12 +55,34 @@ const sectionRegistry = {
       ctaLink: "#",
     },
   },
+  // REPLACED: Real Testimonials component
   testimonials: {
     label: "نظرات مشتریان (Testimonials)",
-    Component: () =>
-      React.createElement(PlaceholderSection, { type: "نظرات مشتریان" }),
-    Editor: PlaceholderEditor,
-    defaultProps: { items: [] },
+    Component: TestimonialsSection,
+    Editor: TestimonialsEditor,
+    defaultProps: {
+      title: "تجربه همکاری از نگاه مشتریان",
+      description:
+        "بخشی از تجربه کسانی که مسیر ساخت محصولاتشان را با ما شروع کردند.",
+      items: [
+        {
+          id: "t1",
+          avatar: "/avatars/avatar-1.png",
+          name: "علی محمدی",
+          role: "مدیر محصول در شرکت فناوری",
+          quote:
+            "کار با استودیو تیمی دقیق و قابل اعتماد. توی هر مرحله از پروژه، مسئله رو درست فهمیدن و برای ما یه مسیر واضح و قابل اجرا ساختن...",
+        },
+        {
+          id: "t2",
+          avatar: "/avatars/avatar-2.png",
+          name: "سارا حسینی",
+          role: "طراح ارشد",
+          quote:
+            "طراحی‌های فوق‌العاده و تیم بسیار حرفه‌ای. همکاری با کاریار استودیو یکی از بهترین تجربه‌های کاری من بود.",
+        },
+      ],
+    },
   },
   footer: {
     label: "فوتر (Footer)",
