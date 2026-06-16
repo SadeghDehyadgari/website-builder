@@ -1,10 +1,13 @@
+// registry.js - updated footer defaultProps with correct copyright text
 import React from "react";
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
 import FeaturesSection from "./Features/FeaturesSection";
 import FeaturesEditor from "./Features/FeaturesEditor";
+import FooterSection from "./Footer/FooterSection";
+import FooterEditor from "./Footer/FooterEditor";
 
-// Temporary placeholder components for missing sections (Stage 9 will replace)
+// Placeholders (same as before)
 const PlaceholderSection = ({ type }) => {
   return React.createElement(
     "div",
@@ -24,18 +27,6 @@ const PlaceholderSection = ({ type }) => {
 const PlaceholderEditor = () =>
   React.createElement("div", null, "ویرایشگر این سکشن به زودی اضافه می‌شود");
 
-/**
- * Section Registry — the heart of extensibility.
- *
- * Each entry maps a section type (string) to:
- *   - label:        human-readable name shown in AddSectionMenu
- *   - Component:    renders the section on the public page / builder preview
- *   - Editor:       renders the settings form inside SectionSettingsPanel
- *   - defaultProps: used when a new section of this type is added
- *
- * Open-Closed Principle: to add a new section type, add ONE entry here.
- * PageRenderer, AddSectionMenu, and SectionSettingsPanel need zero changes.
- */
 const sectionRegistry = {
   hero: {
     label: "بخش قهرمان (Hero)",
@@ -80,7 +71,6 @@ const sectionRegistry = {
       ctaLink: "#",
     },
   },
-  // Temporary placeholders for missing sections (Stage 9 will replace)
   testimonials: {
     label: "نظرات مشتریان (Testimonials)",
     Component: () =>
@@ -90,31 +80,27 @@ const sectionRegistry = {
   },
   footer: {
     label: "فوتر (Footer)",
-    Component: () => React.createElement(PlaceholderSection, { type: "فوتر" }),
-    Editor: PlaceholderEditor,
-    defaultProps: { copyright: "© ۱۴۰۴ - تمامی حقوق محفوظ است", links: [] },
+    Component: FooterSection,
+    Editor: FooterEditor,
+    defaultProps: {
+      logo: "/logos/karyar-studio-logo.svg",
+      socialLinks: [
+        { icon: "/icons/Instagram-icon.svg", url: "https://instagram.com" },
+        { icon: "/icons/LinkedIn-icon.svg", url: "https://linkedin.com" },
+        { icon: "/icons/WhatsApp-icon.svg", url: "https://wa.me/1234567890" },
+      ],
+      copyrightText:
+        "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است.",
+    },
   },
 };
 
-/**
- * Returns the registry entry for a given section type.
- * Case-insensitive: converts input type to lowercase.
- *
- * @param {string} type
- * @returns {{ label, Component, Editor, defaultProps } | null}
- */
 export function getSection(type) {
   if (!type) return null;
   const normalizedType = type.toLowerCase();
   return sectionRegistry[normalizedType] ?? null;
 }
 
-/**
- * Returns all registered section types as an array of { type, label }.
- * Used by AddSectionMenu to build its list dynamically.
- *
- * @returns {Array<{ type: string, label: string }>}
- */
 export function getAllSectionTypes() {
   return Object.entries(sectionRegistry).map(([type, { label }]) => ({
     type,

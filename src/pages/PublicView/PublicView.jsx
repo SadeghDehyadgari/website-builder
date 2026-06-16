@@ -45,7 +45,7 @@ function PublicView() {
 
   // Render public view with sections in preview mode (no editing)
   return (
-    <div style={{ padding: "1rem" }}>
+    <>
       {/* Public page content - sections rendered non-editable */}
       <PageRenderer sections={page.sections} isPreview={true} />
 
@@ -53,7 +53,7 @@ function PublicView() {
       <div style={{ marginTop: "2rem", textAlign: "center" }}>
         <Link to="/admin">🔧 ورود به پنل ادمین</Link>
       </div>
-    </div>
+    </>
   );
 }
 

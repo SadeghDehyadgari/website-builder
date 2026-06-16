@@ -99,19 +99,22 @@
           "id": "section-5-footer",
           "type": "Footer",
           "props": {
-            "logo": "/logo-footer.svg",
+            "logo": "/logos/karyar-studio-logo.svg",
             "socialLinks": [
               {
-                "icon": "linkedin",
-                "url": "https://linkedin.com/company/karyar-studio"
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
               },
               {
-                "icon": "instagram",
+                "icon": "/icons/Instagram-icon.svg",
                 "url": "https://instagram.com/karyar.studio"
               },
-              { "icon": "whatsapp", "url": "https://wa.me/1234567890" }
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com/company/karyar-studio"
+              }
             ],
-            "copyrightText": "تمام حقوق محفوظ است. © ۱۴۰۳ کاریار استودیو"
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
           }
         }
       ]
@@ -175,19 +178,22 @@
           "id": "section-about-footer",
           "type": "Footer",
           "props": {
-            "logo": "/logo-footer.svg",
+            "logo": "/logos/karyar-studio-logo.svg",
             "socialLinks": [
               {
-                "icon": "linkedin",
-                "url": "https://linkedin.com/company/karyar-studio"
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
               },
               {
-                "icon": "instagram",
+                "icon": "/icons/Instagram-icon.svg",
                 "url": "https://instagram.com/karyar.studio"
               },
-              { "icon": "whatsapp", "url": "https://wa.me/1234567890" }
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com/company/karyar-studio"
+              }
             ],
-            "copyrightText": "تمام حقوق محفوظ است. © ۱۴۰۳ کاریار استودیو"
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
           }
         }
       ]

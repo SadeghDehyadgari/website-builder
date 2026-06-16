@@ -1,7 +1,7 @@
 /* index.css - Global styles with RTL & Persian support */
 
-/* Persian font (fallback: Vazir, Tahoma, system-ui) */
 @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap");
+@import url("./styles/variables.css");
 
 :root {
   --color-primary: #6366f1;
