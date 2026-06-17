@@ -1,5 +1,5 @@
 // src/sections/registry.js
-// UPDATED: Replaced placeholder with real Testimonials component
+// UPDATED: Changed ProjectsCarousel default title to match Figma design.
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -7,9 +7,10 @@ import FeaturesSection from "./Features/FeaturesSection";
 import FeaturesEditor from "./Features/FeaturesEditor";
 import FooterSection from "./Footer/FooterSection";
 import FooterEditor from "./Footer/FooterEditor";
-// NEW import for Testimonials
 import TestimonialsSection from "./Testimonials/TestimonialsSection";
 import TestimonialsEditor from "./Testimonials/TestimonialsEditor";
+import ProjectsCarouselSection from "./ProjectsCarousel/ProjectsCarouselSection";
+import ProjectsCarouselEditor from "./ProjectsCarousel/ProjectsCarouselEditor";
 
 const sectionRegistry = {
   hero: {
@@ -55,7 +56,6 @@ const sectionRegistry = {
       ctaLink: "#",
     },
   },
-  // REPLACED: Real Testimonials component
   testimonials: {
     label: "نظرات مشتریان (Testimonials)",
     Component: TestimonialsSection,
@@ -80,6 +80,41 @@ const sectionRegistry = {
           role: "طراح ارشد",
           quote:
             "طراحی‌های فوق‌العاده و تیم بسیار حرفه‌ای. همکاری با کاریار استودیو یکی از بهترین تجربه‌های کاری من بود.",
+        },
+      ],
+    },
+  },
+  projectscarousel: {
+    label: "پروژه‌ها (ProjectsCarousel)",
+    Component: ProjectsCarouselSection,
+    Editor: ProjectsCarouselEditor,
+    defaultProps: {
+      title: "پروژه‌هایی که برای ایجاد تجربه بهتر ساخته شده‌اند", // UPDATED: new title
+      autoplayInterval: 5000,
+      slides: [
+        {
+          id: "p1",
+          logo: "/logos/digikala.svg",
+          title: "اپلیکیشن ماکاپ‌های پولی",
+          description:
+            "طراحی یک اپلیکیشن حرفه‌ای برای دریافت ماکاپ‌های پرمیوم.\nتمرکز بر تجربه کاربری روان، دسته‌بندی هوشمند و ارائه محتوای اختصاصی با کیفیت بالا.\nاشاره به دسترسی راحت و مطمئن طراحان به منابع پولی و حرفه‌ای.",
+          image: "/mockups/digikala-mock.jpg",
+        },
+        {
+          id: "p2",
+          logo: "/logos/karyar.svg",
+          title: "سایت رسمی کاریار",
+          description:
+            "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا.\nپیاده‌سازی سیستم builder اختصاصی برای مدیریت محتوا.",
+          image: "/mockups/karyar-mock.jpg",
+        },
+        {
+          id: "p3",
+          logo: "/logos/akeep.svg",
+          title: "مدیریت رمزهای عبور aKeep",
+          description:
+            "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
+          image: "/mockups/akeep-mock.jpg",
         },
       ],
     },

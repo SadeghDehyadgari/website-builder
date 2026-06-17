@@ -1,5 +1,5 @@
 /* src/components/Carousel/Carousel.module.css */
-/* NEW FILE: Styles for the Carousel component */
+/* UPDATED: Added .fullWidth class to make slides take full width with no padding/margin */
 
 .carouselContainer {
   --slide-spacing: 16px;
@@ -103,10 +103,28 @@
   transform: scale(1.2);
 }
 
+/* NEW: Full-width mode for single-slide carousels (e.g., ProjectsCarousel) */
+.fullWidth {
+  --slide-size: 100%;
+}
+
+.fullWidth .slideList {
+  margin-left: 0;
+}
+
+.fullWidth .slide {
+  padding: 0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .carouselContainer {
     --slide-size: 100%; /* Mobile: each slide takes full width */
+  }
+
+  /* On mobile, fullWidth should also be 100% (already) */
+  .fullWidth {
+    --slide-size: 100%;
   }
 
   .arrowButton {

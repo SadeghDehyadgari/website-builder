@@ -24,11 +24,13 @@
             "title": "خدمات ما",
             "items": [
               {
+                "id": "f1",
                 "icon": "/icons/web-design.svg",
                 "title": "طراحی وب‌سایت",
                 "description": "طراحی اختصاصی با React، فریمورک‌های مدرن و تجربه کاربری عالی"
               },
               {
+                "id": "f2",
                 "icon": "/icons/product-design.svg",
                 "title": "طراحی محصول",
                 "description": "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking"
@@ -46,22 +48,25 @@
             "autoplayInterval": 5000,
             "slides": [
               {
+                "id": "p1",
                 "logo": "/logos/digikala.svg",
-                "title": "دیجی‌کالا",
-                "description": "بازطراحی پنل مدیریت فروشندگان با تمرکز بر کارایی و سرعت. بهبود ۴۰٪ در رضایت کاربران.",
-                "image": "/mockups/digikala-mock.jpg"
+                "title": "اپلیکیشن ماکاپ‌های پولی",
+                "description": "طراحی یک اپلیکیشن حرفه‌ای برای دریافت ماکاپ‌های پرمیوم.\nتمرکز بر تجربه کاربری روان، دسته‌بندی هوشمند و ارائه محتوای اختصاصی با کیفیت بالا.\nاشاره به دسترسی راحت و مطمئن طراحان به منابع پولی و حرفه‌ای.",
+                "image": "/images/laptop.svg"
               },
               {
+                "id": "p2",
                 "logo": "/logos/karyar.svg",
-                "title": "کاریار استودیو",
-                "description": "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا. پیاده‌سازی سیستم builder اختصاصی.",
-                "image": "/mockups/karyar-mock.jpg"
+                "title": "سایت رسمی کاریار",
+                "description": "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا.\nپیاده‌سازی سیستم builder اختصاصی برای مدیریت محتوا.",
+                "image": "/images/laptop2.svg"
               },
               {
+                "id": "p3",
                 "logo": "/logos/akeep.svg",
-                "title": "aKeep",
-                "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا. دریافت جایزه بهترین تجربه کاربری سال.",
-                "image": "/mockups/akeep-mock.jpg"
+                "title": "مدیریت رمزهای عبور aKeep",
+                "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
+                "image": "/images/phones.svg"
               }
             ]
           }
@@ -75,12 +80,14 @@
             "autoplayInterval": 5000,
             "items": [
               {
+                "id": "t1",
                 "avatar": "/avatars/avatar-1.png",
                 "name": "احمد رضایی",
                 "role": "مدیرعامل استارتاپ A",
                 "quote": "تیم کاریار فراتر از انتظار ما عمل کرد. تحویل به موقع و کیفیت عالی."
               },
               {
+                "id": "t2",
                 "avatar": "/avatars/avatar-2.png",
                 "name": "سارا کریمی",
                 "role": "مدیر بازاریابی دیجی‌کالا",
@@ -137,11 +144,13 @@
             "title": "چرا کاریار؟",
             "items": [
               {
+                "id": "f3",
                 "icon": "/icons/team.svg",
                 "title": "تیم متخصص",
                 "description": "توسعه‌دهندگان ارشد با سابقه درخشان در پروژه‌های بزرگ"
               },
               {
+                "id": "f4",
                 "icon": "/icons/support.svg",
                 "title": "پشتیبانی ۲۴/۷",
                 "description": "تیم پشتیبانی همیشه در دسترس برای رفع مشکلات شما"
@@ -160,6 +169,7 @@
             "autoplayInterval": 6000,
             "items": [
               {
+                "id": "t3",
                 "avatar": "/avatars/avatar-1.png",
                 "name": "علی محمدی",
                 "role": "مدیر فنی مجموعه X",

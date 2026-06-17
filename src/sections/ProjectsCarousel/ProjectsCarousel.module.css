@@ -1,0 +1,413 @@
+/* src/sections/ProjectsCarousel/ProjectsCarousel.module.css */
+/* UPDATED: Refined styles – smaller title, reduced height/width, arrows fully outside, phones.svg decoration. */
+
+/* ----- Container & decorations ----- */
+.container {
+  position: relative;
+  background-color: #ffffff;
+  padding: 2rem 1.5rem 3rem; /* reduced padding */
+  direction: rtl;
+  overflow: hidden;
+}
+
+/* Decorative dots – top left (unchanged) */
+.decorTopLeft {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 200px;
+  height: 200px;
+  background-image: url("/images/green-dots.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Decorative green ellipse – bottom right (unchanged) */
+.decorBottomRight {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 200px;
+  height: 200px;
+  background-image: url("/images/green-ellipse.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ----- Section title – smaller font ----- */
+.sectionTitle {
+  text-align: center;
+  font-size: 1.8rem; /* reduced from 2.2rem */
+  font-weight: 700;
+  color: var(--color-text-normal, #2f4858);
+  margin-bottom: 2rem; /* reduced from 2.5rem */
+  position: relative;
+  z-index: 1;
+}
+
+/* ----- Carousel card – reduced width and padding ----- */
+.carouselCard {
+  position: relative;
+  background: #ffffff;
+  border-radius: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 1rem;
+  max-width: 80%; /* reduced from 1200px */
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* ----- Carousel wrapper ----- */
+.carousel {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+/* ----- Each slide content (two columns) ----- */
+.slideContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem;
+  min-height: 280px; /* slightly reduced */
+}
+
+/* Left column: mockup image with phones decoration */
+.imageColumn {
+  flex: 0 0 45%;
+  max-width: 45%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mockupImage {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative phones element – positioned at bottom-left of the column */
+.phonesDecoration {
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+  width: 60px;
+  height: auto;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Right column: logo, title, description */
+.infoColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: right;
+}
+
+.projectLogo {
+  width: 10rem;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0.25rem;
+}
+
+.projectTitle {
+  font-size: 1.3rem; /* slightly smaller */
+  font-weight: 600;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0;
+}
+
+.projectDescription {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ----- Navigation arrows – positioned completely outside the card ----- */
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--color-text-muted, #5c6a63);
+  background: #ffffff;
+  color: var(--color-text-muted, #5c6a63);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.arrowButton:hover:not(:disabled) {
+  background: rgba(30, 169, 101, 0.06);
+  border-color: var(--color-primary-green, #1ea965);
+  color: var(--color-primary-green, #1ea965);
+}
+
+.arrowButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Fully outside the card – using negative values */
+.arrowPrev {
+  right: -5rem; /* was -22px, now more outside */
+}
+
+.arrowNext {
+  left: -5rem;
+}
+
+/* ----- Dots indicator (unchanged) ----- */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d1d5db;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dotActive {
+  width: 28px;
+  border-radius: 20px;
+  background: var(--color-primary-green, #1ea965);
+}
+
+/* ----- Editor styles (unchanged, reuse from Testimonials) ----- */
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0.5rem 0;
+}
+
+.editorField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.editorField label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-normal, #2f4858);
+}
+
+.editorField input,
+.editorField textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--color-border-light, #e0e0e0);
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.editorField input:focus,
+.editorField textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-green, #1ea965);
+  box-shadow: 0 0 0 2px rgba(30, 169, 101, 0.15);
+}
+
+.addButton {
+  background: var(--color-primary-green, #1ea965);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.addButton:hover {
+  background: #178a54;
+}
+
+.itemEditor {
+  border: 1px solid var(--color-border-light, #e0e0e0);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #fafafa;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.removeButton {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+
+.removeButton:hover {
+  background: #fecaca;
+}
+
+.itemFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.itemFields > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.itemFields label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted, #5c6a63);
+}
+
+.itemFields input,
+.itemFields textarea {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-border-light, #e0e0e0);
+  border-radius: 0.4rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.itemFields input:focus,
+.itemFields textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-green, #1ea965);
+}
+
+/* ----- Responsive adjustments ----- */
+@media (max-width: 992px) {
+  .slideContent {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .imageColumn {
+    flex: 1 1 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .mockupImage {
+    max-height: 200px;
+  }
+
+  .infoColumn {
+    width: 100%;
+  }
+
+  .arrowPrev {
+    right: 4px;
+  }
+  .arrowNext {
+    left: 4px;
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .carouselCard {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1.5rem 0.75rem 2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .carouselCard {
+    padding: 1rem 0.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .projectTitle {
+    font-size: 1.1rem;
+  }
+
+  .projectDescription {
+    font-size: 0.85rem;
+  }
+
+  .arrowButton {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .arrowPrev {
+    right: 0;
+  }
+  .arrowNext {
+    left: 0;
+  }
+
+  .itemFields {
+    grid-template-columns: 1fr;
+  }
+
+  .phonesDecoration {
+    width: 40px;
+    bottom: -5px;
+    left: -5px;
+  }
+
+  .decorTopLeft {
+    background-position: -6rem -8rem;
+  }
+}
