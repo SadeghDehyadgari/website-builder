@@ -75,22 +75,16 @@
             "autoplayInterval": 5000,
             "items": [
               {
-                "avatar": "/avatars/ahmad-rezaei.jpg",
+                "avatar": "/avatars/avatar-1.png",
                 "name": "احمد رضایی",
                 "role": "مدیرعامل استارتاپ A",
                 "quote": "تیم کاریار فراتر از انتظار ما عمل کرد. تحویل به موقع و کیفیت عالی."
               },
               {
-                "avatar": "/avatars/sara-karimi.jpg",
+                "avatar": "/avatars/avatar-2.png",
                 "name": "سارا کریمی",
                 "role": "مدیر بازاریابی دیجی‌کالا",
                 "quote": "طراحی حرفه‌ای و پشتیبانی فوق‌العاده. همکاری با کاریار یک تجربه لذت‌بخش بود."
-              },
-              {
-                "avatar": "/avatars/mohammad-ghasemi.jpg",
-                "name": "محمد قاسمی",
-                "role": "بنیانگذار aKeep",
-                "quote": "تیم کاریار ایده ما را به بهترین شکل پیاده‌سازی کرد. معماری کد بسیار تمیز و مقیاس‌پذیر."
               }
             ]
           }
@@ -166,7 +160,7 @@
             "autoplayInterval": 6000,
             "items": [
               {
-                "avatar": "/avatars/ali-mohammadi.jpg",
+                "avatar": "/avatars/avatar-1.png",
                 "name": "علی محمدی",
                 "role": "مدیر فنی مجموعه X",
                 "quote": "کاریار بهترین انتخاب برای راه‌اندازی سریع و حرفه‌ای وب‌سایت است."

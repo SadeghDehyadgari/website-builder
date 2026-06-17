@@ -3,7 +3,6 @@
 .footer {
   background-color: var(--color-white);
   padding: 1.5rem 0;
-  border-top: 1px solid var(--color-border-light);
 }
 
 .container {
@@ -47,13 +46,10 @@
 .socialIcon {
   width: 30px;
   height: 30px;
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .socialIcon:hover {
-  opacity: 0.7;
   transform: scale(1.05);
 }
 

@@ -11,9 +11,6 @@ import styles from "./Testimonials.module.css";
 const TestimonialCard = ({ avatar, name, role, quote }) => {
   return (
     <div className={styles.card}>
-      {/* Quote icon background */}
-      <div className={styles.quoteIcon} />
-
       <div className={styles.cardHeader}>
         <div className={styles.userInfo}>
           <img src={avatar} alt={name} className={styles.avatar} />
@@ -33,9 +30,11 @@ const TestimonialCard = ({ avatar, name, role, quote }) => {
  */
 const TestimonialsSection = ({ title, description, items }) => {
   const [emblaApi, setEmblaApi] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0); // NEW: track current slide index
 
   // Ensure items is an array
   const slides = items || [];
+  const totalSlides = slides.length;
 
   const handlePrev = () => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -45,10 +44,19 @@ const TestimonialsSection = ({ title, description, items }) => {
     if (emblaApi) emblaApi.scrollNext();
   };
 
+  // NEW: handler for index changes from Carousel
+  const handleIndexChange = (index) => {
+    setCurrentIndex(index);
+  };
+
   // If no items, show nothing
   if (slides.length === 0) {
     return null;
   }
+
+  // NEW: determine if buttons should be disabled
+  const isPrevDisabled = currentIndex === 0;
+  const isNextDisabled = currentIndex === totalSlides - 1;
 
   return (
     <section className={styles.container}>
@@ -66,6 +74,7 @@ const TestimonialsSection = ({ title, description, items }) => {
             className={styles.navButton}
             onClick={handlePrev}
             aria-label="Previous"
+            disabled={isPrevDisabled}
           >
             ❮
           </button>
@@ -73,6 +82,7 @@ const TestimonialsSection = ({ title, description, items }) => {
             className={styles.navButton}
             onClick={handleNext}
             aria-label="Next"
+            disabled={isNextDisabled}
           >
             ❯
           </button>
@@ -91,13 +101,14 @@ const TestimonialsSection = ({ title, description, items }) => {
               quote={slide.quote || "نظر کاربر"}
             />
           )}
-          slidesPerView={1}
+          slidesPerView={1.2}
           withAutoplay={false}
           showArrows={false} // We control arrows externally
           showDots={false} // No dots needed for this design
           isRTL={true}
           onApiInit={setEmblaApi}
           className={styles.carousel}
+          onIndexChange={handleIndexChange}
         />
       </div>
     </section>

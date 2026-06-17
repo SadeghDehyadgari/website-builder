@@ -2,9 +2,11 @@
 /* NEW FILE: Styles for the Carousel component */
 
 .carouselContainer {
+  --slide-spacing: 16px;
+  --slide-size: 60%;
   position: relative;
   width: 100%;
-  overflow: hidden; /* viewport handles overflow */
+  overflow: hidden;
 }
 
 .viewport {
@@ -15,13 +17,13 @@
 .slideList {
   display: flex;
   touch-action: pan-y pinch-zoom;
-  margin-left: calc(-1 * var(--slide-gap, 0px));
+  margin-left: calc(var(--slide-spacing) * 1);
 }
 
 .slide {
-  flex: 0 0 calc(100% / var(--slides-per-view, 1));
+  flex: 0 0 var(--slide-size);
   min-width: 0;
-  padding-left: var(--slide-gap, 0px);
+  padding: 1rem 8px;
   box-sizing: border-box;
 }
 
@@ -103,6 +105,10 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .carouselContainer {
+    --slide-size: 100%; /* Mobile: each slide takes full width */
+  }
+
   .arrowButton {
     width: 32px;
     height: 32px;
