@@ -1,5 +1,5 @@
 // src/sections/registry.js
-// UPDATED: Changed ProjectsCarousel default title to match Figma design.
+// UPDATED: Added LogosStrip entry.
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -11,6 +11,9 @@ import TestimonialsSection from "./Testimonials/TestimonialsSection";
 import TestimonialsEditor from "./Testimonials/TestimonialsEditor";
 import ProjectsCarouselSection from "./ProjectsCarousel/ProjectsCarouselSection";
 import ProjectsCarouselEditor from "./ProjectsCarousel/ProjectsCarouselEditor";
+// NEW: Import LogosStrip components
+import LogosStripSection from "./LogosStrip/LogosStripSection";
+import LogosStripEditor from "./LogosStrip/LogosStripEditor";
 
 const sectionRegistry = {
   hero: {
@@ -89,7 +92,7 @@ const sectionRegistry = {
     Component: ProjectsCarouselSection,
     Editor: ProjectsCarouselEditor,
     defaultProps: {
-      title: "پروژه‌هایی که برای ایجاد تجربه بهتر ساخته شده‌اند", // UPDATED: new title
+      title: "پروژه‌هایی که برای ایجاد تجربه بهتر ساخته شده‌اند",
       autoplayInterval: 5000,
       slides: [
         {
@@ -115,6 +118,41 @@ const sectionRegistry = {
           description:
             "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
           image: "/mockups/akeep-mock.jpg",
+        },
+      ],
+    },
+  },
+  // NEW: LogosStrip entry
+  logosstrip: {
+    label: "نوار لوگوها (Logos Strip)",
+    Component: LogosStripSection,
+    Editor: LogosStripEditor,
+    defaultProps: {
+      logos: [
+        {
+          id: "logo-1",
+          imageUrl: "/logos/digikala-logo.svg",
+          alt: "دیجیکالا",
+        },
+        {
+          id: "logo-2",
+          imageUrl: "/logos/karyar-logo.svg",
+          alt: "کاریار",
+        },
+        {
+          id: "logo-3",
+          imageUrl: "/logos/divar-logo.svg",
+          alt: "دیوار",
+        },
+        {
+          id: "logo-4",
+          imageUrl: "/logos/sam-pars-logo.svg",
+          alt: "سام پارس",
+        },
+        {
+          id: "logo-5",
+          imageUrl: "/logos/akeep.svg",
+          alt: "aKeep",
         },
       ],
     },

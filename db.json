@@ -41,6 +41,39 @@
           }
         },
         {
+          "id": "section-2-5-logos",
+          "type": "LogosStrip",
+          "props": {
+            "logos": [
+              {
+                "id": "logo-1",
+                "imageUrl": "/logos/digikala-logo.svg",
+                "alt": "دیجیکالا"
+              },
+              {
+                "id": "logo-2",
+                "imageUrl": "/logos/karyar-logo.svg",
+                "alt": "کاریار"
+              },
+              {
+                "id": "logo-3",
+                "imageUrl": "/logos/divar-logo.svg",
+                "alt": "دیوار"
+              },
+              {
+                "id": "logo-4",
+                "imageUrl": "/logos/sam-pars-logo.svg",
+                "alt": "سام پارس"
+              },
+              {
+                "id": "logo-5",
+                "imageUrl": "/logos/akeep.svg",
+                "alt": "aKeep"
+              }
+            ]
+          }
+        },
+        {
           "id": "section-3-projects",
           "type": "ProjectsCarousel",
           "props": {
