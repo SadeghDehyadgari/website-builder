@@ -105,6 +105,46 @@
           }
         },
         {
+          "id": "section-3-5-team",
+          "type": "TeamCarousel",
+          "props": {
+            "title": "افرادی که به کاریار معنی می‌دهند",
+            "description": "تیم متخصص و خلاق ما در کنار شماست",
+            "members": [
+              {
+                "id": "tm1",
+                "avatar": "/avatars/aida.png",
+                "name": "آیدا کریمی",
+                "role": "طراح ارشد UI/UX"
+              },
+              {
+                "id": "tm2",
+                "avatar": "/avatars/farnoosh.png",
+                "name": "فرنوش عباسی",
+                "role": "توسعه‌دهنده فرانت‌اند"
+              },
+              {
+                "id": "tm3",
+                "avatar": "/avatars/kian.png",
+                "name": "کیان رضایی",
+                "role": "مدیر پروژه"
+              },
+              {
+                "id": "tm4",
+                "avatar": "/avatars/mahtab.png",
+                "name": "مهتاب احمدی",
+                "role": "توسعه‌دهنده بک‌اند"
+              },
+              {
+                "id": "tm5",
+                "avatar": "/avatars/saman.png",
+                "name": "سامان نصیری",
+                "role": "متخصص DevOps"
+              }
+            ]
+          }
+        },
+        {
           "id": "section-4-testimonials",
           "type": "Testimonials",
           "props": {

@@ -1,0 +1,190 @@
+/* src/sections/TeamCarousel/TeamCarousel.module.css */
+/* SIMPLIFIED: No overrides on slideList/slide – let Carousel handle layout */
+/* Spacing achieved via margin on memberCard, and dots color changed */
+
+/* ----- Section container ----- */
+.teamSection {
+  width: 100%;
+  padding: 2rem 1rem;
+  background-color: var(--color-white, #ffffff);
+  direction: rtl;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0 0 0.5rem 0;
+}
+
+.description {
+  font-size: 1rem;
+  color: var(--color-text-muted, #5c6a63);
+  margin: 0 0 2rem 0;
+}
+
+/* ----- Grid mode ----- */
+.gridContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  overflow: hidden;
+  padding: 0.5rem 0;
+}
+
+/* ----- Member card (used in both grid and carousel) ----- */
+.memberCard {
+  flex: 0 0 auto;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 8px; /* spacing between cards – works in both LTR/RTL */
+}
+
+.avatar {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.memberName {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-normal, #2f4858);
+  margin-bottom: 0.25rem;
+}
+
+.memberRole {
+  font-size: 0.875rem;
+  color: var(--color-text-muted, #5c6a63);
+}
+
+.teamCarousel [class*="slide"] {
+  flex: 0 0 8rem;
+}
+
+.teamCarousel [class*="dotsContainer"] {
+  height: 50px;
+}
+
+.teamCarousel [class*="dotActive"] {
+  background: var(--color-primary-orange, #fb7a01) !important;
+}
+
+/* ----- Editor styles (unchanged) ----- */
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.editorTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0 0 0.5rem 0;
+}
+
+.addForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border-light, #e0e0e0);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary-green, #1ea965);
+  background: #ffffff;
+}
+
+.addButton {
+  padding: 0.5rem 1.2rem;
+  background: var(--color-primary-green, #1ea965);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.addButton:hover {
+  background: #158c4e;
+}
+
+.memberEditor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.memberEditor .input {
+  flex: 1 1 120px;
+}
+
+.removeButton {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  transition: transform 0.2s;
+}
+
+.removeButton:hover {
+  transform: scale(1.2);
+}
+
+.emptyMessage {
+  color: var(--color-text-muted, #5c6a63);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+/* ----- Responsive (mobile) ----- */
+@media (max-width: 768px) {
+  .teamSection {
+    padding: 1.5rem 0.5rem;
+  }
+  .title {
+    font-size: 1.4rem;
+  }
+  .description {
+    font-size: 0.9rem;
+  }
+  .gridContainer {
+    gap: 1rem;
+  }
+  .memberCard {
+    width: 100px;
+    margin: 0 4px; /* smaller spacing on mobile */
+  }
+  .memberName {
+    font-size: 0.85rem;
+  }
+  .memberRole {
+    font-size: 0.7rem;
+  }
+}

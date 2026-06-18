@@ -1,5 +1,6 @@
 // src/sections/registry.js
-// UPDATED: Added LogosStrip entry.
+// UPDATED: Added LogosStrip and TeamCarousel entries.
+// UPDATED: Changed TeamCarousel avatar formats from SVG to PNG.
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -14,6 +15,9 @@ import ProjectsCarouselEditor from "./ProjectsCarousel/ProjectsCarouselEditor";
 // NEW: Import LogosStrip components
 import LogosStripSection from "./LogosStrip/LogosStripSection";
 import LogosStripEditor from "./LogosStrip/LogosStripEditor";
+// NEW: Import TeamCarousel components
+import TeamCarouselSection from "./TeamCarousel/TeamCarouselSection";
+import TeamCarouselEditor from "./TeamCarousel/TeamCarouselEditor";
 
 const sectionRegistry = {
   hero: {
@@ -153,6 +157,48 @@ const sectionRegistry = {
           id: "logo-5",
           imageUrl: "/logos/akeep.svg",
           alt: "aKeep",
+        },
+      ],
+    },
+  },
+  // NEW: TeamCarousel entry with PNG avatars
+  teamcarousel: {
+    label: "تیم ما (Team Carousel)",
+    Component: TeamCarouselSection,
+    Editor: TeamCarouselEditor,
+    defaultProps: {
+      title: "افرادی که به کاریار معنی می‌دهند",
+      description: "تیم متخصص و خلاق ما در کنار شماست",
+      members: [
+        {
+          id: "tm1",
+          avatar: "/avatars/aida.png",
+          name: "آیدا کریمی",
+          role: "طراح ارشد UI/UX",
+        },
+        {
+          id: "tm2",
+          avatar: "/avatars/farnoosh.png",
+          name: "فرنوش عباسی",
+          role: "توسعه‌دهنده فرانت‌اند",
+        },
+        {
+          id: "tm3",
+          avatar: "/avatars/kian.png",
+          name: "کیان رضایی",
+          role: "مدیر پروژه",
+        },
+        {
+          id: "tm4",
+          avatar: "/avatars/mahtab.png",
+          name: "مهتاب احمدی",
+          role: "توسعه‌دهنده بک‌اند",
+        },
+        {
+          id: "tm5",
+          avatar: "/avatars/saman.png",
+          name: "سامان نصیری",
+          role: "متخصص DevOps",
         },
       ],
     },

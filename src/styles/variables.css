@@ -1,6 +1,7 @@
 /* Global CSS variables for consistent theming */
 :root {
   /* Colors */
+  --color-bg: #fdfdfd;
   --color-primary-green: #1ea965;
   --color-primary-orange: #fb7a01;
   --color-icon-green: #157647;

@@ -1,5 +1,5 @@
 // src/components/Carousel/Carousel.jsx
-// UPDATED: Added fullWidth prop to allow slides to take full width (for ProjectsCarousel).
+// UPDATED: Removed unused props. Kept only necessary ones.
 
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -11,9 +11,10 @@ import styles from "./Carousel.module.css";
  *
  * @param {Array} slides - Array of slide data
  * @param {Function} renderSlide - Function to render each slide: (slide, index) => ReactNode
- * @param {number} slidesPerView - Number of slides visible at once (default: 1)
+ * @param {number|string} slidesPerView - Number of slides visible at once (default: 1)
  * @param {string} align - Alignment of slides: "start", "center", "end" (default: "start")
  * @param {string|boolean} containScroll - "trimSnaps", "keepSnaps", or false (default: "trimSnaps")
+ * @param {boolean} loop - Enable infinite loop scrolling (default: false)
  * @param {boolean} withAutoplay - Enable autoplay (default: false)
  * @param {number} autoplayDelay - Autoplay interval in ms (default: 5000)
  * @param {boolean} showArrows - Show prev/next buttons (default: true)
@@ -21,7 +22,8 @@ import styles from "./Carousel.module.css";
  * @param {boolean} isRTL - Right-to-left direction (default: true)
  * @param {string} className - Additional CSS class for the container
  * @param {Function} onApiInit - Callback when Embla API is ready
- * @param {boolean} fullWidth - If true, slides take 100% width with no padding (for single-slide carousels)
+ * @param {Function} onIndexChange - Callback when slide index changes
+ * @param {boolean} fullWidth - If true, slides take 100% width with no padding
  */
 const Carousel = ({
   slides,
@@ -29,6 +31,7 @@ const Carousel = ({
   slidesPerView = 1,
   align = "start",
   containScroll = "trimSnaps",
+  loop = false,
   withAutoplay = false,
   autoplayDelay = 5000,
   showArrows = true,
@@ -37,25 +40,30 @@ const Carousel = ({
   className = "",
   onApiInit,
   onIndexChange,
-  fullWidth = false, // NEW prop
+  fullWidth = false,
 }) => {
   const plugins = withAutoplay ? [Autoplay({ delay: autoplayDelay })] : [];
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      align: align,
-      containScroll: containScroll,
-      direction: isRTL ? "rtl" : "ltr",
-      slidesToScroll: 1,
-      slidesPerView: slidesPerView,
-      breakpoints: {
-        "(max-width: 768px)": {
-          slidesPerView: 1,
-        },
-      },
+  // Default breakpoints: mobile → 1 slide with center alignment (for backward compatibility)
+  const defaultBreakpoints = {
+    "(max-width: 768px)": {
+      slidesPerView: 1,
+      align: "center",
+      containScroll: "trimSnaps",
     },
-    plugins,
-  );
+  };
+
+  const options = {
+    align: align,
+    containScroll: containScroll,
+    loop: loop,
+    direction: isRTL ? "rtl" : "ltr",
+    slidesToScroll: 1,
+    slidesPerView: slidesPerView,
+    breakpoints: defaultBreakpoints, // Keep default breakpoints
+  };
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
@@ -116,7 +124,6 @@ const Carousel = ({
   const PrevIcon = isRTL ? "❯" : "❮";
   const NextIcon = isRTL ? "❮" : "❯";
 
-  // Combine classes: add fullWidth class if prop is true
   const containerClasses = [
     styles.carouselContainer,
     fullWidth ? styles.fullWidth : "",
