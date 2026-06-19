@@ -1,0 +1,46 @@
+/* src/components/Button/Button.module.css */
+/* NEW: Styles for reusable Button component */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* space between text and arrow */
+  padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+}
+
+.button:hover {
+  opacity: 0.85;
+}
+
+/* Variants */
+.primary {
+  background-color: var(--color-primary-green, #1ea965);
+  color: #fff;
+}
+
+.secondary {
+  background-color: var(--color-primary-orange, #fb7a01);
+  color: #fff;
+}
+
+/* Arrow icon: always points left (RTL-aware via rotation if needed) */
+.arrowIcon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+/* In RTL, the arrow path naturally points left, which is correct for "back" direction */

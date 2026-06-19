@@ -1,6 +1,7 @@
 // src/sections/registry.js
 // UPDATED: Added LogosStrip and TeamCarousel entries.
 // UPDATED: Changed TeamCarousel avatar formats from SVG to PNG.
+// UPDATED: Features defaultProps to match new design (icon paths, new title, CTA text)
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -33,36 +34,35 @@ const sectionRegistry = {
       ctaLink: "#",
     },
   },
+
+  // UPDATED: Features with new design (icons as SVG paths, new title, new CTA text)
   features: {
     label: "ویژگی‌ها (Features)",
     Component: FeaturesSection,
     Editor: FeaturesEditor,
     defaultProps: {
-      title: "ویژگی‌های ما",
+      title: "کاریار استودیو، جایی که ایده‌ها به تجربه تبدیل می‌شوند.",
       items: [
         {
           id: "f1",
-          icon: "⚡",
-          title: "سریع",
-          description: "عملکرد فوق‌العاده سریع",
+          icon: "/icons/card1.svg",
+          title: "طراحی وب‌سایت حرفه‌ای",
+          description:
+            "طراحی اختصاصی با React، فریمورک‌های مدرن و تجربه کاربری عالی",
         },
         {
           id: "f2",
-          icon: "🔒",
-          title: "امن",
-          description: "امنیت در سطح سازمانی",
-        },
-        {
-          id: "f3",
-          icon: "🎨",
-          title: "زیبا",
-          description: "طراحی شگفت‌انگیز آماده استفاده",
+          icon: "/icons/card2.svg",
+          title: "طراحی محصول",
+          description:
+            "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking",
         },
       ],
-      ctaText: "بیشتر بدانید",
-      ctaLink: "#",
+      ctaText: "مشاهده خدمات",
+      ctaLink: "/services",
     },
   },
+
   testimonials: {
     label: "نظرات مشتریان (Testimonials)",
     Component: TestimonialsSection,
@@ -91,6 +91,7 @@ const sectionRegistry = {
       ],
     },
   },
+
   projectscarousel: {
     label: "پروژه‌ها (ProjectsCarousel)",
     Component: ProjectsCarouselSection,
@@ -126,6 +127,7 @@ const sectionRegistry = {
       ],
     },
   },
+
   // NEW: LogosStrip entry
   logosstrip: {
     label: "نوار لوگوها (Logos Strip)",
@@ -161,6 +163,7 @@ const sectionRegistry = {
       ],
     },
   },
+
   // NEW: TeamCarousel entry with PNG avatars
   teamcarousel: {
     label: "تیم ما (Team Carousel)",
@@ -203,6 +206,7 @@ const sectionRegistry = {
       ],
     },
   },
+
   footer: {
     label: "فوتر (Footer)",
     Component: FooterSection,

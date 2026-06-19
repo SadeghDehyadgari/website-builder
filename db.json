@@ -21,22 +21,22 @@
           "id": "section-2-features",
           "type": "Features",
           "props": {
-            "title": "خدمات ما",
+            "title": "کاریار استودیو، جایی که ایده‌ها به تجربه تبدیل می‌شوند.",
             "items": [
               {
                 "id": "f1",
-                "icon": "/icons/web-design.svg",
-                "title": "طراحی وب‌سایت",
+                "icon": "/icons/card1.svg",
+                "title": "طراحی وب‌سایت حرفه‌ای",
                 "description": "طراحی اختصاصی با React، فریمورک‌های مدرن و تجربه کاربری عالی"
               },
               {
                 "id": "f2",
-                "icon": "/icons/product-design.svg",
+                "icon": "/icons/card2.svg",
                 "title": "طراحی محصول",
                 "description": "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking"
               }
             ],
-            "ctaText": "خدمات ما",
+            "ctaText": "مشاهده خدمات",
             "ctaLink": "/services"
           }
         },

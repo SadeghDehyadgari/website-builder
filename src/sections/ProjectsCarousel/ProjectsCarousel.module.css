@@ -41,7 +41,7 @@
 /* ----- Section title – smaller font ----- */
 .sectionTitle {
   text-align: center;
-  font-size: 1.8rem; /* reduced from 2.2rem */
+  font-size: var(--font-size-large);
   font-weight: 700;
   color: var(--color-text-normal, #2f4858);
   margin-bottom: 2rem; /* reduced from 2.5rem */
@@ -385,16 +385,7 @@
   }
 
   .arrowButton {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-  }
-
-  .arrowPrev {
-    right: 0;
-  }
-  .arrowNext {
-    left: 0;
+    display: none; /* hide arrows on very small screens */
   }
 
   .itemFields {
@@ -409,5 +400,9 @@
 
   .decorTopLeft {
     background-position: -6rem -8rem;
+  }
+
+  .projectlogo {
+    width: 5rem;
   }
 }
