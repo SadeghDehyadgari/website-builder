@@ -10,9 +10,8 @@
           "type": "Hero",
           "props": {
             "title": "طراحی وب‌سایت حرفه‌ای",
-            "subtitle": "برای کسب‌وکار شما",
             "description": "با تیم متخصص کاریار، وب‌سایتی بسازید که دیده شوید. تجربه کاربری مدرن، ریسپانسیو و بهینه برای موتورهای جستجو.",
-            "image": "/images/hero-bg.jpg",
+            "image": "/images/hero.svg",
             "ctaText": "شروع کنید",
             "ctaLink": "/contact"
           }
@@ -38,6 +37,19 @@
             ],
             "ctaText": "مشاهده خدمات",
             "ctaLink": "/services"
+          }
+        },
+        {
+          "id": "section-2-6-process",
+          "type": "Process",
+          "props": {
+            "title": "روند تبدیل ایده به محصول",
+            "description": "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
+            "ctaText": "شروع کنید",
+            "ctaLink": "#",
+            "desktopImage": "/images/process.svg",
+            "mobileImage": "/images/process-mobile.svg",
+            "alt": "روند تبدیل ایده به محصول"
           }
         },
         {

@@ -4,6 +4,7 @@
  * Receives current props and an onChange callback.
  * Command pattern: onChange(updatedProps) — caller decides what to do with the update.
  * Single Responsibility: collect user input for Hero props only.
+ * UPDATED: Removed subtitle field.
  *
  * @param {Object}   props.sectionProps  - current Hero props
  * @param {Function} props.onChange      - called with the full updated props object
@@ -15,16 +16,11 @@ function HeroEditor({ sectionProps, onChange }) {
 
   return (
     <div>
-      {/* CHANGED: Persian labels */}
+      {/* CHANGED: Persian labels, no subtitle */}
       <Field
         label="عنوان"
         value={sectionProps.title}
         onChange={(v) => handleFieldChange("title", v)}
-      />
-      <Field
-        label="زیرعنوان"
-        value={sectionProps.subtitle}
-        onChange={(v) => handleFieldChange("subtitle", v)}
       />
       <Field
         label="توضیحات"
@@ -52,7 +48,7 @@ function HeroEditor({ sectionProps, onChange }) {
 }
 
 // ---------------------------------------------------------------------------
-// Private helper
+// Private helper (unchanged)
 // ---------------------------------------------------------------------------
 
 function Field({ label, value, onChange, multiline = false }) {

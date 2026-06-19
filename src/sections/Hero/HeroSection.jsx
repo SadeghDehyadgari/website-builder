@@ -1,4 +1,8 @@
+// src/sections/Hero/HeroSection.jsx
+// UPDATED: Removed subtitle prop, using shared Button component with secondary variant and arrow.
+
 import styles from "./Hero.module.css";
+import Button from "../../components/Button/Button"; /* NEW: Shared Button */
 
 /**
  * HeroSection — pure presentational component.
@@ -8,30 +12,27 @@ import styles from "./Hero.module.css";
  *
  * @param {Object}  props
  * @param {string}  props.title
- * @param {string}  props.subtitle
  * @param {string}  props.description
  * @param {string}  props.image        - URL for the hero image
  * @param {string}  props.ctaText
  * @param {string}  props.ctaLink
  */
-function HeroSection({
-  title,
-  subtitle,
-  description,
-  image,
-  ctaText,
-  ctaLink,
-}) {
+function HeroSection({ title, description, image, ctaText, ctaLink }) {
   return (
     <section className={styles.hero}>
       <div className={styles.content}>
-        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         <h1 className={styles.title}>{title}</h1>
         {description && <p className={styles.description}>{description}</p>}
-        {ctaText && (
-          <a href={ctaLink} className={styles.cta}>
-            {ctaText}
-          </a>
+        {ctaText && ctaLink && (
+          <div className={styles.ctaWrapper}>
+            <Button
+              variant="secondary" /* orange from variables */
+              withArrow
+              href={ctaLink}
+            >
+              {ctaText}
+            </Button>
+          </div>
         )}
       </div>
 

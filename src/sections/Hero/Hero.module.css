@@ -1,14 +1,15 @@
 /* Hero section layout — responsive two-column on desktop, stacked on mobile */
+/* UPDATED: Removed subtitle styles, using CSS variables for colors/fonts */
+/* NEW: Button is now handled by shared Button component; .cta removed */
 
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  padding: 5rem 2rem;
-  max-width: 1200px;
+  padding: 2rem 2rem 2rem 0;
   margin: 0 auto;
-  text-align: right; /* NEW for RTL */
+  text-align: right; /* RTL support */
 }
 
 .content {
@@ -18,52 +19,34 @@
   gap: 1rem;
 }
 
-.subtitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-primary, #6366f1);
-  margin: 0;
-}
-
+/* UPDATED: Title uses global variable for color */
 .title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: var(--font-size-large);
   font-weight: 700;
   line-height: 1.15;
-  color: var(--color-text-heading, #111827);
+  color: var(--color-text-normal, #2f4858);
   margin: 0;
 }
 
+/* UPDATED: Description uses global muted color */
 .description {
   font-size: 1.1rem;
-  color: var(--color-text-muted, #6b7280);
+  color: var(--color-text-muted, #5c6a63);
   max-width: 520px;
   line-height: 1.7;
   margin: 0;
 }
 
-.cta {
-  display: inline-block;
+/* NEW: Wrapper for CTA button to control alignment */
+.ctaWrapper {
   margin-top: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  background-color: var(--color-primary, #6366f1);
-  color: #fff;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-  align-self: flex-start;
-}
-
-.cta:hover {
-  opacity: 0.85;
+  align-self: flex-start; /* left-aligned in RTL */
 }
 
 .imageWrapper {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: end;
 }
 
 .image {
@@ -81,11 +64,18 @@
     text-align: center;
   }
 
+  /* NEW: Image appears above content on mobile */
+  .imageWrapper {
+    order: -1;
+    margin-bottom: 1rem;
+  }
+
   .description {
     max-width: 100%;
   }
 
-  .cta {
+  /* NEW: Center the CTA button on mobile */
+  .ctaWrapper {
     align-self: center;
   }
 }

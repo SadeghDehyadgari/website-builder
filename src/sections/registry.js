@@ -1,7 +1,5 @@
 // src/sections/registry.js
-// UPDATED: Added LogosStrip and TeamCarousel entries.
-// UPDATED: Changed TeamCarousel avatar formats from SVG to PNG.
-// UPDATED: Features defaultProps to match new design (icon paths, new title, CTA text)
+// UPDATED: Added Process entry and imports
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -13,12 +11,13 @@ import TestimonialsSection from "./Testimonials/TestimonialsSection";
 import TestimonialsEditor from "./Testimonials/TestimonialsEditor";
 import ProjectsCarouselSection from "./ProjectsCarousel/ProjectsCarouselSection";
 import ProjectsCarouselEditor from "./ProjectsCarousel/ProjectsCarouselEditor";
-// NEW: Import LogosStrip components
 import LogosStripSection from "./LogosStrip/LogosStripSection";
 import LogosStripEditor from "./LogosStrip/LogosStripEditor";
-// NEW: Import TeamCarousel components
 import TeamCarouselSection from "./TeamCarousel/TeamCarouselSection";
 import TeamCarouselEditor from "./TeamCarousel/TeamCarouselEditor";
+// NEW: Import Process components
+import ProcessSection from "./Process/ProcessSection";
+import ProcessEditor from "./Process/ProcessEditor";
 
 const sectionRegistry = {
   hero: {
@@ -35,7 +34,6 @@ const sectionRegistry = {
     },
   },
 
-  // UPDATED: Features with new design (icons as SVG paths, new title, new CTA text)
   features: {
     label: "ویژگی‌ها (Features)",
     Component: FeaturesSection,
@@ -128,7 +126,6 @@ const sectionRegistry = {
     },
   },
 
-  // NEW: LogosStrip entry
   logosstrip: {
     label: "نوار لوگوها (Logos Strip)",
     Component: LogosStripSection,
@@ -164,7 +161,6 @@ const sectionRegistry = {
     },
   },
 
-  // NEW: TeamCarousel entry with PNG avatars
   teamcarousel: {
     label: "تیم ما (Team Carousel)",
     Component: TeamCarouselSection,
@@ -204,6 +200,23 @@ const sectionRegistry = {
           role: "متخصص DevOps",
         },
       ],
+    },
+  },
+
+  // NEW: Process entry
+  process: {
+    label: "روند تبدیل ایده به محصول (Process)",
+    Component: ProcessSection,
+    Editor: ProcessEditor,
+    defaultProps: {
+      title: "روند تبدیل ایده به محصول",
+      description:
+        "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
+      ctaText: "شروع کنید",
+      ctaLink: "#",
+      desktopImage: "/images/process.svg",
+      mobileImage: "/images/process-mobile.svg",
+      alt: "روند تبدیل ایده به محصول",
     },
   },
 
