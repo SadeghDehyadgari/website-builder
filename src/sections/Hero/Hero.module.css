@@ -60,8 +60,12 @@
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
-    padding: 3rem 1.25rem;
+    padding: 2rem 0;
     text-align: center;
+  }
+
+  .content {
+    padding-inline: 1rem;
   }
 
   /* NEW: Image appears above content on mobile */

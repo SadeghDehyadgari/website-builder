@@ -6,6 +6,30 @@
       "slug": "/",
       "sections": [
         {
+          "id": "section-0-header",
+          "type": "Header",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "links": [
+              {
+                "id": "link-1",
+                "label": "صفحه اصلی",
+                "slug": "/"
+              },
+              {
+                "id": "link-2",
+                "label": "خدمات",
+                "slug": "/services"
+              },
+              {
+                "id": "link-3",
+                "label": "درباره ما",
+                "slug": "/about"
+              }
+            ]
+          }
+        },
+        {
           "id": "section-1-hero",
           "type": "Hero",
           "props": {
@@ -35,7 +59,7 @@
                 "description": "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking"
               }
             ],
-            "ctaText": "مشاهده خدمات",
+            "ctaText": "سلام ",
             "ctaLink": "/services"
           }
         },
@@ -87,7 +111,11 @@
                 "imageUrl": "/logos/sam-pars-logo.svg",
                 "alt": "سام پارس"
               },
-              { "id": "logo-5", "imageUrl": "/logos/akeep.svg", "alt": "aKeep" }
+              {
+                "id": "logo-5",
+                "imageUrl": "/logos/akeep.svg",
+                "alt": "aKeep"
+              }
             ]
           }
         },
@@ -217,6 +245,30 @@
       "slug": "about",
       "sections": [
         {
+          "id": "section-about-header",
+          "type": "Header",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "links": [
+              {
+                "id": "link-1",
+                "label": "صفحه اصلی",
+                "slug": "/"
+              },
+              {
+                "id": "link-2",
+                "label": "خدمات",
+                "slug": "/services"
+              },
+              {
+                "id": "link-3",
+                "label": "درباره ما",
+                "slug": "/about"
+              }
+            ]
+          }
+        },
+        {
           "id": "section-about-hero",
           "type": "Hero",
           "props": {
@@ -292,5 +344,6 @@
         }
       ]
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

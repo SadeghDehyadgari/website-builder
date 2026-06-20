@@ -1,5 +1,5 @@
 // src/sections/registry.js
-// FULL REWRITE: Removed subtitle from Hero, added Banner without description
+// UPDATED: Added Header entry
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -17,9 +17,11 @@ import TeamCarouselSection from "./TeamCarousel/TeamCarouselSection";
 import TeamCarouselEditor from "./TeamCarousel/TeamCarouselEditor";
 import ProcessSection from "./Process/ProcessSection";
 import ProcessEditor from "./Process/ProcessEditor";
-// NEW: Banner imports
 import BannerSection from "./Banner/BannerSection";
 import BannerEditor from "./Banner/BannerEditor";
+// NEW: Import Header components
+import HeaderSection from "./Header/HeaderSection";
+import HeaderEditor from "./Header/HeaderEditor";
 
 const sectionRegistry = {
   // UPDATED: Removed subtitle from Hero
@@ -201,7 +203,6 @@ const sectionRegistry = {
     },
   },
 
-  // NEW: Banner without description and textColor, uses secondary (orange) button
   banner: {
     label: "بنر تبلیغاتی (Banner)",
     Component: BannerSection,
@@ -211,6 +212,21 @@ const sectionRegistry = {
       ctaText: "شروع کنید",
       ctaLink: "#",
       backgroundImage: "/images/banner.png",
+    },
+  },
+
+  // NEW: Header entry
+  header: {
+    label: "هدر سایت (Header)",
+    Component: HeaderSection,
+    Editor: HeaderEditor,
+    defaultProps: {
+      logo: "/logos/karyar-studio-logo.svg",
+      links: [
+        { id: "link-1", label: "صفحه اصلی", slug: "/" },
+        { id: "link-2", label: "خدمات", slug: "/services" },
+        { id: "link-3", label: "درباره ما", slug: "/about" },
+      ],
     },
   },
 
