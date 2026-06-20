@@ -1,0 +1,120 @@
+/* src/sections/Banner/Banner.module.css */
+/* NEW: Banner section styles */
+
+.banner {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-large) var(--spacing-medium);
+  /* Background is set inline via style prop */
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+.content {
+  max-width: 700px;
+  text-align: center;
+  padding: 1.5rem;
+  /* No additional background - overlay is handled by backgroundBlendMode */
+}
+
+.title {
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  margin-bottom: var(--spacing-large);
+  line-height: 1.3;
+  color: var(
+    --color-text-normal
+  ); /* Dark text for readability on light overlay */
+}
+
+.ctaWrapper {
+  margin-top: var(--spacing-small);
+}
+
+/* UPDATED: Smaller button with orange background (secondary variant) */
+.ctaButton {
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  min-width: auto;
+  width: auto;
+}
+
+/* Responsive: smaller padding on mobile */
+@media (max-width: 768px) {
+  .banner {
+    min-height: 240px;
+    padding: var(--spacing-medium);
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .ctaButton {
+    font-size: 0.9rem;
+    padding: 0.4rem 1.2rem;
+  }
+}
+
+/* RTL support (already handled by direction: rtl on root) */
+/* No additional RTL overrides needed */
+
+/* Editor styles (shared with other editors) */
+.editor {
+  padding: var(--spacing-medium);
+  background: var(--color-bg);
+  border-radius: 8px;
+}
+
+.editorTitle {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-medium);
+  color: var(--color-text-normal);
+}
+
+.fieldGroup {
+  margin-bottom: var(--spacing-medium);
+}
+
+.fieldGroup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-normal);
+  font-size: 0.9rem;
+}
+
+.fieldGroup input,
+.fieldGroup textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--color-white);
+  color: var(--color-text-normal);
+}
+
+.fieldGroup input:focus,
+.fieldGroup textarea:focus {
+  outline: 2px solid var(--color-primary-green);
+  outline-offset: 1px;
+}
+
+.fieldGroup textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.hint {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}

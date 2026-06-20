@@ -1,5 +1,5 @@
 // src/sections/registry.js
-// UPDATED: Added Process entry and imports
+// FULL REWRITE: Removed subtitle from Hero, added Banner without description
 
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
@@ -15,18 +15,20 @@ import LogosStripSection from "./LogosStrip/LogosStripSection";
 import LogosStripEditor from "./LogosStrip/LogosStripEditor";
 import TeamCarouselSection from "./TeamCarousel/TeamCarouselSection";
 import TeamCarouselEditor from "./TeamCarousel/TeamCarouselEditor";
-// NEW: Import Process components
 import ProcessSection from "./Process/ProcessSection";
 import ProcessEditor from "./Process/ProcessEditor";
+// NEW: Banner imports
+import BannerSection from "./Banner/BannerSection";
+import BannerEditor from "./Banner/BannerEditor";
 
 const sectionRegistry = {
+  // UPDATED: Removed subtitle from Hero
   hero: {
     label: "بخش قهرمان (Hero)",
     Component: HeroSection,
     Editor: HeroEditor,
     defaultProps: {
       title: "عنوان شما اینجا قرار می‌گیرد",
-      subtitle: "زیرعنوان",
       description: "توضیح کوتاهی درباره صفحه شما.",
       image: "",
       ctaText: "شروع کنید",
@@ -132,31 +134,11 @@ const sectionRegistry = {
     Editor: LogosStripEditor,
     defaultProps: {
       logos: [
-        {
-          id: "logo-1",
-          imageUrl: "/logos/digikala-logo.svg",
-          alt: "دیجیکالا",
-        },
-        {
-          id: "logo-2",
-          imageUrl: "/logos/karyar-logo.svg",
-          alt: "کاریار",
-        },
-        {
-          id: "logo-3",
-          imageUrl: "/logos/divar-logo.svg",
-          alt: "دیوار",
-        },
-        {
-          id: "logo-4",
-          imageUrl: "/logos/sam-pars-logo.svg",
-          alt: "سام پارس",
-        },
-        {
-          id: "logo-5",
-          imageUrl: "/logos/akeep.svg",
-          alt: "aKeep",
-        },
+        { id: "logo-1", imageUrl: "/logos/digikala-logo.svg", alt: "دیجیکالا" },
+        { id: "logo-2", imageUrl: "/logos/karyar-logo.svg", alt: "کاریار" },
+        { id: "logo-3", imageUrl: "/logos/divar-logo.svg", alt: "دیوار" },
+        { id: "logo-4", imageUrl: "/logos/sam-pars-logo.svg", alt: "سام پارس" },
+        { id: "logo-5", imageUrl: "/logos/akeep.svg", alt: "aKeep" },
       ],
     },
   },
@@ -203,7 +185,6 @@ const sectionRegistry = {
     },
   },
 
-  // NEW: Process entry
   process: {
     label: "روند تبدیل ایده به محصول (Process)",
     Component: ProcessSection,
@@ -217,6 +198,19 @@ const sectionRegistry = {
       desktopImage: "/images/process.svg",
       mobileImage: "/images/process-mobile.svg",
       alt: "روند تبدیل ایده به محصول",
+    },
+  },
+
+  // NEW: Banner without description and textColor, uses secondary (orange) button
+  banner: {
+    label: "بنر تبلیغاتی (Banner)",
+    Component: BannerSection,
+    Editor: BannerEditor,
+    defaultProps: {
+      title: "با کاریار، ایده‌ها به واقعیت تبدیل می‌شوند",
+      ctaText: "شروع کنید",
+      ctaLink: "#",
+      backgroundImage: "/images/banner.png",
     },
   },
 

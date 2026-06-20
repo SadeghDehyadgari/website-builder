@@ -53,6 +53,16 @@
           }
         },
         {
+          "id": "section-2-7-banner",
+          "type": "Banner",
+          "props": {
+            "title": "آماده‌اید تا پروژه‌تان را به سطح بعدی ببرید؟",
+            "ctaText": "درخواست مشاوره",
+            "ctaLink": "/contact",
+            "backgroundImage": "/images/banner.png"
+          }
+        },
+        {
           "id": "section-2-5-logos",
           "type": "LogosStrip",
           "props": {
@@ -77,11 +87,7 @@
                 "imageUrl": "/logos/sam-pars-logo.svg",
                 "alt": "سام پارس"
               },
-              {
-                "id": "logo-5",
-                "imageUrl": "/logos/akeep.svg",
-                "alt": "aKeep"
-              }
+              { "id": "logo-5", "imageUrl": "/logos/akeep.svg", "alt": "aKeep" }
             ]
           }
         },
@@ -215,7 +221,6 @@
           "type": "Hero",
           "props": {
             "title": "درباره کاریار",
-            "subtitle": "تخصص، نوآوری و تعهد",
             "description": "ما یک تیم جوان و خلاق هستیم با هدف تحول دیجیتال کسب‌وکارها. از سال ۱۳۹۸، پروژه‌های موفق متعددی را به سرانجام رسانده‌ایم.",
             "image": "/images/about-hero.jpg",
             "ctaText": "تماس با ما",
