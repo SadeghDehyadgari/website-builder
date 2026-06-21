@@ -1,0 +1,95 @@
+/* src/components/ErrorBoundary/ErrorBoundary.module.css */
+
+/* [EXISTING] Fallback UI container - full screen, centered, RTL support */
+.fallbackContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* [EXISTING] Take full viewport height */
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--color-bg); /* [EXISTING] Use global CSS variable */
+  font-family:
+    "Vazirmatn", sans-serif; /* [EXISTING] Consistent with global font */
+  direction: rtl; /* [EXISTING] Ensure RTL layout */
+}
+
+/* [EXISTING] Animated error icon */
+.icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite; /* [EXISTING] Subtle animation to draw attention */
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* [EXISTING] Error title styling */
+.title {
+  font-size: 1.75rem;
+  color: var(--color-text-normal); /* [EXISTING] Use global CSS variable */
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+/* [EXISTING] Error description styling */
+.description {
+  font-size: 1rem;
+  color: var(--color-text-muted); /* [EXISTING] Use global CSS variable */
+  margin-bottom: 2rem;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* [EXISTING] Action buttons container */
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap; /* [EXISTING] Responsive: wrap buttons on small screens */
+  justify-content: center;
+}
+
+/* [REMOVED] .primaryBtn and .secondaryBtn classes were removed to adhere to DRY principle. 
+   Styling is now handled by the shared Button component. */
+
+/* [EXISTING] Error details section (only visible in DEV) */
+.errorDetails {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: right; /* [EXISTING] RTL alignment for summary */
+  background: var(--color-white); /* [EXISTING] Use global CSS variable */
+  border: 1px solid var(--color-border-light); /* [EXISTING] Use global CSS variable */
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* [EXISTING] Subtle elevation */
+}
+
+.errorDetails summary {
+  cursor: pointer;
+  color: var(--color-text-muted); /* [EXISTING] Use global CSS variable */
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* [EXISTING] Preformatted error stack trace */
+.errorDetails pre {
+  margin-top: 1rem;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto; /* [EXISTING] Horizontal scroll for long stack traces */
+  font-size: 0.8rem;
+  color: #dc2626; /* [EXISTING] Red color for error text */
+  direction: ltr; /* [EXISTING] Stack traces are LTR */
+  text-align: left; /* [EXISTING] Left-align LTR text */
+  font-family: monospace;
+}

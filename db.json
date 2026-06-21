@@ -238,6 +238,55 @@
           }
         }
       ]
+    },
+    {
+      "name": "درباره ما",
+      "slug": "about",
+      "sections": [
+        {
+          "id": "section-d41ae15a-eff9-4255-8c9d-5fae3e53d172",
+          "type": "hero",
+          "props": {
+            "title": "عنوان شما اینجا قرار می‌گیرد",
+            "description": "توضیح کوتاهی درباره صفحه شما.",
+            "image": "",
+            "ctaText": "شروع کنید",
+            "ctaLink": "#"
+          }
+        },
+        {
+          "id": "section-c54a82b9-22ea-4d96-ab16-15827609f4bd",
+          "type": "projectscarousel",
+          "props": {
+            "title": "پروژه‌هایی که برای ایجاد تجربه بهتر ساخته شده‌اند",
+            "autoplayInterval": 5000,
+            "slides": [
+              {
+                "id": "p1",
+                "logo": "/logos/digikala.svg",
+                "title": "اپلیکیشن ماکاپ‌های پولی",
+                "description": "طراحی یک اپلیکیشن حرفه‌ای برای دریافت ماکاپ‌های پرمیوم.\nتمرکز بر تجربه کاربری روان، دسته‌بندی هوشمند و ارائه محتوای اختصاصی با کیفیت بالا.\nاشاره به دسترسی راحت و مطمئن طراحان به منابع پولی و حرفه‌ای.",
+                "image": "/mockups/digikala-mock.jpg"
+              },
+              {
+                "id": "p2",
+                "logo": "/logos/karyar.svg",
+                "title": "سایت رسمی کاریار",
+                "description": "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا.\nپیاده‌سازی سیستم builder اختصاصی برای مدیریت محتوا.",
+                "image": "/mockups/karyar-mock.jpg"
+              },
+              {
+                "id": "p3",
+                "logo": "/logos/akeep.svg",
+                "title": "مدیریت رمزهای عبور aKeep",
+                "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
+                "image": "/mockups/akeep-mock.jpg"
+              }
+            ]
+          }
+        }
+      ],
+      "id": "TxSj51uWnzw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
