@@ -1,8 +1,8 @@
 // src/sections/TeamCarousel/TeamCarouselEditor.jsx
-// NEW: Editor for TeamCarousel – manage title, description, and member list.
-
 import { useState } from "react";
 import styles from "./TeamCarousel.module.css";
+// [NEW] Import shared editor styles
+import sharedStyles from "../../styles/editor-shared.module.css";
 
 const TeamCarouselEditor = ({ props = {}, onChange }) => {
   const { title = "", description = "", members = [] } = props;
@@ -20,14 +20,17 @@ const TeamCarouselEditor = ({ props = {}, onChange }) => {
       !newMember.role.trim()
     )
       return;
+
     const newItem = {
       id: `member-${Date.now()}`,
       ...newMember,
     };
+
     onChange({
       ...props,
       members: [...members, newItem],
     });
+
     setNewMember({ avatar: "", name: "", role: "" });
   };
 
@@ -46,7 +49,8 @@ const TeamCarouselEditor = ({ props = {}, onChange }) => {
   };
 
   return (
-    <div className={styles.editorContainer}>
+    // [CHANGED] Use sharedStyles for container
+    <div className={sharedStyles.editorContainer}>
       <h4 className={styles.editorTitle}>مدیریت تیم</h4>
 
       <input
@@ -56,6 +60,7 @@ const TeamCarouselEditor = ({ props = {}, onChange }) => {
         onChange={(e) => onChange({ ...props, title: e.target.value })}
         className={styles.input}
       />
+
       <input
         type="text"
         placeholder="توضیحات (اختیاری)"
@@ -88,7 +93,8 @@ const TeamCarouselEditor = ({ props = {}, onChange }) => {
           onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
           className={styles.input}
         />
-        <button onClick={addMember} className={styles.addButton}>
+        {/* [CHANGED] Use sharedStyles for add button */}
+        <button onClick={addMember} className={sharedStyles.addButton}>
           اضافه کردن
         </button>
       </div>
@@ -120,9 +126,10 @@ const TeamCarouselEditor = ({ props = {}, onChange }) => {
             className={styles.input}
             placeholder="سمت"
           />
+          {/* [CHANGED] Use sharedStyles for remove button */}
           <button
             onClick={() => removeMember(member.id)}
-            className={styles.removeButton}
+            className={sharedStyles.removeButton}
           >
             ✕
           </button>

@@ -1,8 +1,5 @@
 /* src/sections/TeamCarousel/TeamCarousel.module.css */
-/* SIMPLIFIED: No overrides on slideList/slide – let Carousel handle layout */
-/* Spacing achieved via margin on memberCard, and dots color changed */
-
-/* ----- Section container ----- */
+/* [EXISTING] Styles for TeamCarousel */
 .teamSection {
   width: 100%;
   padding: 2rem 1rem;
@@ -24,7 +21,6 @@
   margin: 0 0 2rem 0;
 }
 
-/* ----- Grid mode ----- */
 .gridContainer {
   display: flex;
   flex-wrap: nowrap;
@@ -35,7 +31,6 @@
   padding: 0.5rem 0;
 }
 
-/* ----- Member card (used in both grid and carousel) ----- */
 .memberCard {
   flex: 0 0 auto;
   width: 160px;
@@ -43,7 +38,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 0 8px; /* spacing between cards – works in both LTR/RTL */
+  margin: 0 8px;
 }
 
 .avatar {
@@ -75,14 +70,9 @@
   background: var(--color-primary-orange, #fb7a01) !important;
 }
 
-/* ----- Editor styles (unchanged) ----- */
-.editorContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0.5rem 0;
-}
+/* [REMOVED] .editorContainer, .addButton, .removeButton moved to src/styles/editor-shared.module.css */
 
+/* [EXISTING] Editor specific styles (kept because layout differs from standard itemEditor) */
 .editorTitle {
   font-size: 1.1rem;
   font-weight: 600;
@@ -114,21 +104,6 @@
   background: #ffffff;
 }
 
-.addButton {
-  padding: 0.5rem 1.2rem;
-  background: var(--color-primary-green, #1ea965);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-
-.addButton:hover {
-  background: #158c4e;
-}
-
 .memberEditor {
   display: flex;
   flex-wrap: wrap;
@@ -143,27 +118,13 @@
   flex: 1 1 120px;
 }
 
-.removeButton {
-  background: transparent;
-  border: none;
-  color: #e74c3c;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0 0.5rem;
-  transition: transform 0.2s;
-}
-
-.removeButton:hover {
-  transform: scale(1.2);
-}
-
 .emptyMessage {
   color: var(--color-text-muted, #5c6a63);
   font-size: 0.9rem;
   margin: 0.5rem 0;
 }
 
-/* ----- Responsive (mobile) ----- */
+/* [EXISTING] Responsive (mobile) */
 @media (max-width: 768px) {
   .teamSection {
     padding: 1.5rem 0.5rem;
@@ -179,7 +140,7 @@
   }
   .memberCard {
     width: 100px;
-    margin: 0 4px; /* smaller spacing on mobile */
+    margin: 0 4px;
   }
   .memberName {
     font-size: 0.85rem;

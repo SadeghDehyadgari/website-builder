@@ -278,9 +278,113 @@
               {
                 "id": "p3",
                 "logo": "/logos/akeep.svg",
-                "title": "مدیریت رمزهای عبور aKeep",
+                "title": "مدیریت رمز عبور aKeep",
                 "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
                 "image": "/mockups/akeep-mock.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-82cc7d4a-a823-4592-ac9f-28cfe3603403",
+          "type": "testimonials",
+          "props": {
+            "title": "تجربه همکاری از نگاه مشتریان",
+            "description": "بخشی از تجربه کسانی که مسیر ساخت محصولاتشان را با ما شروع کردند.",
+            "items": [
+              {
+                "id": "t1",
+                "avatar": "/avatars/avatar-1.png",
+                "name": "علی محمدی",
+                "role": "مدیر محصول در شرکت فناوری",
+                "quote": "کار با استودیو تیمی دقیق و قابل اعتماد. توی هر مرحله از پروژه، مسئله رو درست فهمیدن و برای ما یه مسیر واضح و قابل اجرا ساختن..."
+              },
+              {
+                "id": "t2",
+                "avatar": "/avatars/avatar-2.png",
+                "name": "سارا حسینی",
+                "role": "طراح کافه بازار",
+                "quote": "طراحی‌های فوق‌العاده و تیم بسیار حرفه‌ای. همکاری با کاریار استودیو یکی از بهترین تجربه‌های کاری من بود."
+              },
+              {
+                "id": "t1782059712142",
+                "avatar": "/avatars/avatar-1.png",
+                "name": "نام کاربر",
+                "role": "نقش شغلی",
+                "quote": "متن نظر کاربر"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-dc3ddb25-73d1-4bdd-8b6d-afd62924b838",
+          "type": "teamcarousel",
+          "props": {
+            "title": "افرادی که به کاریار معنی می‌دهند",
+            "description": "تیم متخصص و خلاق ما در کنار شماست",
+            "members": [
+              {
+                "id": "tm1",
+                "avatar": "/avatars/aida.png",
+                "name": "آیدا کریمی",
+                "role": "طراح ارشد UI/UX"
+              },
+              {
+                "id": "tm2",
+                "avatar": "/avatars/farnoosh.png",
+                "name": "فرنوش عباسی",
+                "role": "توسعه‌دهنده فرانت‌اند"
+              },
+              {
+                "id": "tm3",
+                "avatar": "/avatars/kian.png",
+                "name": "کیان رضایی",
+                "role": "مدیر پروژه"
+              },
+              {
+                "id": "tm4",
+                "avatar": "/avatars/mahtab.png",
+                "name": "مهتاب احمدی",
+                "role": "توسعه‌دهنده بک‌اند"
+              },
+              {
+                "id": "tm5",
+                "avatar": "/avatars/saman.png",
+                "name": "سامان نصیری",
+                "role": "متخصص DevOps"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-812852b7-5e4e-405b-9d6c-9665330b3747",
+          "type": "logosstrip",
+          "props": {
+            "logos": [
+              {
+                "id": "logo-1",
+                "imageUrl": "/logos/digikala-logo.svg",
+                "alt": "دیجیکالا"
+              },
+              {
+                "id": "logo-2",
+                "imageUrl": "/logos/karyar-logo.svg",
+                "alt": "کاریار"
+              },
+              {
+                "id": "logo-3",
+                "imageUrl": "/logos/divar-logo.svg",
+                "alt": "دیوار"
+              },
+              {
+                "id": "logo-4",
+                "imageUrl": "/logos/sam-pars-logo.svg",
+                "alt": "سام پارس"
+              },
+              {
+                "id": "logo-1782061245367",
+                "imageUrl": "logos/divar-logo.svg",
+                "alt": "salam"
               }
             ]
           }

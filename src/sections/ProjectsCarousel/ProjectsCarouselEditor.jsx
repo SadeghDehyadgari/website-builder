@@ -1,21 +1,15 @@
 // src/sections/ProjectsCarousel/ProjectsCarouselEditor.jsx
-// NEW FILE: Editor for ProjectsCarousel section – allows editing title, autoplay interval, and slides.
-
 import { useState } from "react";
-import styles from "./ProjectsCarousel.module.css";
+// [NEW] Import shared editor styles
+import sharedStyles from "../../styles/editor-shared.module.css";
 
-/**
- * Editor for ProjectsCarousel section.
- */
 const ProjectsCarouselEditor = ({ props, onChange }) => {
   const { title = "", autoplayInterval = 5000, slides = [] } = props;
 
-  // Local state
   const [localTitle, setLocalTitle] = useState(title);
   const [localInterval, setLocalInterval] = useState(autoplayInterval);
   const [localSlides, setLocalSlides] = useState(slides);
 
-  // Notify parent of changes
   const updateParent = (newTitle, newInterval, newSlides) => {
     onChange({
       title: newTitle,
@@ -36,7 +30,6 @@ const ProjectsCarouselEditor = ({ props, onChange }) => {
     updateParent(localTitle, val, localSlides);
   };
 
-  // Add a new slide
   const addSlide = () => {
     const newSlide = {
       id: `p${Date.now()}`,
@@ -50,14 +43,12 @@ const ProjectsCarouselEditor = ({ props, onChange }) => {
     updateParent(localTitle, localInterval, updated);
   };
 
-  // Remove a slide by id
   const removeSlide = (id) => {
     const updated = localSlides.filter((s) => s.id !== id);
     setLocalSlides(updated);
     updateParent(localTitle, localInterval, updated);
   };
 
-  // Update a specific field of a slide
   const updateSlide = (id, field, value) => {
     const updated = localSlides.map((s) =>
       s.id === id ? { ...s, [field]: value } : s,
@@ -67,9 +58,9 @@ const ProjectsCarouselEditor = ({ props, onChange }) => {
   };
 
   return (
-    <div className={styles.editorContainer}>
-      {/* Title */}
-      <div className={styles.editorField}>
+    // [CHANGED] Use sharedStyles for container
+    <div className={sharedStyles.editorContainer}>
+      <div className={sharedStyles.editorField}>
         <label>عنوان بخش</label>
         <input
           type="text"
@@ -79,8 +70,7 @@ const ProjectsCarouselEditor = ({ props, onChange }) => {
         />
       </div>
 
-      {/* Autoplay interval */}
-      <div className={styles.editorField}>
+      <div className={sharedStyles.editorField}>
         <label>فاصله زمانی Autoplay (میلی‌ثانیه)</label>
         <input
           type="number"
@@ -92,27 +82,30 @@ const ProjectsCarouselEditor = ({ props, onChange }) => {
         <small>۰ = غیرفعال</small>
       </div>
 
-      {/* Slides list */}
-      <div className={styles.editorField}>
+      <div className={sharedStyles.editorField}>
         <label>لیست اسلایدها</label>
-        <button onClick={addSlide} className={styles.addButton}>
+        {/* [CHANGED] Use sharedStyles for button */}
+        <button onClick={addSlide} className={sharedStyles.addButton}>
           + افزودن اسلاید جدید
         </button>
       </div>
 
       {localSlides.map((slide, index) => (
-        <div key={slide.id} className={styles.itemEditor}>
-          <div className={styles.itemHeader}>
+        // [CHANGED] Use sharedStyles for item wrapper
+        <div key={slide.id} className={sharedStyles.itemEditor}>
+          <div className={sharedStyles.itemHeader}>
             <span>اسلاید {index + 1}</span>
+            {/* [CHANGED] Use sharedStyles for remove button */}
             <button
               onClick={() => removeSlide(slide.id)}
-              className={styles.removeButton}
+              className={sharedStyles.removeButton}
             >
               حذف
             </button>
           </div>
 
-          <div className={styles.itemFields}>
+          {/* [CHANGED] Use sharedStyles for fields grid */}
+          <div className={sharedStyles.itemFields}>
             <div>
               <label>آدرس لوگو</label>
               <input

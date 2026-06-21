@@ -1,22 +1,15 @@
 // src/sections/Testimonials/TestimonialsEditor.jsx
-// NEW FILE: Editor for Testimonials section
-
 import { useState } from "react";
-import styles from "./Testimonials.module.css";
+// [NEW] Import shared editor styles
+import sharedStyles from "../../styles/editor-shared.module.css";
 
-/**
- * Editor for Testimonials section.
- * Allows editing title, description, and managing testimonial items.
- */
 const TestimonialsEditor = ({ props, onChange }) => {
   const { title = "", description = "", items = [] } = props;
 
-  // Local state for form fields
   const [localTitle, setLocalTitle] = useState(title);
   const [localDescription, setLocalDescription] = useState(description);
   const [localItems, setLocalItems] = useState(items);
 
-  // Update parent when any change occurs
   const updateParent = (newTitle, newDesc, newItems) => {
     onChange({
       title: newTitle,
@@ -37,7 +30,6 @@ const TestimonialsEditor = ({ props, onChange }) => {
     updateParent(localTitle, val, localItems);
   };
 
-  // Add a new testimonial item
   const addItem = () => {
     const newItem = {
       id: `t${Date.now()}`,
@@ -51,14 +43,12 @@ const TestimonialsEditor = ({ props, onChange }) => {
     updateParent(localTitle, localDescription, updated);
   };
 
-  // Remove an item by id
   const removeItem = (id) => {
     const updated = localItems.filter((item) => item.id !== id);
     setLocalItems(updated);
     updateParent(localTitle, localDescription, updated);
   };
 
-  // Update a specific field of an item
   const updateItem = (id, field, value) => {
     const updated = localItems.map((item) =>
       item.id === id ? { ...item, [field]: value } : item,
@@ -68,8 +58,9 @@ const TestimonialsEditor = ({ props, onChange }) => {
   };
 
   return (
-    <div className={styles.editorContainer}>
-      <div className={styles.editorField}>
+    // [CHANGED] Use sharedStyles for container
+    <div className={sharedStyles.editorContainer}>
+      <div className={sharedStyles.editorField}>
         <label>عنوان</label>
         <input
           type="text"
@@ -79,7 +70,7 @@ const TestimonialsEditor = ({ props, onChange }) => {
         />
       </div>
 
-      <div className={styles.editorField}>
+      <div className={sharedStyles.editorField}>
         <label>توضیحات</label>
         <textarea
           value={localDescription}
@@ -89,26 +80,30 @@ const TestimonialsEditor = ({ props, onChange }) => {
         />
       </div>
 
-      <div className={styles.editorField}>
+      <div className={sharedStyles.editorField}>
         <label>لیست نظرات</label>
-        <button onClick={addItem} className={styles.addButton}>
+        {/* [CHANGED] Use sharedStyles for button */}
+        <button onClick={addItem} className={sharedStyles.addButton}>
           + افزودن نظر جدید
         </button>
       </div>
 
       {localItems.map((item, index) => (
-        <div key={item.id} className={styles.itemEditor}>
-          <div className={styles.itemHeader}>
+        // [CHANGED] Use sharedStyles for item wrapper
+        <div key={item.id} className={sharedStyles.itemEditor}>
+          <div className={sharedStyles.itemHeader}>
             <span>نظر {index + 1}</span>
+            {/* [CHANGED] Use sharedStyles for remove button */}
             <button
               onClick={() => removeItem(item.id)}
-              className={styles.removeButton}
+              className={sharedStyles.removeButton}
             >
               حذف
             </button>
           </div>
 
-          <div className={styles.itemFields}>
+          {/* [CHANGED] Use sharedStyles for fields grid */}
+          <div className={sharedStyles.itemFields}>
             <div>
               <label>آدرس آواتار</label>
               <input

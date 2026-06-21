@@ -38,6 +38,7 @@ function SectionSettingsPanel({ sections, onUpdateSection }) {
           background: "#f9fafb",
         }}
       >
+        {/* [EXISTING] Display section label or fallback */}
         <span style={{ fontWeight: 600 }}>{entry?.label ?? "Settings"}</span>
         <button
           onClick={clearSelection}
@@ -46,9 +47,12 @@ function SectionSettingsPanel({ sections, onUpdateSection }) {
           ✕
         </button>
       </div>
+
       <div style={{ padding: "1rem", overflowY: "auto", flex: 1 }}>
         {selected && entry ? (
-          <entry.Editor sectionProps={selected.props} onChange={handleChange} />
+          // [FIXED] Changed prop name from 'sectionProps' to 'props' to match the destructuring in Editor components.
+          // This prevents 'Cannot destructure property of undefined' crashes.
+          <entry.Editor props={selected.props} onChange={handleChange} />
         ) : (
           <p style={{ color: "#9ca3af" }}>Click a section to edit</p>
         )}

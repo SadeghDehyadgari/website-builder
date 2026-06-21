@@ -1,6 +1,5 @@
 /* src/sections/Testimonials/Testimonials.module.css */
-/* NEW FILE: Styles for Testimonials section */
-
+/* [EXISTING] Styles for Testimonials section */
 .container {
   display: flex;
   flex-direction: row;
@@ -10,14 +9,13 @@
   padding: 2rem 1rem;
   gap: 2rem;
   direction: rtl;
-  /* Background pattern: dots.svg positioned at bottom-center-right */
   background-image: url("/images/dots.svg");
   background-repeat: no-repeat;
   background-position: bottom 1rem right 40%;
   background-size: 120px;
 }
 
-/* Fixed info panel (right side in RTL) */
+/* [EXISTING] Fixed info panel */
 .infoPanel {
   flex: 0 0 35%;
   max-width: 35%;
@@ -73,11 +71,10 @@
   background-color: white;
 }
 
-/* NEW: disabled state with reduced opacity */
 .navButton:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  pointer-events: none; /* prevents click */
+  pointer-events: none;
 }
 
 .navButton:hover:not(:disabled) {
@@ -89,7 +86,6 @@
   transform: scale(0.95);
 }
 
-/* Carousel wrapper (left side in RTL) */
 .carouselWrapper {
   flex: 1;
   min-width: 0;
@@ -102,7 +98,6 @@
   padding: 0.5rem 0;
 }
 
-/* Testimonial card */
 .card {
   background: #ffffff;
   border-radius: 1.5rem;
@@ -110,7 +105,6 @@
   padding: 1.5rem 1.75rem;
   margin: 0 0.5rem;
   position: relative;
-  /* overflow: hidden; */
   height: 14rem;
   display: flex;
   flex-direction: column;
@@ -164,7 +158,6 @@
   z-index: 1;
 }
 
-/* NEW: Quote icon using ::before on the text itself */
 .quoteText::before {
   content: "";
   position: absolute;
@@ -180,129 +173,16 @@
   z-index: 0;
 }
 
-/* Editor styles */
-.editorContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  padding: 0.5rem 0;
-}
+/* [REMOVED] Editor styles (.editorContainer, .editorField, .addButton, .itemEditor, .itemHeader, .removeButton, .itemFields) 
+   moved to src/styles/editor-shared.module.css to adhere to DRY principle. */
 
-.editorField {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.editorField label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--color-text-normal, #2f4858);
-}
-
-.editorField input,
-.editorField textarea {
-  padding: 0.6rem 0.8rem;
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 0.5rem;
-  font-family: inherit;
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
-}
-
-.editorField input:focus,
-.editorField textarea:focus {
-  outline: none;
-  border-color: var(--color-primary-green, #1ea965);
-  box-shadow: 0 0 0 2px rgba(30, 169, 101, 0.15);
-}
-
-.addButton {
-  background: var(--color-primary-green, #1ea965);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-  align-self: flex-start;
-  transition: background 0.2s;
-}
-
-.addButton:hover {
-  background: #178a54;
-}
-
-.itemEditor {
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  background: #fafafa;
-}
-
-.itemHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
-}
-
-.removeButton {
-  background: #fee2e2;
-  color: #b91c1c;
-  border: none;
-  padding: 0.2rem 0.8rem;
-  border-radius: 0.4rem;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: background 0.2s;
-}
-
-.removeButton:hover {
-  background: #fecaca;
-}
-
-.itemFields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-}
-
-.itemFields > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.itemFields label {
-  font-size: 0.8rem;
-  color: var(--color-text-muted, #5c6a63);
-}
-
-.itemFields input,
-.itemFields textarea {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 0.4rem;
-  font-family: inherit;
-  font-size: 0.85rem;
-}
-
-.itemFields input:focus,
-.itemFields textarea:focus {
-  outline: none;
-  border-color: var(--color-primary-green, #1ea965);
-}
-
-/* Responsive */
+/* [EXISTING] Responsive */
 @media (max-width: 992px) {
   .container {
     flex-direction: column;
     padding: 1.5rem 0rem;
     gap: 0;
   }
-
   .infoPanel {
     flex: 1 1 auto;
     max-width: 100%;
@@ -311,28 +191,20 @@
     background-size: contain;
     background-position: 10rem -6rem;
   }
-
   .title {
     font-size: 1.8rem;
   }
-
   .carouselWrapper {
     margin-top: 1rem;
   }
-
   .card {
     padding: 1.2rem 1.5rem;
   }
-
   .quoteIcon {
     top: 0.8rem;
     right: 1rem;
     width: 30px;
     height: 30px;
-  }
-
-  .itemFields {
-    grid-template-columns: 1fr;
   }
 }
 
