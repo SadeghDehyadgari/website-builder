@@ -16,14 +16,26 @@ const HeaderSection = ({
   logo = "/logos/karyar-studio-logo.svg",
   links = [],
 }) => {
-  // Fallback links if none provided (for preview/default)
+  // CHANGED: Updated default links to use "home" slug instead of "/" for root page.
+  // This aligns with the database schema where the home page slug is "home".
   const defaultLinks = [
-    { id: "link-1", label: "صفحه اصلی", slug: "/" },
+    { id: "link-1", label: "صفحه اصلی", slug: "home" },
     { id: "link-2", label: "خدمات", slug: "/services" },
     { id: "link-3", label: "درباره ما", slug: "/about" },
   ];
 
   const navLinks = links.length > 0 ? links : defaultLinks;
+
+  // CHANGED (FIX): Helper function to resolve the correct navigation path.
+  // - If slug is "home" → "/" (root)
+  // - If slug already starts with "/" → return as-is (e.g., "/about", "/services")
+  // - Otherwise → prefix with "/" (e.g., "contact" → "/contact")
+  // This handles both database formats safely and prevents double-slash issues.
+  const getLinkPath = (slug) => {
+    if (slug === "home") return "/";
+    if (slug.startsWith("/")) return slug;
+    return `/${slug}`;
+  };
 
   return (
     <header className={styles.header}>
@@ -39,11 +51,13 @@ const HeaderSection = ({
             {navLinks.map((link) => (
               <li key={link.id} className={styles.navItem}>
                 <NavLink
-                  to={link.slug}
+                  to={getLinkPath(link.slug)}
                   className={({ isActive }) =>
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
-                  end={link.slug === "/"} // exact match for home
+                  // CHANGED (FIX): Only set end={true} for home link to ensure
+                  // exact matching on root path. For other links, leave undefined.
+                  end={link.slug === "home"}
                 >
                   {link.label}
                   {/* Orange dot indicator for active link */}

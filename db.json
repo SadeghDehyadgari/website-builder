@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Home",
-      "slug": "/",
+      "slug": "home",
       "sections": [
         {
           "id": "section-0-header",
@@ -14,7 +14,7 @@
               {
                 "id": "link-1",
                 "label": "صفحه اصلی",
-                "slug": "/"
+                "slug": "home"
               },
               {
                 "id": "link-2",
@@ -36,7 +36,7 @@
             "title": "طراحی وب‌سایت حرفه‌ای",
             "description": "با تیم متخصص کاریار، وب‌سایتی بسازید که دیده شوید. تجربه کاربری مدرن، ریسپانسیو و بهینه برای موتورهای جستجو.",
             "image": "/images/hero.svg",
-            "ctaText": "شروع کنید",
+            "ctaText": "شروع کنید بیایید",
             "ctaLink": "/contact"
           }
         },
@@ -217,111 +217,6 @@
         },
         {
           "id": "section-5-footer",
-          "type": "Footer",
-          "props": {
-            "logo": "/logos/karyar-studio-logo.svg",
-            "socialLinks": [
-              {
-                "icon": "/icons/WhatsApp-icon.svg",
-                "url": "https://wa.me/1234567890"
-              },
-              {
-                "icon": "/icons/Instagram-icon.svg",
-                "url": "https://instagram.com/karyar.studio"
-              },
-              {
-                "icon": "/icons/LinkedIn-icon.svg",
-                "url": "https://linkedin.com/company/karyar-studio"
-              }
-            ],
-            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
-          }
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "name": "About",
-      "slug": "about",
-      "sections": [
-        {
-          "id": "section-about-header",
-          "type": "Header",
-          "props": {
-            "logo": "/logos/karyar-studio-logo.svg",
-            "links": [
-              {
-                "id": "link-1",
-                "label": "صفحه اصلی",
-                "slug": "/"
-              },
-              {
-                "id": "link-2",
-                "label": "خدمات",
-                "slug": "/services"
-              },
-              {
-                "id": "link-3",
-                "label": "درباره ما",
-                "slug": "/about"
-              }
-            ]
-          }
-        },
-        {
-          "id": "section-about-hero",
-          "type": "Hero",
-          "props": {
-            "title": "درباره کاریار",
-            "description": "ما یک تیم جوان و خلاق هستیم با هدف تحول دیجیتال کسب‌وکارها. از سال ۱۳۹۸، پروژه‌های موفق متعددی را به سرانجام رسانده‌ایم.",
-            "image": "/images/about-hero.jpg",
-            "ctaText": "تماس با ما",
-            "ctaLink": "/contact"
-          }
-        },
-        {
-          "id": "section-about-features",
-          "type": "Features",
-          "props": {
-            "title": "چرا کاریار؟",
-            "items": [
-              {
-                "id": "f3",
-                "icon": "/icons/team.svg",
-                "title": "تیم متخصص",
-                "description": "توسعه‌دهندگان ارشد با سابقه درخشان در پروژه‌های بزرگ"
-              },
-              {
-                "id": "f4",
-                "icon": "/icons/support.svg",
-                "title": "پشتیبانی ۲۴/۷",
-                "description": "تیم پشتیبانی همیشه در دسترس برای رفع مشکلات شما"
-              }
-            ],
-            "ctaText": "مشاهده نمونه کارها",
-            "ctaLink": "/portfolio"
-          }
-        },
-        {
-          "id": "section-about-testimonials",
-          "type": "Testimonials",
-          "props": {
-            "title": "چرا مشتریان ما را دوست دارند",
-            "description": "رضایت مشتریان اولویت اول ماست",
-            "autoplayInterval": 6000,
-            "items": [
-              {
-                "id": "t3",
-                "avatar": "/avatars/avatar-1.png",
-                "name": "علی محمدی",
-                "role": "مدیر فنی مجموعه X",
-                "quote": "کاریار بهترین انتخاب برای راه‌اندازی سریع و حرفه‌ای وب‌سایت است."
-              }
-            ]
-          }
-        },
-        {
-          "id": "section-about-footer",
           "type": "Footer",
           "props": {
             "logo": "/logos/karyar-studio-logo.svg",

@@ -12,10 +12,11 @@ function PublicView() {
   // Get slug from URL params (e.g., "about" from "/about")
   const { slug: slugParam } = useParams();
 
-  // Normalize slug to match db.json format:
-  // - Root path → "/"
-  // - Any other slug → prepend "/" (e.g., "about" → "/about")
-  const slug = slugParam ? `/${slugParam}` : "/";
+  // CHANGED: Resolve slug for root path:
+  // - If on root path ("/"), slugParam is undefined → use "home"
+  // - Otherwise, use the actual slugParam (without leading slash, matching db.json)
+  // This keeps the URL unchanged while using a safe value for json-server filtering.
+  const slug = slugParam || "home";
 
   // Fetch page data based on slug using React Query
   const { data: page, isLoading, error } = usePage({ slug });
