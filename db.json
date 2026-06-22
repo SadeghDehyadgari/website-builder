@@ -374,24 +374,34 @@
                 "alt": "دیجیکالا"
               },
               {
-                "id": "logo-2",
-                "imageUrl": "/logos/karyar-logo.svg",
-                "alt": "کاریار"
-              },
-              {
                 "id": "logo-3",
                 "imageUrl": "/logos/divar-logo.svg",
                 "alt": "دیوار"
               },
               {
-                "id": "logo-4",
-                "imageUrl": "/logos/sam-pars-logo.svg",
-                "alt": "سام پارس"
+                "id": "logo-1782139899438",
+                "imageUrl": "/logos/akeep.svg",
+                "alt": "akeep logo"
               },
               {
-                "id": "logo-1782061245367",
-                "imageUrl": "logos/divar-logo.svg",
-                "alt": "salam"
+                "id": "logo-1782140946876",
+                "imageUrl": "/logos/digikala.svg",
+                "alt": "لوگوی مشتری"
+              },
+              {
+                "id": "logo-1782140974769",
+                "imageUrl": "/logos/karyar.svg",
+                "alt": "لوگوی مشتری"
+              },
+              {
+                "id": "logo-1782141015271",
+                "imageUrl": "/logos/karyar-studio-logo.svg",
+                "alt": "لوگوی مشتری"
+              },
+              {
+                "id": "logo-1782141039273",
+                "imageUrl": "/logos/digikala-logo.svg",
+                "alt": "لوگوی مشتری"
               }
             ]
           }

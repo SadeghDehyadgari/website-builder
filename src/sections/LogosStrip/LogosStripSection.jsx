@@ -1,6 +1,4 @@
 // src/sections/LogosStrip/LogosStripSection.jsx
-// UPDATED: Adjusted carousel props and added className for scoped styles.
-
 import { useState, useLayoutEffect, useRef } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import styles from "./LogosStrip.module.css";
@@ -43,7 +41,6 @@ const LogosStripSection = ({ logos = [] }) => {
     );
   }
 
-  // Grid mode (no carousel) – using flex with gap and centering
   if (!isCarousel) {
     return (
       <div className={styles.logosStrip}>
@@ -54,8 +51,6 @@ const LogosStripSection = ({ logos = [] }) => {
     );
   }
 
-  // Carousel mode – use Carousel component with scoped className
-  // Show up to 5 slides per view on desktop, fallback to 1 on mobile (handled by Carousel breakpoints)
   const slidesPerView = Math.min(logos.length, 5);
 
   return (
@@ -64,14 +59,14 @@ const LogosStripSection = ({ logos = [] }) => {
         slides={logos}
         renderSlide={renderLogo}
         slidesPerView={slidesPerView}
-        align="center"
-        containScroll="trimSnaps"
+        align="center" // [EXISTING] Center alignment for slides
+        loop={true} // [NEW] Enable infinite loop scrolling
         withAutoplay={true}
         autoplayDelay={4000}
         showArrows={false}
         showDots={false}
         isRTL={true}
-        className={styles.logosCarousel} // ← scoped class for overrides
+        className={styles.logosCarousel}
       />
     </div>
   );

@@ -49,7 +49,8 @@
 /* Carousel overrides – scoped to .logosCarousel */
 /* ============================================ */
 .logosCarousel {
-  --slide-spacing: 0px; /* remove default spacing */
+  --slide-size: 20%;
+  --slide-spacing: 0px;
 }
 
 /* Override slideList margin */
@@ -60,8 +61,6 @@
 /* Override each slide – remove padding and set fixed width */
 .logosCarousel :global(.slide) {
   padding: 0;
-  flex: 0 0 auto;
-  width: 120px; /* match grid item width */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,7 +75,8 @@
 
 /* Ensure the logoItem inside carousel also has proper styling */
 .logosCarousel .logoItem {
-  width: 100%;
+  margin: 0 auto;
+  width: 120px;
   height: 70px;
   padding: 0;
 }
@@ -171,11 +171,14 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .logosCarousel {
+    --slide-size: 33.333%; /* 100% / 3 slides */
+  }
+
   .gridContainer {
     gap: 2rem;
   }
-  .logoItem,
-  .logosCarousel :global(.slide) {
+  .logoItem {
     width: 80px;
     height: 50px;
   }
