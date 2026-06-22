@@ -11,6 +11,13 @@ function SectionSettingsPanel({ sections, onUpdateSection }) {
     if (selectedSectionId) onUpdateSection(selectedSectionId, newProps);
   };
 
+  // [FIX] Defensive Programming: Fallback chain for props
+  // 1. Use existing props from the section
+  // 2. Fallback to defaultProps from registry if props is missing/undefined
+  // 3. Final fallback to an empty object to prevent crashes
+  // This prevents "Cannot read properties of undefined" crashes when loading legacy or incomplete data
+  const editorProps = selected?.props || entry?.defaultProps || {};
+
   return (
     <aside
       style={{
@@ -38,7 +45,6 @@ function SectionSettingsPanel({ sections, onUpdateSection }) {
           background: "#f9fafb",
         }}
       >
-        {/* [EXISTING] Display section label or fallback */}
         <span style={{ fontWeight: 600 }}>{entry?.label ?? "Settings"}</span>
         <button
           onClick={clearSelection}
@@ -47,12 +53,10 @@ function SectionSettingsPanel({ sections, onUpdateSection }) {
           ✕
         </button>
       </div>
-
       <div style={{ padding: "1rem", overflowY: "auto", flex: 1 }}>
         {selected && entry ? (
-          // [FIXED] Changed prop name from 'sectionProps' to 'props' to match the destructuring in Editor components.
-          // This prevents 'Cannot destructure property of undefined' crashes.
-          <entry.Editor props={selected.props} onChange={handleChange} />
+          // [FIXED] Using the safe 'editorProps' variable instead of directly passing selected.props
+          <entry.Editor props={editorProps} onChange={handleChange} />
         ) : (
           <p style={{ color: "#9ca3af" }}>Click a section to edit</p>
         )}

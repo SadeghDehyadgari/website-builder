@@ -54,7 +54,7 @@ const LogosStripEditor = ({ props = {}, onChange }) => {
       <div className={styles.addForm}>
         <input
           type="text"
-          placeholder="آدرس تصویر لوگو (مثال: /logos/digikala-logo.svg)"
+          placeholder="آدرس تصویر لوگو"
           value={newImageUrl}
           onChange={(e) => setNewImageUrl(e.target.value)}
           className={styles.input}

@@ -6,6 +6,7 @@ import {
   createPage,
   deletePage,
   updatePageSections,
+  updatePage, // [NEW] Import updatePage for meta data updates
 } from "../services/pagesApi";
 
 // Query keys for caching and invalidation
@@ -40,7 +41,6 @@ export function usePage({ id, slug } = {}) {
   } else {
     throw new Error("usePage requires either id or slug");
   }
-
   return useQuery({
     queryKey,
     queryFn,
@@ -87,6 +87,21 @@ export function useUpdatePageSections() {
       queryClient.invalidateQueries({ queryKey: pageKeys.list() });
       queryClient.invalidateQueries({
         queryKey: pageKeys.detail(variables.pageId),
+      });
+    },
+  });
+}
+
+// [NEW] Mutation to update page meta data (name, slug)
+export function useUpdatePage() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }) => updatePage(id, data),
+    onSuccess: (data, variables) => {
+      // Invalidate both list and the specific page detail to keep UI in sync
+      queryClient.invalidateQueries({ queryKey: pageKeys.list() });
+      queryClient.invalidateQueries({
+        queryKey: pageKeys.detail(variables.id),
       });
     },
   });

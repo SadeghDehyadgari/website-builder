@@ -93,8 +93,10 @@
   justify-content: flex-end;
 }
 
+/* [UPDATED] Added builderBtn to shared base styles to respect DRY */
 .editBtn,
-.deleteBtn {
+.deleteBtn,
+.builderBtn {
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   border: none;
@@ -114,6 +116,16 @@
 
 .editBtn:hover {
   background-color: #059669;
+}
+
+/* [NEW] Styles for the visual builder button */
+.builderBtn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.builderBtn:hover {
+  background-color: #2563eb;
 }
 
 .deleteBtn {
@@ -254,7 +266,6 @@ button:disabled {
   .header h1 {
     font-size: 1.2rem;
   }
-
   .createBtn {
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;

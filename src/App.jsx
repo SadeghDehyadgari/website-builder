@@ -1,15 +1,38 @@
-// Added react-hot-toast Toaster component for notifications
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast"; // NEW
-// Import page components for main routes (Stage 5)
+// src/App.jsx
+// [UPDATED] Migrated from legacy BrowserRouter to Data Router (createBrowserRouter)
+// This is required to support the `useBlocker` hook in PageBuilder.jsx
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+// Import page components for main routes
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import PageBuilder from "./pages/PageBuilder/PageBuilder";
 import PublicView from "./pages/PublicView/PublicView";
 
+// [NEW] Define routes using the Data Router API
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <PublicView />,
+  },
+  {
+    path: "/:slug",
+    element: <PublicView />,
+  },
+  {
+    path: "/admin",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "/admin/builder/:pageId",
+    element: <PageBuilder />,
+  },
+]);
+
 function App() {
   return (
-    <BrowserRouter>
-      {/* NEW: Toaster for toast notifications - positioned top-center, RTL support */}
+    <>
+      {/* Toaster can be rendered outside the RouterProvider */}
       <Toaster
         position="top-center"
         reverseOrder={false}
@@ -21,21 +44,10 @@ function App() {
           },
         }}
       />
-      <Routes>
-        {/* NEW: Main routes for the Website Builder application (Stage 5) */}
-        {/* Public view with default slug (home) - exact path "/" */}
-        <Route path="/" element={<PublicView />} />
 
-        {/* Public view for any custom slug (e.g., /about, /contact) */}
-        <Route path="/:slug" element={<PublicView />} />
-
-        {/* Admin dashboard - list of pages with CRUD operations */}
-        <Route path="/admin" element={<AdminDashboard />} />
-
-        {/* Visual builder for a specific page by its ID */}
-        <Route path="/admin/builder/:pageId" element={<PageBuilder />} />
-      </Routes>
-    </BrowserRouter>
+      {/* [UPDATED] Replaced BrowserRouter and Routes with RouterProvider */}
+      <RouterProvider router={router} />
+    </>
   );
 }
 

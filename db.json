@@ -240,8 +240,8 @@
       ]
     },
     {
-      "name": "درباره ما",
-      "slug": "about",
+      "name": "درباره آن ها",
+      "slug": "aboutthem",
       "sections": [
         {
           "id": "section-d41ae15a-eff9-4255-8c9d-5fae3e53d172",
@@ -359,49 +359,6 @@
                 "avatar": "/avatars/aida.png",
                 "name": "آیدا هاشمی",
                 "role": "طراح سایت"
-              }
-            ]
-          }
-        },
-        {
-          "id": "section-812852b7-5e4e-405b-9d6c-9665330b3747",
-          "type": "logosstrip",
-          "props": {
-            "logos": [
-              {
-                "id": "logo-1",
-                "imageUrl": "/logos/digikala-logo.svg",
-                "alt": "دیجیکالا"
-              },
-              {
-                "id": "logo-3",
-                "imageUrl": "/logos/divar-logo.svg",
-                "alt": "دیوار"
-              },
-              {
-                "id": "logo-1782139899438",
-                "imageUrl": "/logos/akeep.svg",
-                "alt": "akeep logo"
-              },
-              {
-                "id": "logo-1782140946876",
-                "imageUrl": "/logos/digikala.svg",
-                "alt": "لوگوی مشتری"
-              },
-              {
-                "id": "logo-1782140974769",
-                "imageUrl": "/logos/karyar.svg",
-                "alt": "لوگوی مشتری"
-              },
-              {
-                "id": "logo-1782141015271",
-                "imageUrl": "/logos/karyar-studio-logo.svg",
-                "alt": "لوگوی مشتری"
-              },
-              {
-                "id": "logo-1782141039273",
-                "imageUrl": "/logos/digikala-logo.svg",
-                "alt": "لوگوی مشتری"
               }
             ]
           }

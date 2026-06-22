@@ -106,3 +106,15 @@ export async function updatePageSections(pageId, sections) {
     body: JSON.stringify({ sections }),
   });
 }
+
+// [NEW] Update page meta data (name, slug)
+/**
+ * @param {string} id - Page ID
+ * @param {Object} data - { name, slug }
+ */
+export async function updatePage(id, data) {
+  return fetchJson(`/pages/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
