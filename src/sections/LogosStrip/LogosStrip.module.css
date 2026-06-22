@@ -172,7 +172,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .logosCarousel {
-    --slide-size: 33.333%; /* 100% / 3 slides */
+    --slide-size: 100%;
   }
 
   .gridContainer {

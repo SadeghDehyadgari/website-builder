@@ -1,5 +1,5 @@
 // Base API URL - change if using my-json-server or production
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_BASE_URL = "/api";
 
 // NEW: Timeout wrapper for fetch (default 10 seconds)
 async function fetchWithTimeout(resource, options = {}, timeout = 10000) {

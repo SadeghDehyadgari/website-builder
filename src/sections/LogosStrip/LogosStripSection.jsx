@@ -59,14 +59,21 @@ const LogosStripSection = ({ logos = [] }) => {
         slides={logos}
         renderSlide={renderLogo}
         slidesPerView={slidesPerView}
-        align="center" // [EXISTING] Center alignment for slides
-        loop={true} // [NEW] Enable infinite loop scrolling
+        align="center"
+        loop={true}
         withAutoplay={true}
         autoplayDelay={4000}
         showArrows={false}
         showDots={false}
         isRTL={true}
         className={styles.logosCarousel}
+        // [NEW] Explicitly define mobile breakpoints instead of relying on Carousel defaults
+        breakpoints={{
+          "(max-width: 768px)": {
+            slidesPerView: 1,
+            align: "center",
+          },
+        }}
       />
     </div>
   );
