@@ -2,7 +2,7 @@
 /* [EXISTING] Styles for TeamCarousel */
 .teamSection {
   width: 100%;
-  padding: 2rem 1rem;
+  padding: 2rem 0;
   background-color: var(--color-white, #ffffff);
   direction: rtl;
   text-align: center;
@@ -33,12 +33,16 @@
 
 .memberCard {
   flex: 0 0 auto;
-  width: 160px;
+  /* [UPDATED] Width 100% to match slide width in carousel mode */
+  width: 100%;
+  /* [UPDATED] Max-width to maintain original size in grid mode */
+  max-width: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 0 8px;
+  /* [UPDATED] Removed horizontal margin to prevent overlap in carousel */
+  margin: 0 auto;
 }
 
 .avatar {
@@ -59,7 +63,7 @@
 }
 
 .teamCarousel [class*="slide"] {
-  flex: 0 0 8rem;
+  flex: 0 0 20%;
 }
 
 .teamCarousel [class*="dotsContainer"] {
@@ -127,24 +131,41 @@
 /* [EXISTING] Responsive (mobile) */
 @media (max-width: 768px) {
   .teamSection {
-    padding: 1.5rem 0.5rem;
+    padding: 1.5rem 0;
   }
+
   .title {
     font-size: 1.4rem;
   }
+
   .description {
     font-size: 0.9rem;
   }
+
   .gridContainer {
     gap: 1rem;
   }
-  .memberCard {
-    width: 100px;
-    margin: 0 4px;
+
+  .teamCarousel [class*="slide"] {
+    /* [NEW] 33.333% width for 3 slides on mobile */
+    flex: 0 0 33.333%;
   }
+
+  .memberCard {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
   .memberName {
     font-size: 0.85rem;
   }
+
   .memberRole {
     font-size: 0.7rem;
   }

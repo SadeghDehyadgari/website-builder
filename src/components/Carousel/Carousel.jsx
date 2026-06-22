@@ -1,6 +1,5 @@
 // src/components/Carousel/Carousel.jsx
-// UPDATED: Removed unused props. Kept only necessary ones.
-
+// [UPDATED] Added breakpoints prop to allow custom breakpoints per instance
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -8,7 +7,6 @@ import styles from "./Carousel.module.css";
 
 /**
  * Carousel component – a headless wrapper around embla-carousel.
- *
  * @param {Array} slides - Array of slide data
  * @param {Function} renderSlide - Function to render each slide: (slide, index) => ReactNode
  * @param {number|string} slidesPerView - Number of slides visible at once (default: 1)
@@ -24,6 +22,7 @@ import styles from "./Carousel.module.css";
  * @param {Function} onApiInit - Callback when Embla API is ready
  * @param {Function} onIndexChange - Callback when slide index changes
  * @param {boolean} fullWidth - If true, slides take 100% width with no padding
+ * @param {Object} breakpoints - [NEW] Custom breakpoints to override defaults
  */
 const Carousel = ({
   slides,
@@ -41,6 +40,7 @@ const Carousel = ({
   onApiInit,
   onIndexChange,
   fullWidth = false,
+  breakpoints = {}, // [NEW] Custom breakpoints prop
 }) => {
   const plugins = withAutoplay ? [Autoplay({ delay: autoplayDelay })] : [];
 
@@ -53,6 +53,9 @@ const Carousel = ({
     },
   };
 
+  // [NEW] Merge default breakpoints with custom ones (custom takes precedence)
+  const mergedBreakpoints = { ...defaultBreakpoints, ...breakpoints };
+
   const options = {
     align: align,
     containScroll: containScroll,
@@ -60,11 +63,10 @@ const Carousel = ({
     direction: isRTL ? "rtl" : "ltr",
     slidesToScroll: 1,
     slidesPerView: slidesPerView,
-    breakpoints: defaultBreakpoints, // Keep default breakpoints
+    breakpoints: mergedBreakpoints, // [UPDATED] Use merged breakpoints
   };
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins);
-
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
@@ -82,7 +84,6 @@ const Carousel = ({
 
   useEffect(() => {
     if (!emblaApi) return;
-
     emblaApi.on("select", syncEmblaState);
 
     const rafId = requestAnimationFrame(() => {

@@ -1,7 +1,6 @@
 // src/sections/TeamCarousel/TeamCarouselSection.jsx
-// FIX: Added slidesToScroll={4} and changed align to "center" to fix loop overlap
-// Removed containScroll to use default behavior
-
+// [EXISTING] FIX: Added slidesToScroll={4} and changed align to "center" to fix loop overlap
+// [EXISTING] Removed containScroll to use default behavior
 import { useState, useLayoutEffect, useRef } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import styles from "./TeamCarousel.module.css";
@@ -9,9 +8,9 @@ import styles from "./TeamCarousel.module.css";
 /**
  * TeamCarouselSection
  * Renders a list of team members with avatar, name, and role.
- * - If members fit in one row → displayed as a centered flex grid.
- * - If they overflow → displayed as an autoplay carousel (no arrows, with dots).
- * - Desktop: 4 slides, Mobile: 1 slide (default breakpoint)
+ * If members fit in one row → displayed as a centered flex grid.
+ * If they overflow → displayed as an autoplay carousel (no arrows, with dots).
+ * Desktop: 4 slides, Mobile: 3 slides (custom breakpoint)
  */
 const TeamCarouselSection = ({
   title = "",
@@ -27,6 +26,7 @@ const TeamCarouselSection = ({
       setIsReady(true);
       return;
     }
+
     const container = containerRef.current;
     const hasOverflow = container.scrollWidth > container.clientWidth + 1;
     setIsCarousel(hasOverflow);
@@ -74,9 +74,9 @@ const TeamCarouselSection = ({
       <Carousel
         slides={members}
         renderSlide={renderMember}
-        slidesPerView={4}
-        align="center" // CHANGED: from "start" to "center" for smoother loop
-        slidesToScroll={4} // NEW: scroll 4 slides at a time (matches slidesPerView)
+        slidesPerView={5}
+        align="center" // [EXISTING] CHANGED: from "start" to "center" for smoother loop
+        slidesToScroll={5} // [EXISTING] NEW: scroll 4 slides at a time (matches slidesPerView)
         loop={true}
         withAutoplay={true}
         autoplayDelay={4000}
@@ -84,6 +84,15 @@ const TeamCarouselSection = ({
         showDots={true}
         isRTL={true}
         className={styles.teamCarousel}
+        // [NEW] Custom breakpoints to show 3 slides on mobile
+        breakpoints={{
+          "(max-width: 768px)": {
+            slidesPerView: 3,
+            slidesToScroll: 1, // [NEW] Scroll 1 slide at a time on mobile
+            align: "start",
+            containScroll: "trimSnaps",
+          },
+        }}
       />
     </div>
   );

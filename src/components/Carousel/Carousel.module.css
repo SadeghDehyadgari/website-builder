@@ -1,6 +1,5 @@
 /* src/components/Carousel/Carousel.module.css */
-/* UPDATED: Added .fullWidth class to make slides take full width with no padding/margin */
-
+/* [UPDATED] Added .fullWidth class to make slides take full width with no padding/margin */
 .carouselContainer {
   --slide-spacing: 16px;
   --slide-size: 60%;
@@ -17,7 +16,8 @@
 .slideList {
   display: flex;
   touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--slide-spacing) * 1);
+  /* [UPDATED] Changed to negative margin to properly offset slide padding and create consistent gap */
+  padding: 0 calc(var(--slide-spacing) / 2);
 }
 
 .slide {
@@ -132,12 +132,15 @@
     height: 32px;
     font-size: 1.2rem;
   }
+
   .arrowPrev {
     left: 4px;
   }
+
   .arrowNext {
     right: 4px;
   }
+
   .dot {
     width: 8px;
     height: 8px;
