@@ -3,6 +3,8 @@
   direction: rtl;
   background-color: #f8fafc;
   min-height: 100vh;
+  /* [NEW] Prevent horizontal overflow in mobile/tablet */
+  overflow-x: hidden;
 }
 
 /* Header */
@@ -92,6 +94,7 @@
 
 .saveBtn.dirty:hover:not(:disabled) {
   background-color: #059669;
+  transform: translateY(-1px);
 }
 
 .saveBtn:disabled {
@@ -108,6 +111,7 @@
 
 .previewBtn:hover {
   background-color: #e06b01;
+  transform: translateY(-1px);
 }
 
 .content {
@@ -260,24 +264,37 @@
   background-color: #dc2626;
 }
 
+/* [UPDATED] Mobile responsive styles */
 @media (max-width: 768px) {
   .content {
     flex-direction: column;
     padding: 1rem;
+    gap: 1rem;
   }
+
+  /* [NEW] Remove min-width constraint in mobile to prevent overflow */
+  .sectionsList {
+    width: 100%;
+    min-width: 0;
+  }
+
   .header {
     padding: 0.75rem 1rem;
   }
+
   .header h1 {
     font-size: 1.2rem;
   }
+
   .headerActions {
     width: 100%;
     justify-content: space-between;
   }
+
   .sectionControls {
     justify-content: flex-start;
   }
+
   .moveButton,
   .deleteButton {
     padding: 0.4rem 0.7rem;

@@ -5,7 +5,7 @@ import { usePage, useUpdatePageSections } from "../../hooks/usePages";
 import useBuilderStore from "../../store/builderStore";
 import { getSection } from "../../sections/registry";
 import AddSectionMenu from "../../components/AddSectionMenu/AddSectionMenu";
-import SectionSettingsPanel from "../../components/SectionSettingsPanel";
+import SectionSettingsPanel from "../../components/SectionSettingsPanel/SectionSettingsPanel";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Modal from "../../components/Modal/Modal";
