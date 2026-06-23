@@ -1,30 +1,44 @@
 // src/sections/registry.js
-// UPDATED: Added Header entry
+// [UPDATED] Reordered entries to reflect natural webpage structure:
+// Header → Hero → Features → Process → Banner → Logos → Projects → Team → Testimonials → Footer
+// This order is used by AddSectionMenu to display buttons in logical sequence
 
+import HeaderSection from "./Header/HeaderSection";
+import HeaderEditor from "./Header/HeaderEditor";
 import HeroSection from "./Hero/HeroSection";
 import HeroEditor from "./Hero/HeroEditor";
 import FeaturesSection from "./Features/FeaturesSection";
 import FeaturesEditor from "./Features/FeaturesEditor";
-import FooterSection from "./Footer/FooterSection";
-import FooterEditor from "./Footer/FooterEditor";
-import TestimonialsSection from "./Testimonials/TestimonialsSection";
-import TestimonialsEditor from "./Testimonials/TestimonialsEditor";
-import ProjectsCarouselSection from "./ProjectsCarousel/ProjectsCarouselSection";
-import ProjectsCarouselEditor from "./ProjectsCarousel/ProjectsCarouselEditor";
-import LogosStripSection from "./LogosStrip/LogosStripSection";
-import LogosStripEditor from "./LogosStrip/LogosStripEditor";
-import TeamCarouselSection from "./TeamCarousel/TeamCarouselSection";
-import TeamCarouselEditor from "./TeamCarousel/TeamCarouselEditor";
 import ProcessSection from "./Process/ProcessSection";
 import ProcessEditor from "./Process/ProcessEditor";
 import BannerSection from "./Banner/BannerSection";
 import BannerEditor from "./Banner/BannerEditor";
-// NEW: Import Header components
-import HeaderSection from "./Header/HeaderSection";
-import HeaderEditor from "./Header/HeaderEditor";
+import LogosStripSection from "./LogosStrip/LogosStripSection";
+import LogosStripEditor from "./LogosStrip/LogosStripEditor";
+import ProjectsCarouselSection from "./ProjectsCarousel/ProjectsCarouselSection";
+import ProjectsCarouselEditor from "./ProjectsCarousel/ProjectsCarouselEditor";
+import TeamCarouselSection from "./TeamCarousel/TeamCarouselSection";
+import TeamCarouselEditor from "./TeamCarousel/TeamCarouselEditor";
+import TestimonialsSection from "./Testimonials/TestimonialsSection";
+import TestimonialsEditor from "./Testimonials/TestimonialsEditor";
+import FooterSection from "./Footer/FooterSection";
+import FooterEditor from "./Footer/FooterEditor";
 
 const sectionRegistry = {
-  // UPDATED: Removed subtitle from Hero
+  // [UPDATED] Header moved to first position (natural webpage structure)
+  header: {
+    label: "هدر سایت (Header)",
+    Component: HeaderSection,
+    Editor: HeaderEditor,
+    defaultProps: {
+      logo: "/logos/karyar-studio-logo.svg",
+      links: [
+        { id: "link-1", label: "صفحه اصلی", slug: "/" },
+        { id: "link-2", label: "خدمات", slug: "/services" },
+        { id: "link-3", label: "درباره ما", slug: "/about" },
+      ],
+    },
+  },
   hero: {
     label: "بخش قهرمان (Hero)",
     Component: HeroSection,
@@ -37,7 +51,6 @@ const sectionRegistry = {
       ctaLink: "#",
     },
   },
-
   features: {
     label: "ویژگی‌ها (Features)",
     Component: FeaturesSection,
@@ -64,36 +77,46 @@ const sectionRegistry = {
       ctaLink: "/services",
     },
   },
-
-  testimonials: {
-    label: "نظرات مشتریان (Testimonials)",
-    Component: TestimonialsSection,
-    Editor: TestimonialsEditor,
+  process: {
+    label: "روند تبدیل ایده به محصول (Process)",
+    Component: ProcessSection,
+    Editor: ProcessEditor,
     defaultProps: {
-      title: "تجربه همکاری از نگاه مشتریان",
+      title: "روند تبدیل ایده به محصول",
       description:
-        "بخشی از تجربه کسانی که مسیر ساخت محصولاتشان را با ما شروع کردند.",
-      items: [
-        {
-          id: "t1",
-          avatar: "/avatars/avatar-1.png",
-          name: "علی محمدی",
-          role: "مدیر محصول در شرکت فناوری",
-          quote:
-            "کار با استودیو تیمی دقیق و قابل اعتماد. توی هر مرحله از پروژه، مسئله رو درست فهمیدن و برای ما یه مسیر واضح و قابل اجرا ساختن...",
-        },
-        {
-          id: "t2",
-          avatar: "/avatars/avatar-2.png",
-          name: "سارا حسینی",
-          role: "طراح ارشد",
-          quote:
-            "طراحی‌های فوق‌العاده و تیم بسیار حرفه‌ای. همکاری با کاریار استودیو یکی از بهترین تجربه‌های کاری من بود.",
-        },
+        "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
+      ctaText: "شروع کنید",
+      ctaLink: "#",
+      desktopImage: "/images/process.svg",
+      mobileImage: "/images/process-mobile.svg",
+      alt: "روند تبدیل ایده به محصول",
+    },
+  },
+  banner: {
+    label: "بنر تبلیغاتی (Banner)",
+    Component: BannerSection,
+    Editor: BannerEditor,
+    defaultProps: {
+      title: "با کاریار، ایده‌ها به واقعیت تبدیل می‌شوند",
+      ctaText: "شروع کنید",
+      ctaLink: "#",
+      backgroundImage: "/images/banner.png",
+    },
+  },
+  logosstrip: {
+    label: "نوار لوگوها (Logos Strip)",
+    Component: LogosStripSection,
+    Editor: LogosStripEditor,
+    defaultProps: {
+      logos: [
+        { id: "logo-1", imageUrl: "/logos/digikala-logo.svg", alt: "دیجیکالا" },
+        { id: "logo-2", imageUrl: "/logos/karyar-logo.svg", alt: "کاریار" },
+        { id: "logo-3", imageUrl: "/logos/divar-logo.svg", alt: "دیوار" },
+        { id: "logo-4", imageUrl: "/logos/sam-pars-logo.svg", alt: "سام پارس" },
+        { id: "logo-5", imageUrl: "/logos/akeep.svg", alt: "aKeep" },
       ],
     },
   },
-
   projectscarousel: {
     label: "پروژه‌ها (ProjectsCarousel)",
     Component: ProjectsCarouselSection,
@@ -129,22 +152,6 @@ const sectionRegistry = {
       ],
     },
   },
-
-  logosstrip: {
-    label: "نوار لوگوها (Logos Strip)",
-    Component: LogosStripSection,
-    Editor: LogosStripEditor,
-    defaultProps: {
-      logos: [
-        { id: "logo-1", imageUrl: "/logos/digikala-logo.svg", alt: "دیجیکالا" },
-        { id: "logo-2", imageUrl: "/logos/karyar-logo.svg", alt: "کاریار" },
-        { id: "logo-3", imageUrl: "/logos/divar-logo.svg", alt: "دیوار" },
-        { id: "logo-4", imageUrl: "/logos/sam-pars-logo.svg", alt: "سام پارس" },
-        { id: "logo-5", imageUrl: "/logos/akeep.svg", alt: "aKeep" },
-      ],
-    },
-  },
-
   teamcarousel: {
     label: "تیم ما (Team Carousel)",
     Component: TeamCarouselSection,
@@ -186,50 +193,34 @@ const sectionRegistry = {
       ],
     },
   },
-
-  process: {
-    label: "روند تبدیل ایده به محصول (Process)",
-    Component: ProcessSection,
-    Editor: ProcessEditor,
+  testimonials: {
+    label: "نظرات مشتریان (Testimonials)",
+    Component: TestimonialsSection,
+    Editor: TestimonialsEditor,
     defaultProps: {
-      title: "روند تبدیل ایده به محصول",
+      title: "تجربه همکاری از نگاه مشتریان",
       description:
-        "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
-      ctaText: "شروع کنید",
-      ctaLink: "#",
-      desktopImage: "/images/process.svg",
-      mobileImage: "/images/process-mobile.svg",
-      alt: "روند تبدیل ایده به محصول",
-    },
-  },
-
-  banner: {
-    label: "بنر تبلیغاتی (Banner)",
-    Component: BannerSection,
-    Editor: BannerEditor,
-    defaultProps: {
-      title: "با کاریار، ایده‌ها به واقعیت تبدیل می‌شوند",
-      ctaText: "شروع کنید",
-      ctaLink: "#",
-      backgroundImage: "/images/banner.png",
-    },
-  },
-
-  // NEW: Header entry
-  header: {
-    label: "هدر سایت (Header)",
-    Component: HeaderSection,
-    Editor: HeaderEditor,
-    defaultProps: {
-      logo: "/logos/karyar-studio-logo.svg",
-      links: [
-        { id: "link-1", label: "صفحه اصلی", slug: "/" },
-        { id: "link-2", label: "خدمات", slug: "/services" },
-        { id: "link-3", label: "درباره ما", slug: "/about" },
+        "بخشی از تجربه کسانی که مسیر ساخت محصولاتشان را با ما شروع کردند.",
+      items: [
+        {
+          id: "t1",
+          avatar: "/avatars/avatar-1.png",
+          name: "علی محمدی",
+          role: "مدیر محصول در شرکت فناوری",
+          quote:
+            "کار با استودیو تیمی دقیق و قابل اعتماد. توی هر مرحله از پروژه، مسئله رو درست فهمیدن و برای ما یه مسیر واضح و قابل اجرا ساختن...",
+        },
+        {
+          id: "t2",
+          avatar: "/avatars/avatar-2.png",
+          name: "سارا حسینی",
+          role: "طراح ارشد",
+          quote:
+            "طراحی‌های فوق‌العاده و تیم بسیار حرفه‌ای. همکاری با کاریار استودیو یکی از بهترین تجربه‌های کاری من بود.",
+        },
       ],
     },
   },
-
   footer: {
     label: "فوتر (Footer)",
     Component: FooterSection,

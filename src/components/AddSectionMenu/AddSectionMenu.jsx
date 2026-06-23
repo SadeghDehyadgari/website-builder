@@ -1,5 +1,5 @@
 // src/components/AddSectionMenu.jsx
-import { getAllSectionTypes, getSection } from "../sections/registry";
+import { getAllSectionTypes, getSection } from "../../sections/registry";
 
 function AddSectionMenu({ onAdd }) {
   const sectionTypes = getAllSectionTypes();
