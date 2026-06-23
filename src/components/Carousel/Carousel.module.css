@@ -16,8 +16,6 @@
 .slideList {
   display: flex;
   touch-action: pan-y pinch-zoom;
-  /* [UPDATED] Changed to negative margin to properly offset slide padding and create consistent gap */
-  padding: 0 calc(var(--slide-spacing) / 2);
 }
 
 .slide {
