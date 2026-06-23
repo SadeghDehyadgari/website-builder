@@ -39,7 +39,6 @@
 /* UPDATED: Smaller button with orange background (secondary variant) */
 .ctaButton {
   font-size: 0.95rem;
-  padding: 0.5rem 1rem;
   min-width: auto;
   width: auto;
 }
@@ -57,7 +56,6 @@
 
   .ctaButton {
     font-size: 0.9rem;
-    padding: 0.4rem 1.2rem;
   }
 }
 
