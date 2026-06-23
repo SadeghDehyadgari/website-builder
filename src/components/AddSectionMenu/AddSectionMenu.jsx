@@ -1,10 +1,47 @@
-// src/components/AddSectionMenu.jsx
+// src/components/AddSectionMenu/AddSectionMenu.jsx
+// [NEW] Dropdown menu with 2-column grid for adding sections
+// [UPDATED] Converted from always-visible list to dropdown for space efficiency
+import { useState, useRef, useEffect } from "react";
 import { getAllSectionTypes, getSection } from "../../sections/registry";
+import styles from "./AddSectionMenu.module.css";
 
+/**
+ * AddSectionMenu - dropdown menu for adding new sections to the page
+ * Command pattern: onAdd(newSection) - caller decides what to do with the new section
+ * @param {Object} props
+ * @param {Function} props.onAdd - callback when a section is added
+ */
 function AddSectionMenu({ onAdd }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const sectionTypes = getAllSectionTypes();
 
-  function handleAddSection(type) {
+  // [NEW] Close dropdown when clicking outside (Tell, Don't Ask - component manages its own state)
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // [NEW] Close dropdown on Escape key (Accessibility best practice)
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscape);
+    }
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
+
+  // [EXISTING] Command: Create and add a new section (no return value - CQS)
+  const handleAddSection = (type) => {
     const entry = getSection(type);
     if (entry) {
       onAdd({
@@ -12,54 +49,42 @@ function AddSectionMenu({ onAdd }) {
         type,
         props: { ...entry.defaultProps },
       });
+      setIsOpen(false); // Close dropdown after selection
     }
-  }
+  };
 
   return (
-    <div style={menuStyle}>
-      <p style={headingStyle}>افزودن سکشن</p>
-      <ul style={listStyle}>
-        {sectionTypes.map(({ type, label }) => (
-          <li key={type} style={listItemStyle}>
-            <button onClick={() => handleAddSection(type)} style={buttonStyle}>
-              + {label}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className={styles.container} ref={dropdownRef}>
+      <button
+        className={styles.trigger}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+      >
+        <span>+ افزودن سکشن</span>
+        <span className={`${styles.chevron} ${isOpen ? styles.open : ""}`}>
+          ▼
+        </span>
+      </button>
+
+      {isOpen && (
+        <div className={styles.dropdown} role="listbox">
+          <div className={styles.grid}>
+            {sectionTypes.map(({ type, label }) => (
+              <button
+                key={type}
+                className={styles.option}
+                onClick={() => handleAddSection(type)}
+                role="option"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-const menuStyle = { padding: "1rem" };
-const headingStyle = {
-  fontSize: "0.75rem",
-  fontWeight: 700,
-  textTransform: "uppercase",
-  letterSpacing: "0.08em",
-  color: "#9ca3af",
-  margin: "0 0 0.75rem",
-};
-const listStyle = {
-  listStyle: "none",
-  padding: 0,
-  margin: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: "0.4rem",
-};
-const listItemStyle = { margin: 0 };
-const buttonStyle = {
-  width: "100%",
-  textAlign: "right",
-  padding: "0.5rem 0.75rem",
-  background: "none",
-  border: "1px solid #e5e7eb",
-  borderRadius: "6px",
-  cursor: "pointer",
-  fontSize: "0.875rem",
-  color: "#374151",
-  transition: "background 0.15s ease",
-};
 
 export default AddSectionMenu;

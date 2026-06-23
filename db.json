@@ -362,6 +362,28 @@
               }
             ]
           }
+        },
+        {
+          "id": "section-ee625987-11a4-4b29-80f8-3e06fdcfa28c",
+          "type": "footer",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "socialLinks": [
+              {
+                "icon": "/icons/Instagram-icon.svg",
+                "url": "https://instagram.com"
+              },
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com"
+              },
+              {
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
+              }
+            ],
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
+          }
         }
       ],
       "id": "TxSj51uWnzw"
