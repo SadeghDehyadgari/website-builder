@@ -157,12 +157,6 @@ const PageBuilder = () => {
           message="خطا در بارگذاری صفحه"
           onRetry={() => refetch()}
         />
-        <button
-          onClick={() => navigate("/admin")}
-          className={styles.backButton}
-        >
-          بازگشت به داشبورد
-        </button>
       </div>
     );
   return (

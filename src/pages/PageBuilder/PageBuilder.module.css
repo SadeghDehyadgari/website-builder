@@ -300,3 +300,31 @@
     padding: 0.4rem 0.7rem;
   }
 }
+
+/* [NEW] Small mobile screens (≤480px) - reduce header button sizes */
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .header h1 {
+    font-size: 1rem;
+  }
+
+  .backButton,
+  .saveBtn,
+  .previewBtn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    height: 32px;
+  }
+
+  .headerActions {
+    gap: 0.5rem;
+  }
+
+  .unsavedBadge {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+  }
+}
