@@ -17,13 +17,10 @@ const PageBuilder = () => {
   const navigate = useNavigate();
   const { selectedSectionId, selectSection, clearSelection } =
     useBuilderStore();
-
   const { data: page, isLoading, error, refetch } = usePage({ id: pageId });
   const updateSectionsMutation = useUpdatePageSections();
-
   const [sections, setSections] = useState(page?.sections || []);
   const [isDirty, setIsDirty] = useState(false);
-
   // [FIX] Adjusting state during rendering (React Best Practice)
   const [lastSyncedPageId, setLastSyncedPageId] = useState(page?.id);
   if (page?.id && page.id !== lastSyncedPageId) {
@@ -31,9 +28,7 @@ const PageBuilder = () => {
     setSections(page.sections || []);
     setIsDirty(false);
   }
-
   const blocker = useBlocker(isDirty);
-
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       if (isDirty) {
@@ -44,7 +39,6 @@ const PageBuilder = () => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [isDirty]);
-
   const handleSave = useCallback(() => {
     updateSectionsMutation.mutate(
       { pageId, sections },
@@ -59,12 +53,10 @@ const PageBuilder = () => {
       },
     );
   }, [pageId, sections, updateSectionsMutation]);
-
   const handleAddSection = (newSection) => {
     setSections((prev) => [...prev, newSection]);
     setIsDirty(true);
   };
-
   const handleUpdateSectionProps = (sectionId, newProps) => {
     setSections((prev) =>
       prev.map((sec) =>
@@ -73,20 +65,17 @@ const PageBuilder = () => {
     );
     setIsDirty(true);
   };
-
   const handleDeleteSection = (sectionId) => {
     setSections((prev) => prev.filter((sec) => sec.id !== sectionId));
     setIsDirty(true);
     if (selectedSectionId === sectionId) clearSelection();
   };
-
   const moveSection = (index, direction) => {
     if (
       (direction === "up" && index === 0) ||
       (direction === "down" && index === sections.length - 1)
     )
       return;
-
     setSections((prev) => {
       const newSections = [...prev];
       const target = direction === "up" ? index - 1 : index + 1;
@@ -98,7 +87,6 @@ const PageBuilder = () => {
     });
     setIsDirty(true);
   };
-
   const renderSectionWithControls = (section, idx) => {
     const entry = getSection(section.type);
     if (!entry) {
@@ -156,14 +144,12 @@ const PageBuilder = () => {
       </div>
     );
   };
-
   if (isLoading)
     return (
       <div className={styles.loadingContainer}>
         <LoadingSpinner />
       </div>
     );
-
   if (error || !page)
     return (
       <div className={styles.errorContainer}>
@@ -179,7 +165,6 @@ const PageBuilder = () => {
         </button>
       </div>
     );
-
   return (
     <div className={styles.pageBuilder}>
       <header className={styles.header}>
@@ -187,7 +172,6 @@ const PageBuilder = () => {
           <h1>ویرایشگر صفحه: {page.name}</h1>
           {isDirty && <span className={styles.unsavedBadge}>ذخیره نشده *</span>}
         </div>
-
         <div className={styles.headerActions}>
           <button
             onClick={() => navigate("/admin")}
@@ -195,7 +179,6 @@ const PageBuilder = () => {
           >
             داشبورد
           </button>
-
           <button
             onClick={handleSave}
             className={`${styles.saveBtn} ${isDirty ? styles.dirty : ""}`}
@@ -207,6 +190,18 @@ const PageBuilder = () => {
               "ذخیره تغییرات"
             )}
           </button>
+          {/* [NEW] Preview button opens public view in a new tab */}
+          {/* Using <a> tag instead of <button> for semantic HTML and better UX */}
+          {/* target="_blank" preserves builder context (scroll position, selected section, open panel) */}
+          {/* rel="noopener noreferrer" for security (prevents new tab from accessing window.opener) */}
+          <a
+            href={`/${page.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.previewBtn}
+          >
+            پیش‌نمایش
+          </a>
         </div>
       </header>
 
@@ -257,5 +252,4 @@ const PageBuilder = () => {
     </div>
   );
 };
-
 export default PageBuilder;

@@ -50,15 +50,26 @@
   gap: 1rem;
 }
 
-.backButton {
-  background-color: #64748b;
-  color: white;
+/* [UPDATED] Shared base styles for all header buttons (DRY principle) */
+.backButton,
+.saveBtn,
+.previewBtn {
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.875rem;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0.6rem 1.2rem;
+}
+
+.backButton {
+  background-color: #64748b;
+  color: white;
 }
 
 .backButton:hover {
@@ -68,18 +79,9 @@
 .saveBtn {
   background-color: #9ca3af;
   color: white;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 500;
   cursor: not-allowed;
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   min-width: 120px;
-  height: 38px;
+  padding: 0.6rem 1.5rem;
 }
 
 .saveBtn.dirty {
@@ -90,11 +92,22 @@
 
 .saveBtn.dirty:hover:not(:disabled) {
   background-color: #059669;
-  transform: translateY(-1px);
 }
 
 .saveBtn:disabled {
   opacity: 0.8;
+}
+
+/* [NEW] Preview button with orange color from CSS variables */
+/* Using <a> tag styled as button for opening in new tab */
+.previewBtn {
+  background-color: var(--color-primary-orange);
+  color: white;
+  text-decoration: none;
+}
+
+.previewBtn:hover {
+  background-color: #e06b01;
 }
 
 .content {
