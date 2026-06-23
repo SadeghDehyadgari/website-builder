@@ -1,23 +1,23 @@
 import { useState } from "react";
-
 /**
- * FeaturesEditor — settings form for the Features section.
- *
- * Handles a dynamic list of feature items (add / remove / edit).
- *
- * @param {Object}   props.sectionProps  - current Features props
- * @param {Function} props.onChange      - called with full updated props object
- */
-function FeaturesEditor({ sectionProps, onChange }) {
+FeaturesEditor — settings form for the Features section.
+Handles a dynamic list of feature items (add / remove / edit).
+// [FIXED] Changed prop name from 'sectionProps' to 'props' to match SectionSettingsPanel
+// This fixes the "Cannot read properties of undefined" error
+@param {Object}   props.props  - current Features props
+@param {Function} props.onChange      - called with full updated props object
+*/
+function FeaturesEditor({ props, onChange }) {
+  // [FIXED] Changed 'sectionProps' to 'props' throughout the component
   function handleTopLevelChange(field, value) {
-    onChange({ ...sectionProps, [field]: value });
+    onChange({ ...props, [field]: value });
   }
 
   function handleItemChange(index, field, value) {
-    const updatedItems = sectionProps.items.map((item, i) =>
+    const updatedItems = props.items.map((item, i) =>
       i === index ? { ...item, [field]: value } : item,
     );
-    onChange({ ...sectionProps, items: updatedItems });
+    onChange({ ...props, items: updatedItems });
   }
 
   function addItem() {
@@ -27,33 +27,32 @@ function FeaturesEditor({ sectionProps, onChange }) {
       title: "ویژگی جدید", // CHANGED: Persian default
       description: "توضیح این ویژگی.", // CHANGED
     };
-    onChange({ ...sectionProps, items: [...sectionProps.items, newItem] });
+    onChange({ ...props, items: [...props.items, newItem] });
   }
 
   function removeItem(index) {
-    const updatedItems = sectionProps.items.filter((_, i) => i !== index);
-    onChange({ ...sectionProps, items: updatedItems });
+    const updatedItems = props.items.filter((_, i) => i !== index);
+    onChange({ ...props, items: updatedItems });
   }
 
   return (
     <div>
       {/* Top-level fields - CHANGED: Persian labels */}
       <Field
-        label="عنوان بخش"
-        value={sectionProps.title}
+        label="عنوان بخش "
+        value={props.title}
         onChange={(v) => handleTopLevelChange("title", v)}
       />
       <Field
-        label="متن دکمه CTA"
-        value={sectionProps.ctaText}
+        label="متن دکمه CTA "
+        value={props.ctaText}
         onChange={(v) => handleTopLevelChange("ctaText", v)}
       />
       <Field
-        label="لینک CTA"
-        value={sectionProps.ctaLink}
+        label="لینک CTA "
+        value={props.ctaLink}
         onChange={(v) => handleTopLevelChange("ctaLink", v)}
       />
-
       <p
         style={{
           fontSize: "0.8rem",
@@ -65,14 +64,14 @@ function FeaturesEditor({ sectionProps, onChange }) {
         آیتم‌های ویژگی‌ها
       </p>
 
-      {sectionProps.items.map((item, index) => (
+      {props.items.map((item, index) => (
         <ItemEditor
           key={item.id}
           item={item}
           index={index}
           onChange={handleItemChange}
           onRemove={removeItem}
-          isRemovable={sectionProps.items.length > 1}
+          isRemovable={props.items.length > 1}
         />
       ))}
 
@@ -86,7 +85,6 @@ function FeaturesEditor({ sectionProps, onChange }) {
 // ---------------------------------------------------------------------------
 // Private sub-components
 // ---------------------------------------------------------------------------
-
 function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -107,7 +105,7 @@ function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
                 onRemove(index);
               }}
               style={removeButtonStyle}
-              title="حذف مورد"
+              title="حذف مورد "
             >
               ✕
             </button>
@@ -118,17 +116,17 @@ function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
       {isOpen && (
         <div style={{ padding: "0.5rem 0.75rem 0.75rem" }}>
           <Field
-            label="آیکون (Emoji)"
+            label="آیکون (Emoji) "
             value={item.icon}
             onChange={(v) => onChange(index, "icon", v)}
           />
           <Field
-            label="عنوان"
+            label="عنوان "
             value={item.title}
             onChange={(v) => onChange(index, "title", v)}
           />
           <Field
-            label="توضیحات"
+            label="توضیحات "
             value={item.description}
             onChange={(v) => onChange(index, "description", v)}
             multiline

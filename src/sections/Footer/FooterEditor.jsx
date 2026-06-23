@@ -1,12 +1,12 @@
 // FooterEditor - settings panel for editing footer props
-
+// [FIXED] Changed prop name from 'sectionProps' to 'props' to match SectionSettingsPanel
+// [FIXED] Changed onChange calls to pass full props object instead of field name + value
 /**
- * Helper component to edit a single social link item
- */
+Helper component to edit a single social link item
+*/
 function SocialLinkItem({ item, index, onChange, onRemove }) {
   const handleIconChange = (e) => onChange(index, "icon", e.target.value);
   const handleUrlChange = (e) => onChange(index, "url", e.target.value);
-
   return (
     <div
       style={{
@@ -16,7 +16,7 @@ function SocialLinkItem({ item, index, onChange, onRemove }) {
       }}
     >
       <div>
-        <label>آیکون (مسیر):</label>
+        <label>آیکون (مسیر): </label>
         <input
           type="text"
           value={item.icon || ""}
@@ -26,7 +26,7 @@ function SocialLinkItem({ item, index, onChange, onRemove }) {
         />
       </div>
       <div>
-        <label>آدرس لینک:</label>
+        <label>آدرس لینک: </label>
         <input
           type="url"
           value={item.url || ""}
@@ -42,39 +42,40 @@ function SocialLinkItem({ item, index, onChange, onRemove }) {
   );
 }
 
-function FooterEditor({ sectionProps, onChange }) {
-  const { logo = "", socialLinks = [], copyrightText = "" } = sectionProps;
+function FooterEditor({ props, onChange }) {
+  // [FIXED] Changed 'sectionProps' to 'props'
+  const { logo = "", socialLinks = [], copyrightText = "" } = props;
 
+  // [FIXED] Changed onChange calls to pass full props object
   const handleLogoChange = (e) => {
-    onChange("logo", e.target.value);
+    onChange({ ...props, logo: e.target.value });
   };
 
   const handleCopyrightChange = (e) => {
-    onChange("copyrightText", e.target.value);
+    onChange({ ...props, copyrightText: e.target.value });
   };
 
   const handleSocialLinkChange = (index, field, value) => {
     const updated = [...socialLinks];
     updated[index] = { ...updated[index], [field]: value };
-    onChange("socialLinks", updated);
+    onChange({ ...props, socialLinks: updated });
   };
 
   const addSocialLink = () => {
     const newLink = { icon: "", url: "" };
-    onChange("socialLinks", [...socialLinks, newLink]);
+    onChange({ ...props, socialLinks: [...socialLinks, newLink] });
   };
 
   const removeSocialLink = (index) => {
     const updated = socialLinks.filter((_, i) => i !== index);
-    onChange("socialLinks", updated);
+    onChange({ ...props, socialLinks: updated });
   };
 
   return (
     <div style={{ padding: "1rem" }}>
       <h3>ویرایش فوتر</h3>
-
       <div style={{ marginBottom: "1rem" }}>
-        <label>لوگو (آدرس تصویر):</label>
+        <label>لوگو (آدرس تصویر): </label>
         <input
           type="text"
           value={logo}
@@ -85,7 +86,7 @@ function FooterEditor({ sectionProps, onChange }) {
       </div>
 
       <div style={{ marginBottom: "1rem" }}>
-        <label>متن کپی‌رایت:</label>
+        <label>متن کپی‌رایت: </label>
         <textarea
           value={copyrightText}
           onChange={handleCopyrightChange}
@@ -96,7 +97,7 @@ function FooterEditor({ sectionProps, onChange }) {
       </div>
 
       <div>
-        <label>شبکه‌های اجتماعی:</label>
+        <label>شبکه‌های اجتماعی: </label>
         {socialLinks.map((item, idx) => (
           <SocialLinkItem
             key={idx}

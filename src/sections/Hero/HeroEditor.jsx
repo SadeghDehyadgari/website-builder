@@ -1,46 +1,47 @@
 /**
- * HeroEditor — settings form for the Hero section.
- *
- * Receives current props and an onChange callback.
- * Command pattern: onChange(updatedProps) — caller decides what to do with the update.
- * Single Responsibility: collect user input for Hero props only.
- * UPDATED: Removed subtitle field.
- *
- * @param {Object}   props.sectionProps  - current Hero props
- * @param {Function} props.onChange      - called with the full updated props object
- */
-function HeroEditor({ sectionProps, onChange }) {
+HeroEditor — settings form for the Hero section.
+Receives current props and an onChange callback.
+Command pattern: onChange(updatedProps) — caller decides what to do with the update.
+Single Responsibility: collect user input for Hero props only.
+UPDATED: Removed subtitle field.
+// [FIXED] Changed prop name from 'sectionProps' to 'props' to match SectionSettingsPanel
+// This fixes the "Cannot read properties of undefined (reading 'title')" error
+@param {Object}   props.props  - current Hero props
+@param {Function} props.onChange      - called with the full updated props object
+*/
+function HeroEditor({ props, onChange }) {
+  // [FIXED] Changed 'sectionProps' to 'props' throughout the component
   function handleFieldChange(field, value) {
-    onChange({ ...sectionProps, [field]: value });
+    onChange({ ...props, [field]: value });
   }
 
   return (
     <div>
       {/* CHANGED: Persian labels, no subtitle */}
       <Field
-        label="عنوان"
-        value={sectionProps.title}
+        label="عنوان "
+        value={props.title}
         onChange={(v) => handleFieldChange("title", v)}
       />
       <Field
-        label="توضیحات"
-        value={sectionProps.description}
+        label="توضیحات "
+        value={props.description}
         onChange={(v) => handleFieldChange("description", v)}
         multiline
       />
       <Field
-        label="آدرس تصویر"
-        value={sectionProps.image}
+        label="آدرس تصویر "
+        value={props.image}
         onChange={(v) => handleFieldChange("image", v)}
       />
       <Field
-        label="متن دکمه CTA"
-        value={sectionProps.ctaText}
+        label="متن دکمه CTA "
+        value={props.ctaText}
         onChange={(v) => handleFieldChange("ctaText", v)}
       />
       <Field
-        label="لینک دکمه CTA"
-        value={sectionProps.ctaLink}
+        label="لینک دکمه CTA "
+        value={props.ctaLink}
         onChange={(v) => handleFieldChange("ctaLink", v)}
       />
     </div>
@@ -50,7 +51,6 @@ function HeroEditor({ sectionProps, onChange }) {
 // ---------------------------------------------------------------------------
 // Private helper (unchanged)
 // ---------------------------------------------------------------------------
-
 function Field({ label, value, onChange, multiline = false }) {
   const inputStyle = {
     width: "100%",
