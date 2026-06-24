@@ -1,0 +1,101 @@
+/* src/components/AddSectionMenu/AddSectionMenu.module.css */
+/* [NEW] Dropdown menu styles with 2-column grid */
+/* Replaces the always-visible list for better space efficiency */
+
+.container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+/* [NEW] Trigger button - dashed border to indicate "add" action */
+.trigger {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s;
+}
+
+.trigger:hover {
+  border-color: #3b82f6;
+  background: #f9fafb;
+}
+
+/* [NEW] Chevron icon with rotation animation */
+.chevron {
+  transition: transform 0.2s;
+  font-size: 0.7rem;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* [NEW] Dropdown container - positioned absolutely below trigger */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 0.75rem;
+  animation: slideDown 0.2s ease-out;
+}
+
+/* [NEW] Smooth slide-down animation for better UX */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* [NEW] 2-column grid for section options */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+/* [NEW] Individual option button */
+.option {
+  padding: 0.6rem 0.75rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #374151;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.option:hover {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+/* [NEW] Responsive: single column on very small screens */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

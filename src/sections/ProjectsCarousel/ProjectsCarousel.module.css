@@ -1,0 +1,264 @@
+/* src/sections/ProjectsCarousel/ProjectsCarousel.module.css */
+/* [EXISTING] Refined styles for ProjectsCarousel */
+.container {
+  position: relative;
+  background-color: #ffffff;
+  padding: 2rem 1.5rem 3rem;
+  direction: rtl;
+  overflow: hidden;
+}
+
+.decorTopLeft {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 200px;
+  height: 200px;
+  background-image: url("/images/green-dots.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorBottomRight {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 200px;
+  height: 200px;
+  background-image: url("/images/green-ellipse.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  color: var(--color-text-normal, #2f4858);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.carouselCard {
+  position: relative;
+  background: #ffffff;
+  border-radius: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 1rem;
+  max-width: 80%;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.carousel {
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.slideContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem;
+  min-height: 280px;
+}
+
+.imageColumn {
+  flex: 0 0 45%;
+  max-width: 45%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mockupImage {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.phonesDecoration {
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+  width: 60px;
+  height: auto;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.infoColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: right;
+}
+
+.projectLogo {
+  width: 10rem;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0.25rem;
+}
+
+.projectTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0;
+}
+
+.projectDescription {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--color-text-muted, #5c6a63);
+  background: #ffffff;
+  color: var(--color-text-muted, #5c6a63);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.arrowButton:hover:not(:disabled) {
+  background: rgba(30, 169, 101, 0.06);
+  border-color: var(--color-primary-green, #1ea965);
+  color: var(--color-primary-green, #1ea965);
+}
+
+.arrowButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.arrowPrev {
+  right: -5rem;
+}
+
+.arrowNext {
+  left: -5rem;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d1d5db;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dotActive {
+  width: 28px;
+  border-radius: 20px;
+  background: var(--color-primary-green, #1ea965);
+}
+
+/* [REMOVED] Editor styles (.editorContainer, .editorField, .addButton, .itemEditor, .itemHeader, .removeButton, .itemFields) 
+   moved to src/styles/editor-shared.module.css to adhere to DRY principle. */
+
+/* [EXISTING] Responsive adjustments */
+@media (max-width: 992px) {
+  .slideContent {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .imageColumn {
+    flex: 1 1 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+  .mockupImage {
+    max-height: 200px;
+  }
+  .infoColumn {
+    width: 100%;
+  }
+  .arrowPrev {
+    right: 4px;
+  }
+  .arrowNext {
+    left: 4px;
+  }
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+  .carouselCard {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1.5rem 0.75rem 2rem;
+  }
+  .sectionTitle {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  .carouselCard {
+    padding: 1rem 0.5rem;
+    border-radius: 1.5rem;
+  }
+  .projectTitle {
+    font-size: 1.1rem;
+  }
+  .projectDescription {
+    font-size: 0.85rem;
+  }
+  .arrowButton {
+    display: none;
+  }
+  .phonesDecoration {
+    width: 40px;
+    bottom: -5px;
+    left: -5px;
+  }
+  .decorTopLeft {
+    background-position: -6rem -8rem;
+  }
+  .projectlogo {
+    width: 5rem;
+  }
+}

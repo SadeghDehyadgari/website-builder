@@ -1,0 +1,188 @@
+/* src/sections/LogosStrip/LogosStrip.module.css */
+/* UPDATED: Added scoped overrides for Carousel without affecting other carousels */
+
+.logosStrip {
+  width: 100%;
+  padding: 2rem 1rem;
+  background-color: var(--color-white, #ffffff);
+  direction: rtl;
+}
+
+/* Grid mode container – uses flex for centering */
+.gridContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  overflow: hidden;
+  padding: 0.5rem 0;
+}
+
+/* Individual logo item – fixed size, centered */
+.logoItem {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.logoImage {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(20%);
+  transition: filter 0.3s ease;
+}
+
+.logoImage:hover {
+  filter: grayscale(0%);
+}
+
+/* ============================================ */
+/* Carousel overrides – scoped to .logosCarousel */
+/* ============================================ */
+.logosCarousel {
+  --slide-size: 20%;
+  --slide-spacing: 0px;
+}
+
+/* Override slideList margin */
+.logosCarousel :global(.slideList) {
+  margin-left: 0;
+}
+
+/* Override each slide – remove padding and set fixed width */
+.logosCarousel :global(.slide) {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adjust the wrapper inside slide (if needed) */
+.logosCarousel :global(.slide) > * {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ensure the logoItem inside carousel also has proper styling */
+.logosCarousel .logoItem {
+  margin: 0 auto;
+  width: 120px;
+  height: 70px;
+  padding: 0;
+}
+
+/* Editor styles (unchanged) */
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.editorTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-normal, #2f4858);
+  margin: 0 0 0.5rem 0;
+}
+
+.addForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border-light, #e0e0e0);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary-green, #1ea965);
+  background: #ffffff;
+}
+
+.addButton {
+  padding: 0.5rem 1.2rem;
+  background: var(--color-primary-green, #1ea965);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.addButton:hover {
+  background: #158c4e;
+}
+
+.logoItemEditor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.logoItemEditor .input {
+  flex: 1 1 150px;
+}
+
+.removeButton {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  transition: transform 0.2s;
+}
+
+.removeButton:hover {
+  transform: scale(1.2);
+}
+
+.emptyMessage {
+  color: var(--color-text-muted, #5c6a63);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logosCarousel {
+    --slide-size: 100%;
+  }
+
+  .gridContainer {
+    gap: 2rem;
+  }
+  .logoItem {
+    width: 80px;
+    height: 50px;
+  }
+  .logosStrip {
+    padding: 1.5rem 0.5rem;
+  }
+}

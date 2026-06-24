@@ -1,0 +1,24 @@
+/* Global CSS variables for consistent theming */
+:root {
+  /* Colors */
+  --color-bg: #fdfdfd;
+  --color-primary-green: #1ea965;
+  --color-primary-orange: #fb7a01;
+  --color-icon-green: #157647;
+  --color-text-normal: #2f4858;
+  --color-text-muted: #5c6a63;
+  --color-border-light: #e0e0e0;
+  --color-white: #ffffff;
+
+  /* Font sizes */
+  --font-size-logo: 1.5rem;
+  --font-size-copyright: 0.875rem;
+  --font-size-normal: 1rem;
+  --font-size-large: 1.75rem;
+
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --spacing-xlarge: 3rem;
+}

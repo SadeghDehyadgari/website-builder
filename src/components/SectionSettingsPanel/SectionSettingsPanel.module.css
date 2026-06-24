@@ -1,0 +1,78 @@
+/* src/components/SectionSettingsPanel/SectionSettingsPanel.module.css */
+/* [NEW] CSS Module for SectionSettingsPanel with responsive design */
+/* Replaces inline styles for better maintainability and media query support */
+
+/* [NEW] Base panel styles - fixed positioning for desktop */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  z-index: 9999;
+  transform: translateX(100%);
+}
+
+/* [NEW] Open state - slide in from right */
+.panel.open {
+  transform: translateX(0);
+}
+
+/* [NEW] Panel header with title and close button */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111827;
+}
+
+/* [NEW] Close button with hover effect */
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #6b7280;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.closeBtn:hover {
+  background: #e5e7eb;
+}
+
+/* [NEW] Scrollable content area */
+.content {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* [NEW] Empty state text */
+.emptyText {
+  color: #9ca3af;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* [NEW] Mobile responsive - full width overlay */
+@media (max-width: 768px) {
+  .panel {
+    width: 100vw;
+    max-width: 100%;
+  }
+}

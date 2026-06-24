@@ -1,0 +1,64 @@
+/* src/sections/Process/Process.module.css */
+/* NEW: Styles for Process section */
+
+.container {
+  padding: var(--spacing-xlarge) var(--spacing-large);
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  direction: rtl;
+}
+
+.title {
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  color: var(--color-text-normal);
+  margin-bottom: var(--spacing-medium);
+}
+
+.description {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  color: var(--color-text-muted);
+  max-width: 700px;
+  margin: 0 auto var(--spacing-large);
+  line-height: 1.8;
+}
+
+.ctaWrapper {
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.imageWrapper {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.imageWrapper picture {
+  display: block;
+  width: 100%;
+}
+
+.imageWrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-large) var(--spacing-medium);
+  }
+  .title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  .description {
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-large);
+  }
+  .ctaWrapper {
+    margin-bottom: var(--spacing-large);
+  }
+}

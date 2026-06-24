@@ -1,0 +1,146 @@
+/* src/components/Carousel/Carousel.module.css */
+/* [UPDATED] Added .fullWidth class to make slides take full width with no padding/margin */
+.carouselContainer {
+  --slide-spacing: 16px;
+  --slide-size: 60%;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slideList {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding: 1rem 8px;
+  box-sizing: border-box;
+}
+
+/* Arrows */
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.arrowButton:hover {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.arrowPrev {
+  left: 10px;
+}
+
+.arrowNext {
+  right: 10px;
+}
+
+/* RTL support: swap arrow positions */
+.carouselContainer[dir="rtl"] .arrowPrev {
+  left: auto;
+  right: 10px;
+}
+
+.carouselContainer[dir="rtl"] .arrowNext {
+  right: auto;
+  left: 10px;
+}
+
+/* Dots */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #d0d0d0;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  padding: 0;
+}
+
+.dot:hover {
+  background: #b0b0b0;
+}
+
+.dotActive {
+  background: var(--color-primary-green, #1ea965);
+  transform: scale(1.2);
+}
+
+/* NEW: Full-width mode for single-slide carousels (e.g., ProjectsCarousel) */
+.fullWidth {
+  --slide-size: 100%;
+}
+
+.fullWidth .slideList {
+  margin-left: 0;
+}
+
+.fullWidth .slide {
+  padding: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carouselContainer {
+    --slide-size: 100%; /* Mobile: each slide takes full width */
+  }
+
+  /* On mobile, fullWidth should also be 100% (already) */
+  .fullWidth {
+    --slide-size: 100%;
+  }
+
+  .arrowButton {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+
+  .arrowPrev {
+    left: 4px;
+  }
+
+  .arrowNext {
+    right: 4px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}

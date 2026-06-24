@@ -1,3 +1,425 @@
 {
-  "pages": []
+  "pages": [
+    {
+      "id": "1",
+      "name": "Home",
+      "slug": "home",
+      "sections": [
+        {
+          "id": "section-0-header",
+          "type": "Header",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "links": [
+              {
+                "id": "link-1",
+                "label": "صفحه اصلی",
+                "slug": "home"
+              },
+              {
+                "id": "link-2",
+                "label": "خدمات",
+                "slug": "/services"
+              },
+              {
+                "id": "link-3",
+                "label": "درباره ما",
+                "slug": "/about"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-1-hero",
+          "type": "Hero",
+          "props": {
+            "title": "طراحی وب‌سایت حرفه‌ای",
+            "description": "با تیم متخصص کاریار، وب‌سایتی بسازید که دیده شوید. تجربه کاربری مدرن، ریسپانسیو و بهینه برای موتورهای جستجو.",
+            "image": "/images/hero.svg",
+            "ctaText": "شروع کنید بیایید",
+            "ctaLink": "/contact"
+          }
+        },
+        {
+          "id": "section-2-features",
+          "type": "Features",
+          "props": {
+            "title": "کاریار استودیو، جایی که ایده‌ها به تجربه تبدیل می‌شوند.",
+            "items": [
+              {
+                "id": "f1",
+                "icon": "/icons/card1.svg",
+                "title": "طراحی وب‌سایت حرفه‌ای",
+                "description": "طراحی اختصاصی با React، فریمورک‌های مدرن و تجربه کاربری عالی"
+              },
+              {
+                "id": "f2",
+                "icon": "/icons/card2.svg",
+                "title": "طراحی محصول",
+                "description": "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking"
+              }
+            ],
+            "ctaText": "سلام ",
+            "ctaLink": "/services"
+          }
+        },
+        {
+          "id": "section-2-6-process",
+          "type": "Process",
+          "props": {
+            "title": "روند تبدیل ایده به محصول",
+            "description": "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
+            "ctaText": "شروع کنید",
+            "ctaLink": "#",
+            "desktopImage": "/images/process.svg",
+            "mobileImage": "/images/process-mobile.svg",
+            "alt": "روند تبدیل ایده به محصول"
+          }
+        },
+        {
+          "id": "section-2-7-banner",
+          "type": "Banner",
+          "props": {
+            "title": "آماده‌اید تا پروژه‌تان را به سطح بعدی ببرید؟",
+            "ctaText": "درخواست مشاوره",
+            "ctaLink": "/contact",
+            "backgroundImage": "/images/banner.png"
+          }
+        },
+        {
+          "id": "section-2-5-logos",
+          "type": "LogosStrip",
+          "props": {
+            "logos": [
+              {
+                "id": "logo-1",
+                "imageUrl": "/logos/digikala-logo.svg",
+                "alt": "دیجیکالا"
+              },
+              {
+                "id": "logo-2",
+                "imageUrl": "/logos/karyar-logo.svg",
+                "alt": "کاریار"
+              },
+              {
+                "id": "logo-3",
+                "imageUrl": "/logos/divar-logo.svg",
+                "alt": "دیوار"
+              },
+              {
+                "id": "logo-4",
+                "imageUrl": "/logos/sam-pars-logo.svg",
+                "alt": "سام پارس"
+              },
+              {
+                "id": "logo-5",
+                "imageUrl": "/logos/akeep.svg",
+                "alt": "aKeep"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-3-projects",
+          "type": "ProjectsCarousel",
+          "props": {
+            "title": "پروژه‌های اخیر",
+            "autoplayInterval": 5000,
+            "slides": [
+              {
+                "id": "p1",
+                "logo": "/logos/digikala.svg",
+                "title": "اپلیکیشن ماکاپ‌های پولی",
+                "description": "طراحی یک اپلیکیشن حرفه‌ای برای دریافت ماکاپ‌های پرمیوم.\nتمرکز بر تجربه کاربری روان، دسته‌بندی هوشمند و ارائه محتوای اختصاصی با کیفیت بالا.\nاشاره به دسترسی راحت و مطمئن طراحان به منابع پولی و حرفه‌ای.",
+                "image": "/images/laptop.svg"
+              },
+              {
+                "id": "p2",
+                "logo": "/logos/karyar.svg",
+                "title": "سایت رسمی کاریار",
+                "description": "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا.\nپیاده‌سازی سیستم builder اختصاصی برای مدیریت محتوا.",
+                "image": "/images/laptop2.svg"
+              },
+              {
+                "id": "p3",
+                "logo": "/logos/akeep.svg",
+                "title": "مدیریت رمزهای عبور aKeep",
+                "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
+                "image": "/images/phones.svg"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-3-5-team",
+          "type": "TeamCarousel",
+          "props": {
+            "title": "افرادی که به کاریار معنی می‌دهند",
+            "description": "تیم متخصص و خلاق ما در کنار شماست",
+            "members": [
+              {
+                "id": "tm1",
+                "avatar": "/avatars/aida.png",
+                "name": "آیدا کریمی",
+                "role": "طراح ارشد UI/UX"
+              },
+              {
+                "id": "tm2",
+                "avatar": "/avatars/farnoosh.png",
+                "name": "فرنوش عباسی",
+                "role": "توسعه‌دهنده فرانت‌اند"
+              },
+              {
+                "id": "tm3",
+                "avatar": "/avatars/kian.png",
+                "name": "کیان رضایی",
+                "role": "مدیر پروژه"
+              },
+              {
+                "id": "tm4",
+                "avatar": "/avatars/mahtab.png",
+                "name": "مهتاب احمدی",
+                "role": "توسعه‌دهنده بک‌اند"
+              },
+              {
+                "id": "tm5",
+                "avatar": "/avatars/saman.png",
+                "name": "سامان نصیری",
+                "role": "متخصص DevOps"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-4-testimonials",
+          "type": "Testimonials",
+          "props": {
+            "title": "نظرات مشتریان",
+            "description": "آنچه مشتریان ما می‌گویند",
+            "autoplayInterval": 5000,
+            "items": [
+              {
+                "id": "t1",
+                "avatar": "/avatars/avatar-1.png",
+                "name": "احمد رضایی",
+                "role": "مدیرعامل استارتاپ A",
+                "quote": "تیم کاریار فراتر از انتظار ما عمل کرد. تحویل به موقع و کیفیت عالی."
+              },
+              {
+                "id": "t2",
+                "avatar": "/avatars/avatar-2.png",
+                "name": "سارا کریمی",
+                "role": "مدیر بازاریابی دیجی‌کالا",
+                "quote": "طراحی حرفه‌ای و پشتیبانی فوق‌العاده. همکاری با کاریار یک تجربه لذت‌بخش بود."
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-5-footer",
+          "type": "Footer",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "socialLinks": [
+              {
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
+              },
+              {
+                "icon": "/icons/Instagram-icon.svg",
+                "url": "https://instagram.com/karyar.studio"
+              },
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com/company/karyar-studio"
+              }
+            ],
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
+          }
+        }
+      ]
+    },
+    {
+      "name": "درباره ما",
+      "slug": "about",
+      "sections": [
+        {
+          "id": "section-npfxksowp6l52780o5s49",
+          "type": "header",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "links": [
+              {
+                "id": "link-1",
+                "label": "صفحه اصلی",
+                "slug": "/"
+              },
+              {
+                "id": "link-2",
+                "label": "خدمات",
+                "slug": "/services"
+              },
+              {
+                "id": "link-3",
+                "label": "درباره ما",
+                "slug": "/about"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-82cc7d4a-a823-4592-ac9f-28cfe3603403",
+          "type": "testimonials",
+          "props": {
+            "title": "تجربه همکاری از نگاه مشتریان",
+            "description": "بخشی از تجربه کسانی که مسیر ساخت محصولاتشان را با ما شروع کردند.",
+            "items": [
+              {
+                "id": "t1",
+                "avatar": "/avatars/avatar-1.png",
+                "name": "علی محمدی",
+                "role": "مدیر محصول در شرکت فناوری",
+                "quote": "کار با استودیو تیمی دقیق و قابل اعتماد. توی هر مرحله از پروژه، مسئله رو درست فهمیدن و برای ما یه مسیر واضح و قابل اجرا ساختن..."
+              },
+              {
+                "id": "t2",
+                "avatar": "/avatars/avatar-2.png",
+                "name": "سارا حسینی",
+                "role": "طراح کافه بازار",
+                "quote": "طراحی‌های فوق‌العاده و تیم بسیار حرفه‌ای. همکاری با کاریار استودیو یکی از بهترین تجربه‌های کاری من بود."
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-c54a82b9-22ea-4d96-ab16-15827609f4bd",
+          "type": "projectscarousel",
+          "props": {
+            "title": "پروژه‌هایی که برای ایجاد تجربه بهتر ساخته شده‌اند",
+            "autoplayInterval": 5000,
+            "slides": [
+              {
+                "id": "p1",
+                "logo": "/logos/digikala.svg",
+                "title": "سلام",
+                "description": "طراحی یک اپلیکیشن حرفه‌ای برای دریافت ماکاپ‌های پرمیوم.\nتمرکز بر تجربه کاربری روان، دسته‌بندی هوشمند و ارائه محتوای اختصاصی با کیفیت بالا.\nاشاره به دسترسی راحت و مطمئن طراحان به منابع پولی و حرفه‌ای.",
+                "image": "\\images\\hero.svg"
+              },
+              {
+                "id": "p2",
+                "logo": "/logos/karyar.svg",
+                "title": "سایت رسمی کاریار",
+                "description": "سایت رسمی کاریار با رویکرد ماژولار و قابلیت شخصی‌سازی بالا.\nپیاده‌سازی سیستم builder اختصاصی برای مدیریت محتوا.",
+                "image": "\\images\\hero.svg"
+              },
+              {
+                "id": "p3",
+                "logo": "/logos/akeep.svg",
+                "title": "مدیریت رمز عبور aKeep",
+                "description": "اپلیکیشن مدیریت رمزهای عبور با طراحی مینیمال و امنیت بالا.\nدریافت جایزه بهترین تجربه کاربری سال در جشنواره وب ایران.",
+                "image": "\\images\\hero.svg"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-d41ae15a-eff9-4255-8c9d-5fae3e53d172",
+          "type": "hero",
+          "props": {
+            "title": "عنوان شما اینجا قرار می‌گیرد",
+            "description": "توضیح کوتاهی درباره صفحه شما.",
+            "image": "",
+            "ctaText": "شروع کنید",
+            "ctaLink": "#"
+          }
+        },
+        {
+          "id": "section-dc3ddb25-73d1-4bdd-8b6d-afd62924b838",
+          "type": "teamcarousel",
+          "props": {
+            "title": "افرادی که به کاریار معنی می‌دهند",
+            "description": "تیم متخصص و خلاق ما در کنار شماست",
+            "members": [
+              {
+                "id": "tm3",
+                "avatar": "/avatars/kian.png",
+                "name": "کیان شلیله",
+                "role": "مدیر فنی"
+              },
+              {
+                "id": "tm5",
+                "avatar": "/avatars/saman.png",
+                "name": "سامان نصیری",
+                "role": "متخصص DevOps"
+              },
+              {
+                "id": "member-1782133521052",
+                "avatar": "/avatars/farnoosh.png",
+                "name": "فرنوش جمالی",
+                "role": "طراح UI/UX"
+              },
+              {
+                "id": "member-1782133577179",
+                "avatar": "/avatars/mahtab.png",
+                "name": "مهتاب فرجی",
+                "role": "مدیر پروژه"
+              },
+              {
+                "id": "member-1782133622321",
+                "avatar": "/avatars/aida.png",
+                "name": "آیدا هاشمی",
+                "role": "طراح سایت"
+              }
+            ]
+          }
+        },
+        {
+          "id": "section-ee625987-11a4-4b29-80f8-3e06fdcfa28c",
+          "type": "footer",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "socialLinks": [
+              {
+                "icon": "/icons/Instagram-icon.svg",
+                "url": "https://instagram.com"
+              },
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com"
+              },
+              {
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
+              }
+            ],
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
+          }
+        },
+        {
+          "id": "section-mcmif5aopm8lqo02m149f",
+          "type": "footer",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "socialLinks": [
+              {
+                "icon": "/icons/Instagram-icon.svg",
+                "url": "https://instagram.com"
+              },
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com"
+              },
+              {
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
+              }
+            ],
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
+          }
+        }
+      ],
+      "id": "TxSj51uWnzw"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
