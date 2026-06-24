@@ -1,7 +1,11 @@
-// Base API URL - change if using my-json-server or production
-const API_BASE_URL = "/api";
+// src/services/pagesApi.js
+// [NEW] Environment-based API URL configuration
+// - Development: local json-server (http://localhost:3001)
+// - Production: my-json-server.typicode.com (reads from GitHub repo)
+// - Fallback: "/api" for other environments
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
-// NEW: Timeout wrapper for fetch (default 10 seconds)
+// [NEW] Timeout wrapper for fetch (default 10 seconds)
 async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);

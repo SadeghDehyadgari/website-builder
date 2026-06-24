@@ -23,6 +23,13 @@ dist-ssr
 *.sln
 *.sw?
 
+# Local env files
+.env.local
+.env.*.local
+
+# Vercel
+.vercel
+
 # helper files
 project-context-prompt.md
 structure.txt
