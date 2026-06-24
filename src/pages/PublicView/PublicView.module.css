@@ -1,0 +1,36 @@
+/* src/pages/PublicView/PublicView.module.css */
+/* [NEW] Styles for PublicView page */
+
+/* [NEW] Shimmer/shine effect for admin link */
+.adminLink {
+  color: #6b7280;
+  background: linear-gradient(
+    90deg,
+    #6b7280 0%,
+    #6b7280 40%,
+    #ffffff 50%,
+    #6b7280 60%,
+    #6b7280 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.adminLink:hover {
+  animation-duration: 1.5s;
+}
+
+/* [NEW] Shine animation - gradient moves from right to left */
+@keyframes shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}

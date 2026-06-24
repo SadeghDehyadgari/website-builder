@@ -1,12 +1,14 @@
+// src/pages/PublicView/PublicView.jsx
 // NEW IMPLEMENTATION: Stage 8 - Public View
 // Renders pages by slug using PageRenderer in preview mode.
 // Uses usePage hook with slug parameter, LoadingSpinner, ErrorMessage.
-
 import { useParams, Link } from "react-router-dom";
 import { usePage } from "../../hooks/usePages";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import PageRenderer from "../../components/PageRenderer";
+// [NEW] Import CSS Module for styling
+import styles from "./PublicView.module.css";
 
 function PublicView() {
   // Get slug from URL params (e.g., "about" from "/about")
@@ -50,9 +52,11 @@ function PublicView() {
       {/* Public page content - sections rendered non-editable */}
       <PageRenderer sections={page.sections} isPreview={true} />
 
-      {/* Optional navigation links (kept from placeholder for convenience) */}
+      {/* [UPDATED] Optional navigation links with shine effect */}
       <div style={{ marginTop: "2rem", textAlign: "center" }}>
-        <Link to="/admin">🔧 ورود به پنل ادمین</Link>
+        <Link to="/admin" className={styles.adminLink}>
+          ورود به پنل ادمین
+        </Link>
       </div>
     </>
   );
