@@ -244,6 +244,30 @@
       "slug": "about",
       "sections": [
         {
+          "id": "section-npfxksowp6l52780o5s49",
+          "type": "header",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "links": [
+              {
+                "id": "link-1",
+                "label": "صفحه اصلی",
+                "slug": "/"
+              },
+              {
+                "id": "link-2",
+                "label": "خدمات",
+                "slug": "/services"
+              },
+              {
+                "id": "link-3",
+                "label": "درباره ما",
+                "slug": "/about"
+              }
+            ]
+          }
+        },
+        {
           "id": "section-82cc7d4a-a823-4592-ac9f-28cfe3603403",
           "type": "testimonials",
           "props": {
@@ -351,6 +375,28 @@
         },
         {
           "id": "section-ee625987-11a4-4b29-80f8-3e06fdcfa28c",
+          "type": "footer",
+          "props": {
+            "logo": "/logos/karyar-studio-logo.svg",
+            "socialLinks": [
+              {
+                "icon": "/icons/Instagram-icon.svg",
+                "url": "https://instagram.com"
+              },
+              {
+                "icon": "/icons/LinkedIn-icon.svg",
+                "url": "https://linkedin.com"
+              },
+              {
+                "icon": "/icons/WhatsApp-icon.svg",
+                "url": "https://wa.me/1234567890"
+              }
+            ],
+            "copyrightText": "تمام حقوق محتوای این سایت متعلق به شرکت کاریار استودیو است."
+          }
+        },
+        {
+          "id": "section-mcmif5aopm8lqo02m149f",
           "type": "footer",
           "props": {
             "logo": "/logos/karyar-studio-logo.svg",

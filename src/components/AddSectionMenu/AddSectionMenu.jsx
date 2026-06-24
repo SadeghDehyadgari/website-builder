@@ -5,6 +5,19 @@ import { useState, useRef, useEffect } from "react";
 import { getAllSectionTypes, getSection } from "../../sections/registry";
 import styles from "./AddSectionMenu.module.css";
 
+// [FIX] Fallback for crypto.randomUUID() in non-secure contexts (e.g., mobile browsers on HTTP)
+// crypto.randomUUID() only works in secure contexts (HTTPS or localhost)
+const generateSectionId = () => {
+  if (crypto && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  // Fallback: generate random ID using Math.random()
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};
+
 /**
  * AddSectionMenu - dropdown menu for adding new sections to the page
  * Command pattern: onAdd(newSection) - caller decides what to do with the new section
@@ -45,7 +58,7 @@ function AddSectionMenu({ onAdd }) {
     const entry = getSection(type);
     if (entry) {
       onAdd({
-        id: `section-${crypto.randomUUID()}`,
+        id: `section-${generateSectionId()}`, // [FIX] Use fallback function
         type,
         props: { ...entry.defaultProps },
       });
