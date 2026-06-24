@@ -1,12 +1,13 @@
 // src/services/pagesApi.js
-// [NEW] Environment-based API URL configuration
-// - Development: local json-server (http://localhost:3001)
-// - Production: my-json-server.typicode.com (reads from GitHub repo)
-// - Fallback: "/api" for other environments
-const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
-// [NEW] Timeout wrapper for fetch (default 10 seconds)
-async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+const MASTER_KEY = import.meta.env.VITE_JSONBIN_MASTER_KEY;
+
+// Environment detection based on MASTER_KEY presence
+const isJSONBin = () => !!MASTER_KEY;
+
+// Timeout wrapper for fetch (20 seconds for better mobile experience)
+async function fetchWithTimeout(resource, options = {}, timeout = 20000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -19,7 +20,6 @@ async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
   } catch (error) {
     clearTimeout(id);
     if (error.name === "AbortError") {
-      // Attach the original error as 'cause' to satisfy ESLint rule
       const timeoutError = new Error("درخواست با تاخیر مواجه شد (timeout)");
       timeoutError.cause = error;
       throw timeoutError;
@@ -28,9 +28,19 @@ async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
   }
 }
 
-/**
- * Generic fetch wrapper to handle errors and JSON parsing
- */
+// Retry wrapper for better reliability on slow networks
+async function fetchWithRetry(fetchFn, retries = 2, delay = 1000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fetchFn();
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
+// Generic fetch wrapper for REST API (json-server)
 async function fetchJson(endpoint, options = {}) {
   const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
     headers: { "Content-Type": "application/json", ...options.headers },
@@ -42,83 +52,150 @@ async function fetchJson(endpoint, options = {}) {
   return response.json();
 }
 
-// --- Page CRUD operations ---
+// JSONBin-specific fetch (Document Store - reads entire DB)
+async function fetchBinData() {
+  return fetchWithRetry(async () => {
+    const response = await fetchWithTimeout(`${API_BASE_URL}/latest`, {
+      headers: {
+        "X-Master-Key": MASTER_KEY,
+        "Content-Type": "application/json",
+      },
+    });
 
-/**
- * Get all pages
- * @returns {Promise<Array>} list of pages
- */
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`JSONBin fetch error: ${response.status} - ${errorText}`);
+    }
+
+    const json = await response.json();
+    return json.record;
+  });
+}
+
+// JSONBin-specific save (Document Store - writes entire DB)
+async function saveBinData(data) {
+  const response = await fetchWithTimeout(API_BASE_URL, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Master-Key": MASTER_KEY,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`JSONBin save error: ${response.status} - ${errorText}`);
+  }
+
+  const json = await response.json();
+  return json.record;
+}
+
+// ==========================================
+// Unified API with Adapter Pattern
+// ==========================================
+
 export async function getPages() {
-  return fetchJson("/pages");
+  if (!isJSONBin()) {
+    return fetchJson("/pages");
+  }
+
+  const data = await fetchBinData();
+  return data.pages || [];
 }
 
-/**
- * Get a single page by ID
- * @param {string} id
- */
 export async function getPageById(id) {
-  return fetchJson(`/pages/${id}`);
+  if (!isJSONBin()) {
+    return fetchJson(`/pages/${id}`);
+  }
+
+  const data = await fetchBinData();
+  const page = data.pages.find((p) => p.id === id);
+  if (!page) {
+    throw new Error(`Page with id "${id}" not found`);
+  }
+  return page;
 }
 
-/**
- * Get a page by slug (e.g., '/', 'about')
- * Uses json-server filtering: /pages?slug=...
- * @param {string} slug
- */
 export async function getPageBySlug(slug) {
-  const pages = await fetchJson(`/pages?slug=${slug}`);
-  if (!pages || pages.length === 0) {
+  if (!isJSONBin()) {
+    const pages = await fetchJson(`/pages?slug=${slug}`);
+    if (!pages || pages.length === 0) {
+      throw new Error(`Page with slug "${slug}" not found`);
+    }
+    return pages[0];
+  }
+
+  const data = await fetchBinData();
+  const page = data.pages.find((p) => p.slug === slug);
+  if (!page) {
     throw new Error(`Page with slug "${slug}" not found`);
   }
-  return pages[0];
+  return page;
 }
 
-/**
- * Create a new page
- * @param {Object} pageData - { name, slug, sections? }
- */
 export async function createPage(pageData) {
-  // Ensure sections array exists, default to empty
   const newPage = {
     ...pageData,
     sections: pageData.sections || [],
-    id: Date.now().toString(), // simple id for MVP; json-server will keep it
+    id: Date.now().toString(),
   };
-  return fetchJson("/pages", {
-    method: "POST",
-    body: JSON.stringify(newPage),
-  });
+
+  if (!isJSONBin()) {
+    return fetchJson("/pages", {
+      method: "POST",
+      body: JSON.stringify(newPage),
+    });
+  }
+
+  const data = await fetchBinData();
+  data.pages.push(newPage);
+  await saveBinData(data);
+  return newPage;
 }
 
-/**
- * Delete a page by ID
- * @param {string} id
- */
 export async function deletePage(id) {
-  return fetchJson(`/pages/${id}`, { method: "DELETE" });
+  if (!isJSONBin()) {
+    return fetchJson(`/pages/${id}`, { method: "DELETE" });
+  }
+
+  const data = await fetchBinData();
+  data.pages = data.pages.filter((p) => p.id !== id);
+  await saveBinData(data);
+  return { id };
 }
 
-/**
- * Update entire sections array of a page
- * (Simplest approach for MVP - full replace)
- * @param {string} pageId
- * @param {Array} sections
- */
 export async function updatePageSections(pageId, sections) {
-  return fetchJson(`/pages/${pageId}`, {
-    method: "PATCH",
-    body: JSON.stringify({ sections }),
-  });
+  if (!isJSONBin()) {
+    return fetchJson(`/pages/${pageId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ sections }),
+    });
+  }
+
+  const data = await fetchBinData();
+  const page = data.pages.find((p) => p.id === pageId);
+  if (page) {
+    page.sections = sections;
+  }
+  await saveBinData(data);
+  return page;
 }
 
-// [NEW] Update page meta data (name, slug)
-/**
- * @param {string} id - Page ID
- * @param {Object} data - { name, slug }
- */
 export async function updatePage(id, data) {
-  return fetchJson(`/pages/${id}`, {
-    method: "PATCH",
-    body: JSON.stringify(data),
-  });
+  if (!isJSONBin()) {
+    return fetchJson(`/pages/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    });
+  }
+
+  const dataFromBin = await fetchBinData();
+  const page = dataFromBin.pages.find((p) => p.id === id);
+  if (page) {
+    Object.assign(page, data);
+  }
+  await saveBinData(dataFromBin);
+  return page;
 }
