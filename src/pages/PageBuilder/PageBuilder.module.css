@@ -9,6 +9,7 @@
 
 /* Header */
 .header {
+  width: 100%;
   background: white;
   padding: 1rem 2rem;
   border-bottom: 1px solid #e2e8f0;
@@ -17,9 +18,10 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
+  right: 0;
+  z-index: 1000;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(4px);
 }
@@ -119,6 +121,7 @@
   gap: 2rem;
   padding: 2rem;
   flex-wrap: wrap;
+  margin-top: 4rem;
 }
 
 .sectionsList {
@@ -270,6 +273,7 @@
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
+    margin-top: 7rem;
   }
 
   /* [NEW] Remove min-width constraint in mobile to prevent overflow */
