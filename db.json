@@ -41,52 +41,6 @@
           }
         },
         {
-          "id": "section-2-features",
-          "type": "Features",
-          "props": {
-            "title": "کاریار استودیو، جایی که ایده‌ها به تجربه تبدیل می‌شوند.",
-            "items": [
-              {
-                "id": "f1",
-                "icon": "/icons/card1.svg",
-                "title": "طراحی وب‌سایت حرفه‌ای",
-                "description": "طراحی اختصاصی با React، فریمورک‌های مدرن و تجربه کاربری عالی"
-              },
-              {
-                "id": "f2",
-                "icon": "/icons/card2.svg",
-                "title": "طراحی محصول",
-                "description": "از ایده تا نمونه اولیه تعاملی، با متدولوژی Design Thinking"
-              }
-            ],
-            "ctaText": "سلام ",
-            "ctaLink": "/services"
-          }
-        },
-        {
-          "id": "section-2-6-process",
-          "type": "Process",
-          "props": {
-            "title": "روند تبدیل ایده به محصول",
-            "description": "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
-            "ctaText": "شروع کنید",
-            "ctaLink": "#",
-            "desktopImage": "/images/process.svg",
-            "mobileImage": "/images/process-mobile.svg",
-            "alt": "روند تبدیل ایده به محصول"
-          }
-        },
-        {
-          "id": "section-2-7-banner",
-          "type": "Banner",
-          "props": {
-            "title": "آماده‌اید تا پروژه‌تان را به سطح بعدی ببرید؟",
-            "ctaText": "درخواست مشاوره",
-            "ctaLink": "/contact",
-            "backgroundImage": "/images/banner.png"
-          }
-        },
-        {
           "id": "section-2-5-logos",
           "type": "LogosStrip",
           "props": {
@@ -120,10 +74,33 @@
           }
         },
         {
+          "id": "section-2-features",
+          "type": "Features",
+          "props": {
+            "title": "کاریار استودیو، جایی که ایده‌ها به تجربه تبدیل می‌شوند",
+            "items": [
+              {
+                "id": "f1",
+                "icon": "/icons/card1.svg",
+                "title": "طراحی محصول",
+                "description": "با بررسی مسئله، شناخت کاربران و طراحی تجربه‌ای دقیق، محصولاتی قابل اعتماد و مؤثر ارائه می‌دهیم."
+              },
+              {
+                "id": "f2",
+                "icon": "/icons/card2.svg",
+                "title": "طراحی وب‌سایت",
+                "description": "وب‌سایت‌هایی سریع، کاربرپسند و متناسب با اهداف کسب‌وکار شما پیاده‌سازی می‌کنیم تا حضور دیجیتال برندتان تقویت شود."
+              }
+            ],
+            "ctaText": "خدمات ما",
+            "ctaLink": "/services"
+          }
+        },
+        {
           "id": "section-3-projects",
           "type": "ProjectsCarousel",
           "props": {
-            "title": "پروژه‌های اخیر",
+            "title": "پروژه‌هایی که برای ایجاد تجربه‌ای بهتر ساخته شده‌اند",
             "autoplayInterval": 5000,
             "slides": [
               {
@@ -148,6 +125,19 @@
                 "image": "/images/phones.svg"
               }
             ]
+          }
+        },
+        {
+          "id": "section-2-6-process",
+          "type": "Process",
+          "props": {
+            "title": "روند تبدیل ایده به محصول",
+            "description": "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
+            "ctaText": "شروع کنید",
+            "ctaLink": "#",
+            "desktopImage": "/images/process.svg",
+            "mobileImage": "/images/process-mobile.svg",
+            "alt": "روند تبدیل ایده به محصول"
           }
         },
         {
@@ -194,25 +184,34 @@
           "id": "section-4-testimonials",
           "type": "Testimonials",
           "props": {
-            "title": "نظرات مشتریان",
-            "description": "آنچه مشتریان ما می‌گویند",
-            "autoplayInterval": 5000,
+            "title": "تجربه همکاری از نگاه مشتریان",
+            "description": "بخشی از تجربه‌ کسانی که مسیر ساخت محصولشان را با ما شروع کردند.",
             "items": [
               {
                 "id": "t1",
                 "avatar": "/avatars/avatar-1.png",
-                "name": "احمد رضایی",
-                "role": "مدیرعامل استارتاپ A",
-                "quote": "تیم کاریار فراتر از انتظار ما عمل کرد. تحویل به موقع و کیفیت عالی."
+                "name": "سمانه عزیزی ",
+                "role": "مدیر محصول در دیوار",
+                "quote": "کاریار استودیو تیمی دقیق و قابل‌اعتماده. توی هر مرحله از پروژه، مسئله رو درست فهمیدن و برای ما یه مسیر واضح و قابل‌اجرا ساختن ممنونم از این تیم که تو این پروژه همراه بودن و هر لحظه پیگیری این کار رو انجام میدادن"
               },
               {
                 "id": "t2",
                 "avatar": "/avatars/avatar-2.png",
-                "name": "سارا کریمی",
-                "role": "مدیر بازاریابی دیجی‌کالا",
-                "quote": "طراحی حرفه‌ای و پشتیبانی فوق‌العاده. همکاری با کاریار یک تجربه لذت‌بخش بود."
+                "name": "علی کاظمیان",
+                "role": "مدیر محصول در دیوار",
+                "quote": "از تجربه کاربری تا توسعه، همه‌چیز با دقت و سرعت جلو رفت. چیزی که تحویل گرفتیم دقیقاً همون چیزی بود که اول جلسه‌ها ازش حرف می‌زدیم."
               }
             ]
+          }
+        },
+        {
+          "id": "section-2-7-banner",
+          "type": "Banner",
+          "props": {
+            "title": "مشتاقیم قصه‌ محصول‌ شما رو بسازیم",
+            "ctaText": "درخواست مشاوره",
+            "ctaLink": "/contact",
+            "backgroundImage": "/images/banner.png"
           }
         },
         {

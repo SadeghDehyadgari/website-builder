@@ -1,30 +1,23 @@
 // src/sections/Banner/BannerEditor.jsx
-// NEW: Banner editor component for Admin Panel
-
-import { useState, useEffect } from "react";
+// [FIXED] Removed useState - was causing infinite loop
+// [FIXED] Removed useEffect - onChange in dependency caused infinite re-renders
+// [FIXED] Now uses props directly (single source of truth)
+// [FIXED] Matches HeroEditor/FeaturesEditor/FooterEditor pattern
 import styles from "./Banner.module.css";
 
 /**
- * BannerEditor - Form for editing banner section properties
- */
+BannerEditor - Form for editing banner section properties
+Command pattern: onChange(updatedProps) — caller decides what to do.
+@param {Object}   props.props   - current Banner props
+@param {Function} props.onChange - called with full updated props object
+*/
 const BannerEditor = ({ props, onChange }) => {
-  // Local state initialized from props
-  const [title, setTitle] = useState(props?.title || "");
-  const [ctaText, setCtaText] = useState(props?.ctaText || "");
-  const [ctaLink, setCtaLink] = useState(props?.ctaLink || "#");
-  const [backgroundImage, setBackgroundImage] = useState(
-    props?.backgroundImage || "/images/banner.png",
-  );
+  // [FIXED] No local state - using props directly
+  // [FIXED] No useEffect - calling onChange immediately on input change
 
-  // Notify parent of changes whenever any field updates
-  useEffect(() => {
-    onChange({
-      title,
-      ctaText,
-      ctaLink,
-      backgroundImage,
-    });
-  }, [title, ctaText, ctaLink, backgroundImage, onChange]);
+  function handleFieldChange(field, value) {
+    onChange({ ...props, [field]: value });
+  }
 
   return (
     <div className={styles.editor}>
@@ -35,8 +28,8 @@ const BannerEditor = ({ props, onChange }) => {
         <input
           id="banner-title"
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={props.title || ""}
+          onChange={(e) => handleFieldChange("title", e.target.value)}
           placeholder="عنوان بنر"
         />
       </div>
@@ -46,8 +39,8 @@ const BannerEditor = ({ props, onChange }) => {
         <input
           id="banner-ctaText"
           type="text"
-          value={ctaText}
-          onChange={(e) => setCtaText(e.target.value)}
+          value={props.ctaText || ""}
+          onChange={(e) => handleFieldChange("ctaText", e.target.value)}
           placeholder="مثلاً: شروع کنید"
         />
       </div>
@@ -57,8 +50,8 @@ const BannerEditor = ({ props, onChange }) => {
         <input
           id="banner-ctaLink"
           type="text"
-          value={ctaLink}
-          onChange={(e) => setCtaLink(e.target.value)}
+          value={props.ctaLink || "#"}
+          onChange={(e) => handleFieldChange("ctaLink", e.target.value)}
           placeholder="مثلاً: /contact"
         />
       </div>
@@ -68,8 +61,8 @@ const BannerEditor = ({ props, onChange }) => {
         <input
           id="banner-background"
           type="text"
-          value={backgroundImage}
-          onChange={(e) => setBackgroundImage(e.target.value)}
+          value={props.backgroundImage || "/images/banner.png"}
+          onChange={(e) => handleFieldChange("backgroundImage", e.target.value)}
           placeholder="/images/banner.png"
         />
         <small className={styles.hint}>مسیر تصویر در پوشه public</small>

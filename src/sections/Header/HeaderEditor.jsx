@@ -1,47 +1,45 @@
 // src/sections/Header/HeaderEditor.jsx
 // NEW: Editor for Header section - manages logo and navigation links
-
-import { useState, useEffect } from "react";
+// [FIXED] Removed useState - was causing infinite loop
+// [FIXED] Removed useEffect - onChange in dependency caused infinite re-renders
+// [FIXED] Now uses props directly (single source of truth)
+// [FIXED] Matches HeroEditor/FeaturesEditor/FooterEditor pattern
 import styles from "./Header.module.css";
 
 /**
- * HeaderEditor - Form for editing header section properties
- * Allows adding/removing/editing navigation links and changing logo
- */
+HeaderEditor - Form for editing header section properties
+Allows adding/removing/editing navigation links and changing logo
+Command pattern: onChange(updatedProps) — caller decides what to do.
+@param {Object}   props.props   - current Header props
+@param {Function} props.onChange - called with full updated props object
+*/
 const HeaderEditor = ({ props, onChange }) => {
-  const [logo, setLogo] = useState(
-    props?.logo || "/logos/karyar-studio-logo.svg",
-  );
-  const [links, setLinks] = useState(
-    props?.links || [
-      { id: "link-1", label: "صفحه اصلی", slug: "/" },
-      { id: "link-2", label: "خدمات", slug: "/services" },
-      { id: "link-3", label: "درباره ما", slug: "/about" },
-    ],
-  );
+  // [FIXED] No local state - using props directly
+  // [FIXED] No useEffect - calling onChange immediately on input change
+  
+  const { logo = "/logos/karyar-studio-logo.svg", links = [] } = props || {};
 
-  // Notify parent whenever any field changes
-  useEffect(() => {
-    onChange({ logo, links });
-  }, [logo, links, onChange]);
+  // [NEW] Helper function to handle top-level field changes
+  function handleFieldChange(field, value) {
+    onChange({ ...props, [field]: value });
+  }
 
-  // Handlers for link management
-  const addLink = () => {
+  // [NEW] Handlers for link management (array operations)
+  function addLink() {
     const newId = `link-${Date.now()}`;
-    setLinks([...links, { id: newId, label: "", slug: "" }]);
-  };
+    onChange({ ...props, links: [...links, { id: newId, label: "", slug: "" }] });
+  }
 
-  const removeLink = (id) => {
-    setLinks(links.filter((link) => link.id !== id));
-  };
+  function removeLink(id) {
+    onChange({ ...props, links: links.filter((link) => link.id !== id) });
+  }
 
-  const updateLink = (id, field, value) => {
-    setLinks(
-      links.map((link) =>
-        link.id === id ? { ...link, [field]: value } : link,
-      ),
+  function updateLink(id, field, value) {
+    const updatedLinks = links.map((link) =>
+      link.id === id ? { ...link, [field]: value } : link,
     );
-  };
+    onChange({ ...props, links: updatedLinks });
+  }
 
   return (
     <div className={styles.editor}>
@@ -54,7 +52,7 @@ const HeaderEditor = ({ props, onChange }) => {
           id="header-logo"
           type="text"
           value={logo}
-          onChange={(e) => setLogo(e.target.value)}
+          onChange={(e) => handleFieldChange("logo", e.target.value)}
           placeholder="/logos/karyar-studio-logo.svg"
         />
         <small className={styles.hint}>مسیر تصویر در پوشه public</small>

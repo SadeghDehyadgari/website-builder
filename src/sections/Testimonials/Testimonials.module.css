@@ -35,7 +35,7 @@
 }
 
 .title {
-  font-size: 2.2rem;
+  font-size: var(--font-size-large);
   font-weight: 700;
   margin-bottom: 0.75rem;
   line-height: 1.3;
@@ -189,9 +189,6 @@
     padding: 1.5rem;
     background-size: contain;
     background-position: right -6rem;
-  }
-  .title {
-    font-size: 1.8rem;
   }
   .carouselWrapper {
     margin-top: 1rem;
