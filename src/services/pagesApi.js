@@ -34,6 +34,10 @@ async function fetchWithRetry(fetchFn, retries = 2, delay = 1000) {
     try {
       return await fetchFn();
     } catch (error) {
+      // If the error is an HTTP error with a 4xx status (client error), do not retry.
+      if (error.status && error.status >= 400 && error.status < 500) {
+        throw error;
+      }
       if (i === retries - 1) throw error;
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
@@ -47,7 +51,11 @@ async function fetchJson(endpoint, options = {}) {
     ...options,
   });
   if (!response.ok) {
-    throw new Error(`API error: ${response.status} ${response.statusText}`);
+    const error = new Error(
+      `API error: ${response.status} ${response.statusText}`,
+    );
+    error.status = response.status;
+    throw error;
   }
   return response.json();
 }
@@ -64,7 +72,11 @@ async function fetchBinData() {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`JSONBin fetch error: ${response.status} - ${errorText}`);
+      const error = new Error(
+        `JSONBin fetch error: ${response.status} - ${errorText}`,
+      );
+      error.status = response.status;
+      throw error;
     }
 
     const json = await response.json();
