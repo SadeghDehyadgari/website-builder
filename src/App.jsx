@@ -3,11 +3,11 @@
 // This is required to support the `useBlocker` hook in PageBuilder.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-// Import page components for main routes
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import PageBuilder from "./pages/PageBuilder/PageBuilder";
 import PublicView from "./pages/PublicView/PublicView";
-// [NEW] Import Functional Error Boundary for Data Router
+import NotFound from "./pages/NotFound/NotFound";
+// Import Functional Error Boundary for Data Router
 import RootErrorBoundary from "./components/ErrorBoundary/RootErrorBoundary";
 
 // [NEW] Define routes using the Data Router API with root-level error boundary
@@ -32,6 +32,11 @@ const router = createBrowserRouter([
       {
         path: "/admin/builder/:pageId",
         element: <PageBuilder />,
+      },
+      // Catch-all route for handling undefined paths (404 Not Found)
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
