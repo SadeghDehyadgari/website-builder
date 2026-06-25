@@ -1,4 +1,6 @@
 // src/services/pagesApi.js
+// [NEW] Import centralized ID generator for consistent ID creation across the app
+import { generateId } from "../utils/idGenerator";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 const MASTER_KEY = import.meta.env.VITE_JSONBIN_MASTER_KEY;
@@ -34,7 +36,7 @@ async function fetchWithRetry(fetchFn, retries = 2, delay = 1000) {
     try {
       return await fetchFn();
     } catch (error) {
-      // If the error is an HTTP error with a 4xx status (client error), do not retry.
+      // [EXISTING] If the error is an HTTP error with a 4xx status (client error), do not retry.
       if (error.status && error.status >= 400 && error.status < 500) {
         throw error;
       }
@@ -54,6 +56,7 @@ async function fetchJson(endpoint, options = {}) {
     const error = new Error(
       `API error: ${response.status} ${response.statusText}`,
     );
+    // [EXISTING] Inject status into error object for upstream handling
     error.status = response.status;
     throw error;
   }
@@ -69,12 +72,12 @@ async function fetchBinData() {
         "Content-Type": "application/json",
       },
     });
-
     if (!response.ok) {
       const errorText = await response.text();
       const error = new Error(
         `JSONBin fetch error: ${response.status} - ${errorText}`,
       );
+      // [EXISTING] Inject status into error object for upstream handling
       error.status = response.status;
       throw error;
     }
@@ -94,12 +97,10 @@ async function saveBinData(data) {
     },
     body: JSON.stringify(data),
   });
-
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`JSONBin save error: ${response.status} - ${errorText}`);
   }
-
   const json = await response.json();
   return json.record;
 }
@@ -107,12 +108,10 @@ async function saveBinData(data) {
 // ==========================================
 // Unified API with Adapter Pattern
 // ==========================================
-
 export async function getPages() {
   if (!isJSONBin()) {
     return fetchJson("/pages");
   }
-
   const data = await fetchBinData();
   return data.pages || [];
 }
@@ -121,7 +120,6 @@ export async function getPageById(id) {
   if (!isJSONBin()) {
     return fetchJson(`/pages/${id}`);
   }
-
   const data = await fetchBinData();
   const page = data.pages.find((p) => p.id === id);
   if (!page) {
@@ -138,7 +136,6 @@ export async function getPageBySlug(slug) {
     }
     return pages[0];
   }
-
   const data = await fetchBinData();
   const page = data.pages.find((p) => p.slug === slug);
   if (!page) {
@@ -151,7 +148,9 @@ export async function createPage(pageData) {
   const newPage = {
     ...pageData,
     sections: pageData.sections || [],
-    id: Date.now().toString(),
+    // [UPDATED] Use centralized ID generator instead of Date.now()
+    // This ensures consistency with AddSectionMenu and prevents ID collisions on fast clicks
+    id: generateId(),
   };
 
   if (!isJSONBin()) {
@@ -171,7 +170,6 @@ export async function deletePage(id) {
   if (!isJSONBin()) {
     return fetchJson(`/pages/${id}`, { method: "DELETE" });
   }
-
   const data = await fetchBinData();
   data.pages = data.pages.filter((p) => p.id !== id);
   await saveBinData(data);
@@ -185,7 +183,6 @@ export async function updatePageSections(pageId, sections) {
       body: JSON.stringify({ sections }),
     });
   }
-
   const data = await fetchBinData();
   const page = data.pages.find((p) => p.id === pageId);
   if (page) {
@@ -202,7 +199,6 @@ export async function updatePage(id, data) {
       body: JSON.stringify(data),
     });
   }
-
   const dataFromBin = await fetchBinData();
   const page = dataFromBin.pages.find((p) => p.id === id);
   if (page) {
