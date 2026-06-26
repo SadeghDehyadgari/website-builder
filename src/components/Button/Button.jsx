@@ -55,8 +55,17 @@ function Button({
 
   // Render as <a> if href provided, otherwise as <button>
   if (href) {
+    // Security measure to prevent tabnabbing
+    const securityProps =
+      rest.target === "_blank" ? { rel: "noopener noreferrer" } : {};
     return (
-      <a href={href} className={buttonClasses} onClick={onClick} {...rest}>
+      <a
+        href={href}
+        className={buttonClasses}
+        onClick={onClick}
+        {...securityProps}
+        {...rest}
+      >
         {content}
       </a>
     );
