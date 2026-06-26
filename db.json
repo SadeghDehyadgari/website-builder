@@ -237,6 +237,12 @@
           }
         }
       ]
+    },
+    {
+      "name": "درباره ما",
+      "slug": "about",
+      "sections": [],
+      "id": "BSPa6XS0HJo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

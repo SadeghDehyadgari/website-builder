@@ -73,7 +73,7 @@ function UnknownSectionFallback({ type, isPreview }) {
         color: "#ef4444",
         fontSize: "0.875rem",
         textAlign: "center",
-        background: isPreview ? "transparent" : "#fef2f2", // در بیلدر پس‌زمینه قرمز کمرنگ داشته باشد
+        background: isPreview ? "transparent" : "#fef2f2",
       }}
     >
       ⚠️ نوع سکشن ناشناخته: <strong>{type}</strong>
@@ -99,7 +99,7 @@ function EmptySectionsPlaceholder({ isPreview }) {
       }}
     >
       {/* CHANGED: Persian text */}
-      هنوز سکشنی اضافه نشده است. از منوی افزودن سکشن شروع کنید.
+      هنوز سکشنی اضافه نشده است. وارد پنل ادمین شوید.
     </div>
   );
 }
