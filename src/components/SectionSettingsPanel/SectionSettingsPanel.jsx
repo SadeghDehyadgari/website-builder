@@ -1,13 +1,15 @@
 // src/components/SectionSettingsPanel/SectionSettingsPanel.jsx
-// [NEW] Moved from src/components/SectionSettingsPanel.jsx to dedicated folder
-// [UPDATED] Converted inline styles to CSS Module for responsive design support
+import { useMemo } from "react";
 import { getSection } from "../../sections/registry";
 import useBuilderStore from "../../store/builderStore";
 import styles from "./SectionSettingsPanel.module.css";
 
 function SectionSettingsPanel({ sections, onUpdateSection }) {
   const { selectedSectionId, isPanelOpen, clearSelection } = useBuilderStore();
-  const selected = sections.find((s) => s.id === selectedSectionId);
+  const selected = useMemo(
+    () => sections.find((s) => s.id === selectedSectionId),
+    [sections, selectedSectionId],
+  );
   const entry = selected ? getSection(selected.type) : null;
 
   // [EXISTING] Command: Update section props (no return value - CQS)
