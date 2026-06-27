@@ -1,122 +1,137 @@
 /* src/styles/editor-shared.module.css */
-/* [NEW] Shared styles for all Section Editors to adhere to DRY principle */
+/* [UPDATED] Complete rewrite to support EditorField and shared Item Editor styles.
+   Adheres to DRY principle by centralizing all editor-specific UI styles.
+   Eliminates the need for inline styles in section editors. */
 
-/* Common container for all editors */
-.editorContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  padding: 0.5rem 0;
+/* =========================================
+   1. Form Fields (Used by EditorField.jsx)
+   ========================================= */
+.field {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.75rem;
 }
 
-/* Common field wrapper (label + input) */
-.editorField {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.editorField label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--color-text-normal, #2f4858);
-}
-
-.editorField input,
-.editorField textarea {
-  padding: 0.6rem 0.8rem;
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 0.5rem;
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
   font-family: inherit;
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
+  box-sizing: border-box;
+  background: var(--color-white, #ffffff);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.editorField input:focus,
-.editorField textarea:focus {
+.input:focus,
+.textarea:focus {
   outline: none;
   border-color: var(--color-primary-green, #1ea965);
-  box-shadow: 0 0 0 2px rgba(30, 169, 101, 0.15);
+  box-shadow: 0 0 0 2px rgba(30, 169, 101, 0.1);
 }
 
-/* Common "Add" button (Green) */
-.addButton {
-  background: var(--color-primary-green, #1ea965);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-  align-self: flex-start;
-  transition: background 0.2s;
+.textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
-.addButton:hover {
-  background: #178a54;
-}
-
-/* Common "Remove" button (Red text/bg) */
-.removeButton {
-  background: #fee2e2;
-  color: #b91c1c;
-  border: none;
-  padding: 0.2rem 0.8rem;
-  border-radius: 0.4rem;
-  cursor: pointer;
+/* =========================================
+   2. Section Subtitle (e.g., "آیتم‌های ویژگی‌ها")
+   ========================================= */
+.sectionSubtitle {
   font-size: 0.8rem;
-  transition: background 0.2s;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  color: #374151;
 }
 
-.removeButton:hover {
-  background: #fecaca;
-}
-
-/* Common Item Card (used in Testimonials & ProjectsCarousel) */
-.itemEditor {
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  background: #fafafa;
+/* =========================================
+   3. Item Editor (Used for list items like Features, Testimonials)
+   ========================================= */
+.itemContainer {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+  background: #fff;
 }
 
 .itemHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  background: #f9fafb;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
 }
 
-/* Grid layout for item fields */
-.itemFields {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
+.itemHeader:hover {
+  background: #f3f4f6;
 }
 
-.itemFields > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.itemFields label {
+.itemTitle {
   font-size: 0.8rem;
-  color: var(--color-text-muted, #5c6a63);
+  font-weight: 600;
+  color: #1f2937;
 }
 
-.itemFields input,
-.itemFields textarea {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 0.4rem;
-  font-family: inherit;
-  font-size: 0.85rem;
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.itemFields input:focus,
-.itemFields textarea:focus {
-  outline: none;
+.toggleIcon {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.itemBody {
+  padding: 0.5rem 0.75rem 0.75rem;
+}
+
+/* =========================================
+   4. Buttons (Add / Remove)
+   ========================================= */
+.addButton {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: none;
+  border: 1px dashed #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.addButton:hover {
   border-color: var(--color-primary-green, #1ea965);
+  color: var(--color-primary-green, #1ea965);
+  background: rgba(30, 169, 101, 0.05);
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+  font-size: 0.85rem;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.removeButton:hover {
+  color: #dc2626;
 }

@@ -6,10 +6,12 @@ import styles from "./SectionSettingsPanel.module.css";
 
 function SectionSettingsPanel({ sections, onUpdateSection }) {
   const { selectedSectionId, isPanelOpen, clearSelection } = useBuilderStore();
+
   const selected = useMemo(
     () => sections.find((s) => s.id === selectedSectionId),
     [sections, selectedSectionId],
   );
+
   const entry = selected ? getSection(selected.type) : null;
 
   // [EXISTING] Command: Update section props (no return value - CQS)
@@ -36,10 +38,12 @@ function SectionSettingsPanel({ sections, onUpdateSection }) {
           ✕
         </button>
       </div>
+
       <div className={styles.content}>
         {selected && entry ? (
-          // [EXISTING] Using the safe 'editorProps' variable instead of directly passing selected.props
-          <entry.Editor props={editorProps} onChange={handleChange} />
+          // [UPDATED] Renamed prop from 'props' to 'data' to match the updated Editor signature.
+          // This avoids confusion with the component's actual 'props' object and prevents shadowing.
+          <entry.Editor data={editorProps} onChange={handleChange} />
         ) : (
           <p className={styles.emptyText}>Click a section to edit</p>
         )}

@@ -1,89 +1,58 @@
+// src/sections/Hero/HeroEditor.jsx
+// [UPDATED] Replaced local Field component and inline styles with shared EditorField.
+import EditorField from "../../components/EditorField/EditorField";
+
 /**
 HeroEditor — settings form for the Hero section.
-Receives current props and an onChange callback.
-Command pattern: onChange(updatedProps) — caller decides what to do with the update.
-Single Responsibility: collect user input for Hero props only.
+Receives current data and an onChange callback.
+Command pattern: onChange(updatedData) — caller decides what to do with the update.
+Single Responsibility: collect user input for Hero data only.
 UPDATED: Removed subtitle field.
-// [FIXED] Changed prop name from 'sectionProps' to 'props' to match SectionSettingsPanel
-// This fixes the "Cannot read properties of undefined (reading 'title')" error
-@param {Object}   props.props  - current Hero props
-@param {Function} props.onChange      - called with the full updated props object
+// [FIXED] Changed prop name from 'props' to 'data' to avoid shadowing and improve readability
+// This fixes the confusing 'props.props' JSDoc and prevents variable shadowing
+@param {Object}   props.data     - current Hero data
+@param {Function} props.onChange  - called with the full updated data object
 */
-function HeroEditor({ props, onChange }) {
-  // [FIXED] Changed 'sectionProps' to 'props' throughout the component
+function HeroEditor({ data, onChange }) {
+  // [FIXED] Changed 'props' to 'data' throughout the component
   function handleFieldChange(field, value) {
-    onChange({ ...props, [field]: value });
+    onChange({ ...data, [field]: value });
   }
 
   return (
     <div>
       {/* CHANGED: Persian labels, no subtitle */}
-      <Field
+      <EditorField
         label="عنوان "
-        value={props.title}
+        value={data.title}
         onChange={(v) => handleFieldChange("title", v)}
       />
-      <Field
+      <EditorField
         label="توضیحات "
-        value={props.description}
+        value={data.description}
         onChange={(v) => handleFieldChange("description", v)}
         multiline
       />
-      <Field
+      <EditorField
         label="آدرس تصویر "
-        value={props.image}
+        value={data.image}
         onChange={(v) => handleFieldChange("image", v)}
       />
-      <Field
+      <EditorField
         label="متن دکمه CTA "
-        value={props.ctaText}
+        value={data.ctaText}
         onChange={(v) => handleFieldChange("ctaText", v)}
       />
-      <Field
+      <EditorField
         label="لینک دکمه CTA "
-        value={props.ctaLink}
+        value={data.ctaLink}
         onChange={(v) => handleFieldChange("ctaLink", v)}
       />
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// Private helper (unchanged)
-// ---------------------------------------------------------------------------
-function Field({ label, value, onChange, multiline = false }) {
-  const inputStyle = {
-    width: "100%",
-    padding: "0.4rem 0.6rem",
-    marginTop: "0.25rem",
-    marginBottom: "0.75rem",
-    border: "1px solid #d1d5db",
-    borderRadius: "6px",
-    fontSize: "0.875rem",
-    fontFamily: "inherit",
-    boxSizing: "border-box",
-  };
-
-  return (
-    <label style={{ display: "block", fontSize: "0.8rem", color: "#374151" }}>
-      {label}
-      {multiline ? (
-        <textarea
-          value={value || ""}
-          rows={3}
-          style={{ ...inputStyle, resize: "vertical" }}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      ) : (
-        <input
-          type="text"
-          value={value || ""}
-          style={inputStyle}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      )}
-    </label>
-  );
-}
+// [REMOVED] Local Field component and inputStyle object to adhere to DRY.
+// Now using shared EditorField from src/components/EditorField/EditorField.jsx
 
 export default HeroEditor;

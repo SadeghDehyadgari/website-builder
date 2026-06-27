@@ -40,7 +40,7 @@
 /* NEW: Wrapper for CTA button to control alignment */
 .ctaWrapper {
   margin-top: 0.5rem;
-  align-self: flex-start; /* left-aligned in RTL */
+  align-self: flex-start; /* right-aligned in RTL */
 }
 
 .imageWrapper {
