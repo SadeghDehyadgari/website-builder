@@ -58,6 +58,9 @@
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
+  .title {
+    font-size: 1.4rem;
+  }
   .hero {
     flex-direction: column;
     padding: 2rem 0;

@@ -1,114 +1,105 @@
-// FooterEditor - settings panel for editing footer props
-// [FIXED] Changed prop name from 'sectionProps' to 'props' to match SectionSettingsPanel
-// [FIXED] Changed onChange calls to pass full props object instead of field name + value
+// src/sections/Footer/FooterEditor.jsx
+// [UPDATED] Changed prop name from 'props' to 'data' to prevent shadowing.
+// [UPDATED] Replaced inline styles and local CSS classes with shared EditorField and sharedStyles (DRY).
+// [UPDATED] Removed local state for main fields to adhere to Single Source of Truth.
+import EditorField from "../../components/EditorField/EditorField";
+import sharedStyles from "../../styles/editor-shared.module.css";
+import { generateId } from "../../utils/idGenerator";
+
 /**
-Helper component to edit a single social link item
+FooterEditor - settings panel for editing footer props.
+Command pattern: onChange(updatedData) — caller decides what to do.
+@param {Object}   props.data     - current Footer data
+@param {Function} props.onChange  - called with full updated data object
 */
-function SocialLinkItem({ item, index, onChange, onRemove }) {
-  const handleIconChange = (e) => onChange(index, "icon", e.target.value);
-  const handleUrlChange = (e) => onChange(index, "url", e.target.value);
-  return (
-    <div
-      style={{
-        marginBottom: "1rem",
-        border: "1px solid #ddd",
-        padding: "0.5rem",
-      }}
-    >
-      <div>
-        <label>آیکون (مسیر): </label>
-        <input
-          type="text"
-          value={item.icon || ""}
-          onChange={handleIconChange}
-          placeholder="/icons/linkedin.svg"
-          style={{ width: "100%", marginBottom: "0.5rem" }}
-        />
-      </div>
-      <div>
-        <label>آدرس لینک: </label>
-        <input
-          type="url"
-          value={item.url || ""}
-          onChange={handleUrlChange}
-          placeholder="https://..."
-          style={{ width: "100%", marginBottom: "0.5rem" }}
-        />
-      </div>
-      <button onClick={onRemove} style={{ color: "red" }}>
-        حذف
-      </button>
-    </div>
-  );
-}
+function FooterEditor({ data, onChange }) {
+  const socialLinks = data.socialLinks || [];
 
-function FooterEditor({ props, onChange }) {
-  // [FIXED] Changed 'sectionProps' to 'props'
-  const { logo = "", socialLinks = [], copyrightText = "" } = props;
+  function handleFieldChange(field, value) {
+    onChange({ ...data, [field]: value });
+  }
 
-  // [FIXED] Changed onChange calls to pass full props object
-  const handleLogoChange = (e) => {
-    onChange({ ...props, logo: e.target.value });
-  };
-
-  const handleCopyrightChange = (e) => {
-    onChange({ ...props, copyrightText: e.target.value });
-  };
-
-  const handleSocialLinkChange = (index, field, value) => {
+  function handleSocialLinkChange(index, field, value) {
     const updated = [...socialLinks];
     updated[index] = { ...updated[index], [field]: value };
-    onChange({ ...props, socialLinks: updated });
-  };
+    onChange({ ...data, socialLinks: updated });
+  }
 
-  const addSocialLink = () => {
-    const newLink = { icon: "", url: "" };
-    onChange({ ...props, socialLinks: [...socialLinks, newLink] });
-  };
+  function addSocialLink() {
+    // [UPDATED] Added ID for new items to maintain consistency,
+    // but we still use index for operations to support legacy data without IDs (KISS).
+    const newLink = { id: generateId(), icon: "", url: "" };
+    onChange({ ...data, socialLinks: [...socialLinks, newLink] });
+  }
 
-  const removeSocialLink = (index) => {
+  function removeSocialLink(index) {
     const updated = socialLinks.filter((_, i) => i !== index);
-    onChange({ ...props, socialLinks: updated });
-  };
+    onChange({ ...data, socialLinks: updated });
+  }
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h3>ویرایش فوتر</h3>
-      <div style={{ marginBottom: "1rem" }}>
-        <label>لوگو (آدرس تصویر): </label>
-        <input
-          type="text"
-          value={logo}
-          onChange={handleLogoChange}
-          placeholder="/logos/karyar-studio-logo.svg"
-          style={{ width: "100%" }}
-        />
-      </div>
+    <div className={sharedStyles.editorContainer}>
+      <h3 className={sharedStyles.editorTitle}>تنظیمات فوتر</h3>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label>متن کپی‌رایت: </label>
-        <textarea
-          value={copyrightText}
-          onChange={handleCopyrightChange}
-          placeholder="تمام حقوق محفوظ است..."
-          rows="2"
-          style={{ width: "100%" }}
-        />
-      </div>
+      <EditorField
+        id="footer-logo"
+        label="لوگو (آدرس تصویر)"
+        value={data.logo}
+        onChange={(v) => handleFieldChange("logo", v)}
+        placeholder="/logos/karyar-studio-logo.svg"
+      />
 
-      <div>
-        <label>شبکه‌های اجتماعی: </label>
-        {socialLinks.map((item, idx) => (
-          <SocialLinkItem
-            key={idx}
-            item={item}
-            index={idx}
-            onChange={handleSocialLinkChange}
-            onRemove={() => removeSocialLink(idx)}
-          />
-        ))}
-        <button onClick={addSocialLink}>+ افزودن شبکه اجتماعی</button>
-      </div>
+      <EditorField
+        id="footer-copyright"
+        label="متن کپی‌رایت"
+        value={data.copyrightText}
+        onChange={(v) => handleFieldChange("copyrightText", v)}
+        multiline
+        placeholder="تمام حقوق محفوظ است..."
+      />
+
+      <p className={sharedStyles.sectionSubtitle}>شبکه‌های اجتماعی</p>
+
+      {socialLinks.map((item, index) => (
+        <div key={item.id || index} className={sharedStyles.itemContainer}>
+          <div className={sharedStyles.itemBody}>
+            <EditorField
+              id={`social-${index}-icon`}
+              label="آیکون (مسیر)"
+              value={item.icon}
+              onChange={(v) => handleSocialLinkChange(index, "icon", v)}
+              placeholder="/icons/linkedin.svg"
+            />
+            <EditorField
+              id={`social-${index}-url`}
+              label="آدرس لینک"
+              value={item.url}
+              onChange={(v) => handleSocialLinkChange(index, "url", v)}
+              placeholder="https://..."
+            />
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "0.5rem",
+              }}
+            >
+              <button
+                onClick={() => removeSocialLink(index)}
+                className={sharedStyles.removeButton}
+                aria-label="حذف شبکه اجتماعی"
+              >
+                ✕ حذف
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <button onClick={addSocialLink} className={sharedStyles.addButton}>
+        + افزودن شبکه اجتماعی
+      </button>
     </div>
   );
 }

@@ -1,59 +1,77 @@
 /* src/styles/editor-shared.module.css */
-/* [UPDATED] Complete rewrite to support EditorField and shared Item Editor styles.
-   Adheres to DRY principle by centralizing all editor-specific UI styles.
-   Eliminates the need for inline styles in section editors. */
+/* [FINAL] Single Source of Truth for ALL Section Editor UI styles.
+   Eliminates inline styles and section-specific editor CSS (DRY & Centralization). */
 
 /* =========================================
-   1. Form Fields (Used by EditorField.jsx)
+   1. Editor Layout & Titles
    ========================================= */
-.field {
+.editorContainer {
+  padding: 0.5rem 0;
+  direction: rtl;
+}
+
+.editorTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--color-text-normal, #2f4858);
+}
+
+/* =========================================
+   2. Form Fields (Label + Input/Textarea)
+   ========================================= */
+.fieldGroup {
+  margin-bottom: 1rem;
+}
+
+.fieldGroup label {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--color-text-normal, #2f4858);
+  font-size: 0.9rem;
 }
 
-.input,
-.textarea {
+.fieldGroup input,
+.fieldGroup textarea {
   width: 100%;
-  padding: 0.4rem 0.6rem;
-  margin-top: 0.25rem;
-  border: 1px solid #d1d5db;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border-light, #e0e0e0);
   border-radius: 6px;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-family: inherit;
-  box-sizing: border-box;
   background: var(--color-white, #ffffff);
+  color: var(--color-text-normal, #2f4858);
+  box-sizing: border-box;
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
-.input:focus,
-.textarea:focus {
+.fieldGroup input:focus,
+.fieldGroup textarea:focus {
   outline: none;
   border-color: var(--color-primary-green, #1ea965);
-  box-shadow: 0 0 0 2px rgba(30, 169, 101, 0.1);
+  box-shadow: 0 0 0 2px rgba(30, 169, 101, 0.15);
 }
 
-.textarea {
+.fieldGroup textarea {
   resize: vertical;
   min-height: 80px;
 }
 
 /* =========================================
-   2. Section Subtitle (e.g., "آیتم‌های ویژگی‌ها")
+   3. Hints & Helper Text
    ========================================= */
-.sectionSubtitle {
+.hint {
+  display: block;
   font-size: 0.8rem;
-  font-weight: 600;
-  margin: 1rem 0 0.5rem;
-  color: #374151;
+  color: var(--color-text-muted, #5c6a63);
+  margin-top: 0.25rem;
 }
 
 /* =========================================
-   3. Item Editor (Used for list items like Features, Testimonials)
+   4. List Items (Used in Features, Testimonials, etc.)
    ========================================= */
 .itemContainer {
   border: 1px solid #e5e7eb;
@@ -100,7 +118,7 @@
 }
 
 /* =========================================
-   4. Buttons (Add / Remove)
+   5. Buttons (Add / Remove)
    ========================================= */
 .addButton {
   width: 100%;
@@ -134,4 +152,14 @@
 
 .removeButton:hover {
   color: #dc2626;
+}
+
+/* =========================================
+   6. Section Subtitle (e.g., "آیتم‌های ویژگی‌ها")
+   ========================================= */
+.sectionSubtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 1.2rem 0 0.5rem;
+  color: #374151;
 }

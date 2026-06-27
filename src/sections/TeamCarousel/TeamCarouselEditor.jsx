@@ -1,12 +1,23 @@
 // src/sections/TeamCarousel/TeamCarouselEditor.jsx
 import { useState } from "react";
-import styles from "./TeamCarousel.module.css";
-// [NEW] Import shared editor styles
+// [UPDATED] Import shared EditorField and styles (DRY principle)
+import EditorField from "../../components/EditorField/EditorField";
 import sharedStyles from "../../styles/editor-shared.module.css";
+// [UPDATED] Import shared ID generator for consistency
+import { generateId } from "../../utils/idGenerator";
 
-const TeamCarouselEditor = ({ props = {}, onChange }) => {
-  const { title = "", description = "", members = [] } = props;
+/**
+TeamCarouselEditor - Manages list of team members (avatar, name, role).
+Command pattern: onChange(updatedData) — caller decides what to do.
+@param {Object}   props.data     - current TeamCarousel data
+@param {Function} props.onChange  - called with full updated data object
+*/
+const TeamCarouselEditor = ({ data, onChange }) => {
+  const members = data.members || [];
 
+  // [EXISTING] Local state for the "Add New" form is a "Draft" pattern.
+  // It's acceptable here because we don't want to update the main data
+  // until the user explicitly clicks "Add".
   const [newMember, setNewMember] = useState({
     avatar: "",
     name: "",
@@ -20,119 +31,128 @@ const TeamCarouselEditor = ({ props = {}, onChange }) => {
       !newMember.role.trim()
     )
       return;
-
     const newItem = {
-      id: `member-${Date.now()}`,
+      id: generateId(), // [UPDATED] Use shared generateId()
       ...newMember,
     };
-
     onChange({
-      ...props,
+      ...data,
       members: [...members, newItem],
     });
-
     setNewMember({ avatar: "", name: "", role: "" });
   };
 
   const removeMember = (id) => {
     onChange({
-      ...props,
+      ...data,
       members: members.filter((m) => m.id !== id),
     });
   };
 
   const updateMember = (id, field, value) => {
     onChange({
-      ...props,
+      ...data,
       members: members.map((m) => (m.id === id ? { ...m, [field]: value } : m)),
     });
   };
 
   return (
-    // [CHANGED] Use sharedStyles for container
     <div className={sharedStyles.editorContainer}>
-      <h4 className={styles.editorTitle}>مدیریت تیم</h4>
+      <h3 className={sharedStyles.editorTitle}>مدیریت تیم</h3>
 
-      <input
-        type="text"
-        placeholder="عنوان سکشن"
-        value={title}
-        onChange={(e) => onChange({ ...props, title: e.target.value })}
-        className={styles.input}
+      <EditorField
+        id="team-title"
+        label="عنوان سکشن"
+        value={data.title}
+        onChange={(v) => onChange({ ...data, title: v })}
+        placeholder="عنوان بخش تیم"
       />
 
-      <input
-        type="text"
-        placeholder="توضیحات (اختیاری)"
-        value={description}
-        onChange={(e) => onChange({ ...props, description: e.target.value })}
-        className={styles.input}
+      <EditorField
+        id="team-description"
+        label="توضیحات (اختیاری)"
+        value={data.description}
+        onChange={(v) => onChange({ ...data, description: v })}
+        placeholder="توضیح کوتاه درباره تیم"
       />
 
-      <div className={styles.addForm}>
-        <input
-          type="text"
-          placeholder="آدرس تصویر (مثال: /avatars/aida.png)"
-          value={newMember.avatar}
-          onChange={(e) =>
-            setNewMember({ ...newMember, avatar: e.target.value })
-          }
-          className={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="نام"
-          value={newMember.name}
-          onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
-          className={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="سمت"
-          value={newMember.role}
-          onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
-          className={styles.input}
-        />
-        {/* [CHANGED] Use sharedStyles for add button */}
-        <button onClick={addMember} className={sharedStyles.addButton}>
-          اضافه کردن
-        </button>
-      </div>
+      <p className={sharedStyles.sectionSubtitle}>افزودن عضو جدید</p>
+
+      <EditorField
+        id="new-member-avatar"
+        label="آدرس تصویر"
+        value={newMember.avatar}
+        onChange={(v) => setNewMember({ ...newMember, avatar: v })}
+        placeholder="/avatars/example.png"
+      />
+      <EditorField
+        id="new-member-name"
+        label="نام"
+        value={newMember.name}
+        onChange={(v) => setNewMember({ ...newMember, name: v })}
+        placeholder="نام عضو"
+      />
+      <EditorField
+        id="new-member-role"
+        label="سمت"
+        value={newMember.role}
+        onChange={(v) => setNewMember({ ...newMember, role: v })}
+        placeholder="سمت عضو"
+      />
+
+      <button onClick={addMember} className={sharedStyles.addButton}>
+        + افزودن عضو
+      </button>
+
+      <p className={sharedStyles.sectionSubtitle}>
+        اعضای تیم ({members.length})
+      </p>
 
       {members.length === 0 && (
-        <p className={styles.emptyMessage}>هیچ عضوی اضافه نشده است.</p>
+        <p className={sharedStyles.hint}>هیچ عضوی اضافه نشده است.</p>
       )}
 
       {members.map((member) => (
-        <div key={member.id} className={styles.memberEditor}>
-          <input
-            type="text"
-            value={member.avatar}
-            onChange={(e) => updateMember(member.id, "avatar", e.target.value)}
-            className={styles.input}
-            placeholder="آدرس تصویر"
-          />
-          <input
-            type="text"
-            value={member.name}
-            onChange={(e) => updateMember(member.id, "name", e.target.value)}
-            className={styles.input}
-            placeholder="نام"
-          />
-          <input
-            type="text"
-            value={member.role}
-            onChange={(e) => updateMember(member.id, "role", e.target.value)}
-            className={styles.input}
-            placeholder="سمت"
-          />
-          {/* [CHANGED] Use sharedStyles for remove button */}
-          <button
-            onClick={() => removeMember(member.id)}
-            className={sharedStyles.removeButton}
-          >
-            ✕
-          </button>
+        <div key={member.id} className={sharedStyles.itemContainer}>
+          <div className={sharedStyles.itemBody}>
+            <EditorField
+              id={`member-${member.id}-avatar`}
+              label="آدرس تصویر"
+              value={member.avatar}
+              onChange={(v) => updateMember(member.id, "avatar", v)}
+              placeholder="/avatars/example.png"
+            />
+            <EditorField
+              id={`member-${member.id}-name`}
+              label="نام"
+              value={member.name}
+              onChange={(v) => updateMember(member.id, "name", v)}
+              placeholder="نام عضو"
+            />
+            <EditorField
+              id={`member-${member.id}-role`}
+              label="سمت"
+              value={member.role}
+              onChange={(v) => updateMember(member.id, "role", v)}
+              placeholder="سمت عضو"
+            />
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "0.5rem",
+              }}
+            >
+              <button
+                onClick={() => removeMember(member.id)}
+                className={sharedStyles.removeButton}
+                aria-label="حذف عضو"
+              >
+                ✕ حذف
+              </button>
+            </div>
+          </div>
         </div>
       ))}
     </div>

@@ -1,7 +1,11 @@
 // src/sections/Banner/BannerSection.jsx
-// NEW: Banner section component
+// [UPDATED] Added URL validation for background image and CTA link.
+// [UPDATED] Removed duplicated background properties from inline style (they exist in CSS).
 import Button from "../../components/Button/Button";
 import styles from "./Banner.module.css";
+// [NEW] Import security utility for URL validation
+import { isSafeUrl } from "../../utils/urlUtils";
+
 /**
 BannerSection - Renders a banner with title, CTA button and background image
 Used in both Public View and Admin Builder (via PageRenderer)
@@ -12,14 +16,14 @@ const BannerSection = ({
   ctaLink = "#",
   backgroundImage = "/images/banner.png",
 }) => {
-  // Build inline style for background image with light transparent overlay
-  // Overlay uses white with low opacity to make dark text readable
+  // [UPDATED] Only include dynamic properties in inline style.
+  // Static properties (size, position, blend-mode) are handled by Banner.module.css.
+  // [UPDATED] Validate backgroundImage to prevent CSS injection / XSS.
   const backgroundStyle = {
-    backgroundImage: `url(${backgroundImage})`,
+    backgroundImage: isSafeUrl(backgroundImage)
+      ? `url(${backgroundImage})`
+      : "none",
     backgroundColor: "rgba(255, 255, 255, 0.65)", // Light overlay with low opacity
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundBlendMode: "overlay", // Creates a transparent overlay effect
   };
 
   return (
@@ -31,11 +35,11 @@ const BannerSection = ({
       <div className={styles.content}>
         <h2 className={styles.title}>{title}</h2>
 
-        {/* [NEW] Only render CTA button if ctaText is not empty */}
-        {ctaText && (
+        {/* [UPDATED] Validate ctaLink before rendering the button to prevent XSS */}
+        {ctaText && isSafeUrl(ctaLink) && (
           <div className={styles.ctaWrapper}>
             <Button
-              variant="secondary" // Orange button (--color-primary-orange)
+              variant="secondary"
               withArrow
               href={ctaLink}
               className={styles.ctaButton}

@@ -1,152 +1,116 @@
 // src/sections/ProjectsCarousel/ProjectsCarouselEditor.jsx
-import { useState } from "react";
-// [NEW] Import shared editor styles
+import EditorField from "../../components/EditorField/EditorField";
 import sharedStyles from "../../styles/editor-shared.module.css";
+import { generateId } from "../../utils/idGenerator";
 
-const ProjectsCarouselEditor = ({ props, onChange }) => {
-  const { title = "", autoplayInterval = 5000, slides = [] } = props;
+/**
+ProjectsCarouselEditor - Form for editing projects carousel properties.
+Command pattern: onChange(updatedData) — caller decides what to do.
+@param {Object}   props.data     - current ProjectsCarousel data
+@param {Function} props.onChange  - called with full updated data object
+*/
+const ProjectsCarouselEditor = ({ data, onChange }) => {
+  const slides = data.slides || [];
 
-  const [localTitle, setLocalTitle] = useState(title);
-  const [localInterval, setLocalInterval] = useState(autoplayInterval);
-  const [localSlides, setLocalSlides] = useState(slides);
+  function handleTopLevelChange(field, value) {
+    onChange({ ...data, [field]: value });
+  }
 
-  const updateParent = (newTitle, newInterval, newSlides) => {
-    onChange({
-      title: newTitle,
-      autoplayInterval: newInterval,
-      slides: newSlides,
-    });
-  };
+  function handleSlideChange(index, field, value) {
+    const updatedSlides = slides.map((slide, i) =>
+      i === index ? { ...slide, [field]: value } : slide,
+    );
+    onChange({ ...data, slides: updatedSlides });
+  }
 
-  const handleTitleChange = (e) => {
-    const val = e.target.value;
-    setLocalTitle(val);
-    updateParent(val, localInterval, localSlides);
-  };
-
-  const handleIntervalChange = (e) => {
-    const val = Number(e.target.value);
-    setLocalInterval(val);
-    updateParent(localTitle, val, localSlides);
-  };
-
-  const addSlide = () => {
+  function addSlide() {
     const newSlide = {
-      id: `p${Date.now()}`,
-      logo: "/logos/digikala.svg",
+      id: generateId(), // [UPDATED] Use shared generateId()
+      logo: "/logos/karyar.svg",
       title: "عنوان پروژه جدید",
       description: "توضیح مختصر درباره پروژه...",
       image: "/mockups/default-mock.jpg",
     };
-    const updated = [...localSlides, newSlide];
-    setLocalSlides(updated);
-    updateParent(localTitle, localInterval, updated);
-  };
+    onChange({ ...data, slides: [...slides, newSlide] });
+  }
 
-  const removeSlide = (id) => {
-    const updated = localSlides.filter((s) => s.id !== id);
-    setLocalSlides(updated);
-    updateParent(localTitle, localInterval, updated);
-  };
-
-  const updateSlide = (id, field, value) => {
-    const updated = localSlides.map((s) =>
-      s.id === id ? { ...s, [field]: value } : s,
-    );
-    setLocalSlides(updated);
-    updateParent(localTitle, localInterval, updated);
-  };
+  function removeSlide(id) {
+    onChange({ ...data, slides: slides.filter((s) => s.id !== id) });
+  }
 
   return (
-    // [CHANGED] Use sharedStyles for container
     <div className={sharedStyles.editorContainer}>
-      <div className={sharedStyles.editorField}>
-        <label>عنوان بخش</label>
-        <input
-          type="text"
-          value={localTitle}
-          onChange={handleTitleChange}
-          placeholder="عنوان بخش"
-        />
-      </div>
+      <h3 className={sharedStyles.editorTitle}>تنظیمات پروژه‌ها</h3>
 
-      <div className={sharedStyles.editorField}>
-        <label>فاصله زمانی Autoplay (میلی‌ثانیه)</label>
-        <input
-          type="number"
-          value={localInterval}
-          onChange={handleIntervalChange}
-          min="0"
-          step="500"
-        />
-        <small>۰ = غیرفعال</small>
-      </div>
+      <EditorField
+        id="projects-title"
+        label="عنوان بخش"
+        value={data.title}
+        onChange={(v) => handleTopLevelChange("title", v)}
+        placeholder="عنوان اصلی بخش پروژه‌ها"
+      />
 
-      <div className={sharedStyles.editorField}>
-        <label>لیست اسلایدها</label>
-        {/* [CHANGED] Use sharedStyles for button */}
-        <button onClick={addSlide} className={sharedStyles.addButton}>
-          + افزودن اسلاید جدید
-        </button>
-      </div>
+      <EditorField
+        id="projects-autoplay"
+        label="فاصله زمانی Autoplay (میلی‌ثانیه)"
+        value={data.autoplayInterval}
+        onChange={(v) => handleTopLevelChange("autoplayInterval", Number(v))}
+        placeholder="5000"
+      />
+      <small className={sharedStyles.hint}>۰ = غیرفعال</small>
 
-      {localSlides.map((slide, index) => (
-        // [CHANGED] Use sharedStyles for item wrapper
-        <div key={slide.id} className={sharedStyles.itemEditor}>
+      <p className={sharedStyles.sectionSubtitle}>لیست اسلایدها</p>
+
+      {slides.map((slide, index) => (
+        <div key={slide.id} className={sharedStyles.itemContainer}>
           <div className={sharedStyles.itemHeader}>
-            <span>اسلاید {index + 1}</span>
-            {/* [CHANGED] Use sharedStyles for remove button */}
+            <span className={sharedStyles.itemTitle}>اسلاید {index + 1}</span>
             <button
               onClick={() => removeSlide(slide.id)}
               className={sharedStyles.removeButton}
+              aria-label="حذف اسلاید"
             >
-              حذف
+              ✕
             </button>
           </div>
 
-          {/* [CHANGED] Use sharedStyles for fields grid */}
-          <div className={sharedStyles.itemFields}>
-            <div>
-              <label>آدرس لوگو</label>
-              <input
-                type="text"
-                value={slide.logo || ""}
-                onChange={(e) => updateSlide(slide.id, "logo", e.target.value)}
-                placeholder="/logos/logo.svg"
-              />
-            </div>
-            <div>
-              <label>عنوان پروژه</label>
-              <input
-                type="text"
-                value={slide.title || ""}
-                onChange={(e) => updateSlide(slide.id, "title", e.target.value)}
-                placeholder="عنوان پروژه"
-              />
-            </div>
-            <div>
-              <label>توضیحات</label>
-              <textarea
-                value={slide.description || ""}
-                onChange={(e) =>
-                  updateSlide(slide.id, "description", e.target.value)
-                }
-                placeholder="توضیحات پروژه"
-                rows={3}
-              />
-            </div>
-            <div>
-              <label>آدرس تصویر موکاپ</label>
-              <input
-                type="text"
-                value={slide.image || ""}
-                onChange={(e) => updateSlide(slide.id, "image", e.target.value)}
-                placeholder="/mockups/mock.jpg"
-              />
-            </div>
+          <div className={sharedStyles.itemBody}>
+            <EditorField
+              id={`project-${slide.id}-logo`}
+              label="آدرس لوگو"
+              value={slide.logo}
+              onChange={(v) => handleSlideChange(index, "logo", v)}
+              placeholder="/logos/logo.svg"
+            />
+            <EditorField
+              id={`project-${slide.id}-title`}
+              label="عنوان پروژه"
+              value={slide.title}
+              onChange={(v) => handleSlideChange(index, "title", v)}
+              placeholder="عنوان پروژه"
+            />
+            <EditorField
+              id={`project-${slide.id}-description`}
+              label="توضیحات"
+              value={slide.description}
+              onChange={(v) => handleSlideChange(index, "description", v)}
+              multiline
+              placeholder="توضیحات پروژه"
+            />
+            <EditorField
+              id={`project-${slide.id}-image`}
+              label="آدرس تصویر موکاپ"
+              value={slide.image}
+              onChange={(v) => handleSlideChange(index, "image", v)}
+              placeholder="/mockups/mock.jpg"
+            />
           </div>
         </div>
       ))}
+
+      <button onClick={addSlide} className={sharedStyles.addButton}>
+        + افزودن اسلاید جدید
+      </button>
     </div>
   );
 };

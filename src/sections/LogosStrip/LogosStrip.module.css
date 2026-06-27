@@ -1,5 +1,6 @@
 /* src/sections/LogosStrip/LogosStrip.module.css */
-/* UPDATED: Added scoped overrides for Carousel without affecting other carousels */
+/* [UPDATED] Removed all editor-specific styles (.editorContainer, .addForm, .input, etc.)
+   They are now centralized in src/styles/editor-shared.module.css (DRY principle) */
 
 .logosStrip {
   width: 100%;
@@ -81,100 +82,11 @@
   padding: 0;
 }
 
-/* Editor styles (unchanged) */
-.editorContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0.5rem 0;
-}
-
-.editorTitle {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-text-normal, #2f4858);
-  margin: 0 0 0.5rem 0;
-}
-
-.addForm {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.input {
-  flex: 1;
-  min-width: 120px;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background: #f9f9f9;
-  transition: border-color 0.2s;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-primary-green, #1ea965);
-  background: #ffffff;
-}
-
-.addButton {
-  padding: 0.5rem 1.2rem;
-  background: var(--color-primary-green, #1ea965);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-
-.addButton:hover {
-  background: #158c4e;
-}
-
-.logoItemEditor {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-  background: #f5f5f5;
-  padding: 0.5rem;
-  border-radius: 6px;
-}
-
-.logoItemEditor .input {
-  flex: 1 1 150px;
-}
-
-.removeButton {
-  background: transparent;
-  border: none;
-  color: #e74c3c;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0 0.5rem;
-  transition: transform 0.2s;
-}
-
-.removeButton:hover {
-  transform: scale(1.2);
-}
-
-.emptyMessage {
-  color: var(--color-text-muted, #5c6a63);
-  font-size: 0.9rem;
-  margin: 0.5rem 0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .logosCarousel {
     --slide-size: 100%;
   }
-
   .gridContainer {
     gap: 2rem;
   }

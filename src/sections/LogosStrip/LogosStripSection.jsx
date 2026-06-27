@@ -1,12 +1,28 @@
 // src/sections/LogosStrip/LogosStripSection.jsx
-import { useState, useLayoutEffect, useRef } from "react";
+import { useState, useLayoutEffect, useRef, useCallback } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import styles from "./LogosStrip.module.css";
+import { isSafeUrl } from "../../utils/urlUtils";
 
 const LogosStripSection = ({ logos = [] }) => {
+  // ✅ ALL HOOKS AT THE TOP (Rules of Hooks)
   const [isCarousel, setIsCarousel] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const containerRef = useRef(null);
+
+  // [UPDATED] Memoize render function to prevent unnecessary re-renders in Carousel
+  const renderLogo = useCallback(
+    (logo, index) => (
+      <div key={logo.id || index} className={styles.logoItem}>
+        <img
+          src={isSafeUrl(logo.imageUrl) ? logo.imageUrl : ""}
+          alt={logo.alt || "لوگوی مشتری"}
+          className={styles.logoImage}
+        />
+      </div>
+    ),
+    [],
+  );
 
   useLayoutEffect(() => {
     if (!containerRef.current || logos.length === 0) {
@@ -20,16 +36,6 @@ const LogosStripSection = ({ logos = [] }) => {
   }, [logos]);
 
   if (logos.length === 0) return null;
-
-  const renderLogo = (logo, index) => (
-    <div key={logo.id || index} className={styles.logoItem}>
-      <img
-        src={logo.imageUrl}
-        alt={logo.alt || "لوگوی مشتری"}
-        className={styles.logoImage}
-      />
-    </div>
-  );
 
   if (!isReady) {
     return (
@@ -67,7 +73,6 @@ const LogosStripSection = ({ logos = [] }) => {
         showDots={false}
         isRTL={true}
         className={styles.logosCarousel}
-        // [NEW] Explicitly define mobile breakpoints instead of relying on Carousel defaults
         breakpoints={{
           "(max-width: 768px)": {
             slidesPerView: 1,

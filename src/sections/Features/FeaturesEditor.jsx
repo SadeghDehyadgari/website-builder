@@ -4,7 +4,7 @@ import { useState } from "react";
 import EditorField from "../../components/EditorField/EditorField";
 // [EXISTING] Import shared editor styles to eliminate inline styles
 import sharedStyles from "../../styles/editor-shared.module.css";
-// [NEW] Import shared ID generator for consistency and collision resistance
+// [EXISTING] Import shared ID generator for consistency and collision resistance
 import { generateId } from "../../utils/idGenerator";
 
 /**
@@ -30,7 +30,7 @@ function FeaturesEditor({ data, onChange }) {
 
   function addItem() {
     const newItem = {
-      // [UPDATED] Use shared generateId() instead of Date.now() to prevent ID collisions
+      // [EXISTING] Use shared generateId() instead of Date.now() to prevent ID collisions
       // and ensure consistency across the entire application.
       id: generateId(),
       icon: "✨",
@@ -46,22 +46,33 @@ function FeaturesEditor({ data, onChange }) {
   }
 
   return (
-    <div>
+    // [UPDATED] Added editorContainer for consistent layout across all editors
+    <div className={sharedStyles.editorContainer}>
+      {/* [UPDATED] Added editorTitle for consistent UX across all editors */}
+      <h3 className={sharedStyles.editorTitle}>تنظیمات ویژگی‌ها</h3>
+
       {/* Top-level fields - [EXISTING] CHANGED: Persian labels */}
+      {/* [UPDATED] Added id and placeholder for accessibility and better UX */}
       <EditorField
-        label="عنوان بخش  "
+        id="features-title"
+        label="عنوان بخش"
         value={data.title}
         onChange={(v) => handleTopLevelChange("title", v)}
+        placeholder="عنوان اصلی بخش ویژگی‌ها"
       />
       <EditorField
-        label="متن دکمه CTA  "
+        id="features-ctaText"
+        label="متن دکمه CTA"
         value={data.ctaText}
         onChange={(v) => handleTopLevelChange("ctaText", v)}
+        placeholder="مثلاً: مشاهده خدمات"
       />
       <EditorField
-        label="لینک CTA  "
+        id="features-ctaLink"
+        label="لینک CTA"
         value={data.ctaLink}
         onChange={(v) => handleTopLevelChange("ctaLink", v)}
+        placeholder="مثلاً: /services"
       />
 
       {/* [EXISTING] Replaced inline style with shared CSS class */}
@@ -117,7 +128,7 @@ function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
                 onRemove(index);
               }}
               className={sharedStyles.removeButton}
-              title="حذف مورد "
+              title="حذف مورد"
             >
               ✕
             </button>
@@ -128,22 +139,28 @@ function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
       {isOpen && (
         // [EXISTING] Replaced inline style with shared CSS class
         <div className={sharedStyles.itemBody}>
-          {/* [EXISTING] Using shared EditorField instead of local Field */}
+          {/* [UPDATED] Added id and placeholder for accessibility and better UX */}
           <EditorField
-            label="آیکون (Emoji)  "
+            id={`features-item-${index}-icon`}
+            label="آیکون (Emoji)"
             value={item.icon}
             onChange={(v) => onChange(index, "icon", v)}
+            placeholder="✨"
           />
           <EditorField
-            label="عنوان "
+            id={`features-item-${index}-title`}
+            label="عنوان"
             value={item.title}
             onChange={(v) => onChange(index, "title", v)}
+            placeholder="عنوان ویژگی"
           />
           <EditorField
-            label="توضیحات "
+            id={`features-item-${index}-description`}
+            label="توضیحات"
             value={item.description}
             onChange={(v) => onChange(index, "description", v)}
             multiline
+            placeholder="توضیح کوتاه درباره ویژگی"
           />
         </div>
       )}

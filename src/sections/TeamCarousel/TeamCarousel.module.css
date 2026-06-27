@@ -1,5 +1,7 @@
 /* src/sections/TeamCarousel/TeamCarousel.module.css */
-/* [EXISTING] Styles for TeamCarousel */
+/* [UPDATED] Removed all editor-specific styles (.editorTitle, .addForm, .input, .memberEditor, .emptyMessage)
+   They are now centralized in src/styles/editor-shared.module.css (DRY principle) */
+
 .teamSection {
   width: 100%;
   padding: 2rem 0;
@@ -33,15 +35,12 @@
 
 .memberCard {
   flex: 0 0 auto;
-  /* [UPDATED] Width 100% to match slide width in carousel mode */
   width: 100%;
-  /* [UPDATED] Max-width to maintain original size in grid mode */
   max-width: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  /* [UPDATED] Removed horizontal margin to prevent overlap in carousel */
   margin: 0 auto;
 }
 
@@ -74,83 +73,23 @@
   background: var(--color-primary-orange, #fb7a01) !important;
 }
 
-/* [REMOVED] .editorContainer, .addButton, .removeButton moved to src/styles/editor-shared.module.css */
-
-/* [EXISTING] Editor specific styles (kept because layout differs from standard itemEditor) */
-.editorTitle {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-text-normal, #2f4858);
-  margin: 0 0 0.5rem 0;
-}
-
-.addForm {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.input {
-  flex: 1;
-  min-width: 120px;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-border-light, #e0e0e0);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background: #f9f9f9;
-  transition: border-color 0.2s;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-primary-green, #1ea965);
-  background: #ffffff;
-}
-
-.memberEditor {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-  background: #f5f5f5;
-  padding: 0.5rem;
-  border-radius: 6px;
-}
-
-.memberEditor .input {
-  flex: 1 1 120px;
-}
-
-.emptyMessage {
-  color: var(--color-text-muted, #5c6a63);
-  font-size: 0.9rem;
-  margin: 0.5rem 0;
-}
-
-/* [EXISTING] Responsive (mobile) */
+/* Responsive (mobile) */
 @media (max-width: 768px) {
   .teamSection {
     padding: 1.5rem 0;
   }
-
   .title {
     font-size: 1.4rem;
   }
-
   .description {
     font-size: 0.9rem;
   }
-
   .gridContainer {
     gap: 1rem;
   }
-
   .teamCarousel [class*="slide"] {
-    /* [NEW] 33.333% width for 3 slides on mobile */
     flex: 0 0 33.333%;
   }
-
   .memberCard {
     flex: 0 0 auto;
     width: 100%;
@@ -161,11 +100,9 @@
     text-align: center;
     margin: 0 auto;
   }
-
   .memberName {
     font-size: 0.85rem;
   }
-
   .memberRole {
     font-size: 0.7rem;
   }

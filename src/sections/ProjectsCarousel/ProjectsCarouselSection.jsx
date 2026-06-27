@@ -1,25 +1,33 @@
 // src/sections/ProjectsCarousel/ProjectsCarouselSection.jsx
-// UPDATED: Moved dotsContainer outside carouselCard so dots appear below the slide card.
-
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import styles from "./ProjectsCarousel.module.css";
+// [NEW] Import security utility for URL validation
+import { isSafeUrl } from "../../utils/urlUtils";
 
 /**
- * Renders a single project slide with mockup image on the RIGHT and info on the LEFT.
- */
+Renders a single project slide with mockup image on the RIGHT and info on the LEFT.
+@param {Object} props - { logo, title, description, image }
+*/
 const ProjectSlide = ({ logo, title, description, image }) => {
   return (
     <div className={styles.slideContent}>
       <div className={styles.infoColumn}>
-        {logo && (
+        {/* [UPDATED] Validate logo URL to prevent XSS */}
+        {logo && isSafeUrl(logo) && (
           <img src={logo} alt="project logo" className={styles.projectLogo} />
         )}
+        {/* [UPDATED] Added fallback for title in alt */}
         <h3 className={styles.projectTitle}>{title}</h3>
         <p className={styles.projectDescription}>{description}</p>
       </div>
       <div className={styles.imageColumn}>
-        <img src={image} alt={title} className={styles.mockupImage} />
+        {/* [UPDATED] Validate image URL to prevent XSS */}
+        <img
+          src={isSafeUrl(image) ? image : ""}
+          alt={title || "پروژه"}
+          className={styles.mockupImage}
+        />
       </div>
     </div>
   );
@@ -32,37 +40,48 @@ const ProjectsCarouselSection = ({
 }) => {
   const [emblaApi, setEmblaApi] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const items = slides || [];
   const total = items.length;
   const hasMultiple = total > 1;
 
-  if (total === 0) return null;
-
-  const handlePrev = () => {
+  // [UPDATED] Memoize handlers to prevent unnecessary re-renders in Carousel
+  const handlePrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
-  };
+  }, [emblaApi]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
-  };
+  }, [emblaApi]);
 
-  const handleIndexChange = (index) => {
+  const handleIndexChange = useCallback((index) => {
     setCurrentIndex(index);
-  };
+  }, []);
+
+  // [UPDATED] Memoize render function to prevent unnecessary re-renders in Carousel
+  const renderSlide = useCallback(
+    (slide) => (
+      <ProjectSlide
+        logo={slide.logo}
+        title={slide.title}
+        description={slide.description}
+        image={slide.image}
+      />
+    ),
+    [],
+  );
 
   const isPrevDisabled = currentIndex === 0;
   const isNextDisabled = currentIndex === total - 1;
   const withAutoplay = autoplayInterval > 0;
 
+  if (total === 0) return null;
+
   return (
     <section className={styles.container}>
       <div className={styles.decorTopLeft} />
       <div className={styles.decorBottomRight} />
-
       {title && <h2 className={styles.sectionTitle}>{title}</h2>}
 
-      {/* Carousel card – contains slides and arrows */}
       <div className={styles.carouselCard}>
         {hasMultiple && (
           <>
@@ -70,7 +89,7 @@ const ProjectsCarouselSection = ({
               className={`${styles.arrowButton} ${styles.arrowPrev}`}
               onClick={handlePrev}
               disabled={isPrevDisabled}
-              aria-label="Previous slide"
+              aria-label="اسلاید قبلی"
             >
               ❮
             </button>
@@ -78,7 +97,7 @@ const ProjectsCarouselSection = ({
               className={`${styles.arrowButton} ${styles.arrowNext}`}
               onClick={handleNext}
               disabled={isNextDisabled}
-              aria-label="Next slide"
+              aria-label="اسلاید بعدی"
             >
               ❯
             </button>
@@ -87,14 +106,7 @@ const ProjectsCarouselSection = ({
 
         <Carousel
           slides={items}
-          renderSlide={(slide) => (
-            <ProjectSlide
-              logo={slide.logo}
-              title={slide.title}
-              description={slide.description}
-              image={slide.image}
-            />
-          )}
+          renderSlide={renderSlide}
           slidesPerView={1}
           align="center"
           containScroll={false}
@@ -110,7 +122,6 @@ const ProjectsCarouselSection = ({
         />
       </div>
 
-      {/* UPDATED: Dots moved OUTSIDE the carousel card */}
       {hasMultiple && (
         <div className={styles.dotsContainer}>
           {items.map((_, idx) => (
@@ -118,7 +129,7 @@ const ProjectsCarouselSection = ({
               key={idx}
               className={`${styles.dot} ${idx === currentIndex ? styles.dotActive : ""}`}
               onClick={() => emblaApi && emblaApi.scrollTo(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
+              aria-label={`رفتن به اسلاید ${idx + 1}`}
             />
           ))}
         </div>

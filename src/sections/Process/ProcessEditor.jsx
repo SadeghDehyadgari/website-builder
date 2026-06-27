@@ -1,198 +1,83 @@
 // src/sections/Process/ProcessEditor.jsx
-// UPDATED: Removed useEffect to avoid cascading renders; state initialized directly from props.
-// Uses default values when props are undefined.
+// [FIXED] Now using shared EditorField component (DRY principle)
+import EditorField from "../../components/EditorField/EditorField";
+import sharedStyles from "../../styles/editor-shared.module.css";
 
-import { useState } from "react";
-
-const ProcessEditor = ({ props = {}, onChange }) => {
-  // Initialize local state directly from props (once, on mount)
-  // This avoids the need for a synchronizing useEffect.
-  const [localProps, setLocalProps] = useState({
-    title: props.title ?? "روند تبدیل ایده به محصول",
-    description:
-      props.description ??
-      "از ایده‌پردازی تا پیاده‌سازی نهایی، ما در هر قدم همراه شما هستیم.",
-    ctaText: props.ctaText ?? "شروع کنید",
-    ctaLink: props.ctaLink ?? "#",
-    desktopImage: props.desktopImage ?? "/images/process.svg",
-    mobileImage: props.mobileImage ?? "/images/process-mobile.svg",
-    alt: props.alt ?? "روند تبدیل ایده به محصول",
-  });
-
-  // Handle individual field changes – updates local state and notifies parent
-  const handleChange = (field, value) => {
-    const updated = { ...localProps, [field]: value };
-    setLocalProps(updated);
-    // Tell parent about the change (tell, don't ask)
-    onChange(updated);
-  };
+/**
+ProcessEditor — settings form for the Process section.
+Receives current data and an onChange callback.
+Command pattern: onChange(updatedData) — caller decides what to do with the update.
+Single Responsibility: collect user input for Process data only.
+@param {Object}   props.data     - current Process data
+@param {Function} props.onChange  - called with the full updated data object
+*/
+function ProcessEditor({ data, onChange }) {
+  function handleFieldChange(field, value) {
+    onChange({ ...data, [field]: value });
+  }
 
   return (
-    <div style={{ padding: "1rem", direction: "rtl" }}>
-      <h4 style={{ marginBottom: "1rem" }}>تنظیمات سکشن فرآیند</h4>
+    <div className={sharedStyles.editorContainer}>
+      <h3 className={sharedStyles.editorTitle}>تنظیمات سکشن فرآیند</h3>
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          عنوان
-        </label>
-        <input
-          type="text"
-          value={localProps.title}
-          onChange={(e) => handleChange("title", e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-title"
+        label="عنوان"
+        value={data.title}
+        onChange={(v) => handleFieldChange("title", v)}
+        placeholder="عنوان بخش فرآیند"
+      />
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          توضیحات
-        </label>
-        <textarea
-          value={localProps.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-          rows="3"
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-description"
+        label="توضیحات"
+        value={data.description}
+        onChange={(v) => handleFieldChange("description", v)}
+        multiline
+        placeholder="توضیح درباره فرآیند کار"
+      />
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          متن دکمه
-        </label>
-        <input
-          type="text"
-          value={localProps.ctaText}
-          onChange={(e) => handleChange("ctaText", e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-ctaText"
+        label="متن دکمه"
+        value={data.ctaText}
+        onChange={(v) => handleFieldChange("ctaText", v)}
+        placeholder="مثلاً: شروع کنید"
+      />
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          لینک دکمه
-        </label>
-        <input
-          type="text"
-          value={localProps.ctaLink}
-          onChange={(e) => handleChange("ctaLink", e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-ctaLink"
+        label="لینک دکمه"
+        value={data.ctaLink}
+        onChange={(v) => handleFieldChange("ctaLink", v)}
+        placeholder="مثلاً: /contact"
+      />
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          تصویر دسکتاپ (مسیر)
-        </label>
-        <input
-          type="text"
-          value={localProps.desktopImage}
-          onChange={(e) => handleChange("desktopImage", e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-desktopImage"
+        label="تصویر دسکتاپ (مسیر)"
+        value={data.desktopImage}
+        onChange={(v) => handleFieldChange("desktopImage", v)}
+        placeholder="/images/process.svg"
+      />
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          تصویر موبایل (مسیر)
-        </label>
-        <input
-          type="text"
-          value={localProps.mobileImage}
-          onChange={(e) => handleChange("mobileImage", e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-mobileImage"
+        label="تصویر موبایل (مسیر)"
+        value={data.mobileImage}
+        onChange={(v) => handleFieldChange("mobileImage", v)}
+        placeholder="/images/process-mobile.svg"
+      />
 
-      <div style={{ marginBottom: "0.8rem" }}>
-        <label
-          style={{
-            display: "block",
-            marginBottom: "0.3rem",
-            fontWeight: "bold",
-          }}
-        >
-          متن جایگزین (alt)
-        </label>
-        <input
-          type="text"
-          value={localProps.alt}
-          onChange={(e) => handleChange("alt", e.target.value)}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+      <EditorField
+        id="process-alt"
+        label="متن جایگزین (alt)"
+        value={data.alt}
+        onChange={(v) => handleFieldChange("alt", v)}
+        placeholder="توضیح تصویر برای accessibility"
+      />
     </div>
   );
-};
+}
 
 export default ProcessEditor;
