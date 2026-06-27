@@ -1,4 +1,6 @@
-/* Footer.module.css - Modern minimal footer with RTL support */
+/* src/sections/Footer/Footer.module.css */
+/* [UPDATED] Removed all editor-specific styles (.editor, .editorTitle, .fieldGroup, .hint)
+   They are now centralized in src/styles/editor-shared.module.css (DRY principle) */
 
 .footer {
   background-color: var(--color-white);
@@ -27,14 +29,6 @@
   height: 40px;
   width: auto;
   display: block;
-}
-
-/* Brand text (if needed, not used in current design) */
-.brandName {
-  font-size: var(--font-size-logo);
-  font-weight: bold;
-  color: var(--color-primary-green);
-  margin: 0;
 }
 
 .socialLinks {
@@ -79,11 +73,9 @@
     text-align: center;
     gap: var(--spacing-large);
   }
-
   .socialLinks {
     gap: 2.5rem;
   }
-
   .copyright {
     font-size: 0.75rem;
     padding-inline: 0.5rem;

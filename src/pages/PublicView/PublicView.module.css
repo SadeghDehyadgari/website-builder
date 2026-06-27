@@ -25,6 +25,13 @@
   animation-duration: 1.5s;
 }
 
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+}
+
 /* [NEW] Shine animation - gradient moves from right to left */
 @keyframes shine {
   0% {

@@ -1,22 +1,9 @@
 // src/components/AddSectionMenu/AddSectionMenu.jsx
-// [NEW] Dropdown menu with 2-column grid for adding sections
-// [UPDATED] Converted from always-visible list to dropdown for space efficiency
+
 import { useState, useRef, useEffect } from "react";
 import { getAllSectionTypes, getSection } from "../../sections/registry";
+import { generateId } from "../../utils/idGenerator";
 import styles from "./AddSectionMenu.module.css";
-
-// [FIX] Fallback for crypto.randomUUID() in non-secure contexts (e.g., mobile browsers on HTTP)
-// crypto.randomUUID() only works in secure contexts (HTTPS or localhost)
-const generateSectionId = () => {
-  if (crypto && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-  // Fallback: generate random ID using Math.random()
-  return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  );
-};
 
 /**
  * AddSectionMenu - dropdown menu for adding new sections to the page
@@ -58,7 +45,8 @@ function AddSectionMenu({ onAdd }) {
     const entry = getSection(type);
     if (entry) {
       onAdd({
-        id: `section-${generateSectionId()}`, // [FIX] Use fallback function
+        // [UPDATED] Use centralized ID generator instead of inline fallback
+        id: `section-${generateId()}`,
         type,
         props: { ...entry.defaultProps },
       });

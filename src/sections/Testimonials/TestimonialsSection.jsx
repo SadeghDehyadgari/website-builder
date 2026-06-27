@@ -1,60 +1,82 @@
 // src/sections/Testimonials/TestimonialsSection.jsx
-// NEW FILE: Testimonials section component
-
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import styles from "./Testimonials.module.css";
+// [NEW] Import security utility for URL validation
+import { isSafeUrl } from "../../utils/urlUtils";
 
 /**
- * Renders a single testimonial card.
- */
+Renders a single testimonial card.
+*/
 const TestimonialCard = ({ avatar, name, role, quote }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <div className={styles.userInfo}>
-          <img src={avatar} alt={name} className={styles.avatar} />
+          {/* [UPDATED] Validate avatar URL to prevent XSS */}
+          <img
+            src={isSafeUrl(avatar) ? avatar : "/avatars/avatar-1.png"}
+            // [UPDATED] Added fallback for alt text
+            alt={name || "کاربر"}
+            className={styles.avatar}
+          />
           <span className={styles.userName}>{name}</span>
         </div>
         <span className={styles.userRole}>{role}</span>
       </div>
-
       <p className={styles.quoteText}>{quote}</p>
     </div>
   );
 };
 
 /**
- * Testimonials section – left side: fixed info + nav buttons, right side: carousel.
- * Uses the shared Carousel component with external control via onApiInit.
- */
+Testimonials section – left side: fixed info + nav buttons, right side: carousel.
+Uses the shared Carousel component with external control via onApiInit.
+*/
 const TestimonialsSection = ({ title, description, items }) => {
+  // ✅ ALL HOOKS AT THE TOP (Rules of Hooks)
   const [emblaApi, setEmblaApi] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0); // NEW: track current slide index
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   // Ensure items is an array
   const slides = items || [];
   const totalSlides = slides.length;
 
-  const handlePrev = () => {
+  // [UPDATED] Memoize handlers to prevent unnecessary re-renders in Carousel
+  // ✅ Moved BEFORE any early returns to comply with Rules of Hooks
+  const handlePrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
-  };
+  }, [emblaApi]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
-  };
+  }, [emblaApi]);
 
-  // NEW: handler for index changes from Carousel
-  const handleIndexChange = (index) => {
+  // [UPDATED] Memoize handler for index changes from Carousel
+  const handleIndexChange = useCallback((index) => {
     setCurrentIndex(index);
-  };
+  }, []);
 
+  // [UPDATED] Memoize render function to prevent unnecessary re-renders in Carousel
+  const renderSlide = useCallback(
+    (slide) => (
+      <TestimonialCard
+        avatar={slide.avatar || "/avatars/avatar-1.png"}
+        name={slide.name || "کاربر"}
+        role={slide.role || "نقش شغلی"}
+        quote={slide.quote || "نظر کاربر"}
+      />
+    ),
+    [],
+  );
+
+  // ✅ NOW we can have early returns (all hooks already called)
   // If no items, show nothing
   if (slides.length === 0) {
     return null;
   }
 
-  // NEW: determine if buttons should be disabled
+  // [UPDATED] Determine if buttons should be disabled
   const isPrevDisabled = currentIndex === 0;
   const isNextDisabled = currentIndex === totalSlides - 1;
 
@@ -93,14 +115,7 @@ const TestimonialsSection = ({ title, description, items }) => {
       <div className={styles.carouselWrapper}>
         <Carousel
           slides={slides}
-          renderSlide={(slide) => (
-            <TestimonialCard
-              avatar={slide.avatar || "/avatars/avatar-1.png"}
-              name={slide.name || "کاربر"}
-              role={slide.role || "نقش شغلی"}
-              quote={slide.quote || "نظر کاربر"}
-            />
-          )}
+          renderSlide={renderSlide}
           slidesPerView={1.2}
           withAutoplay={false}
           showArrows={false} // We control arrows externally

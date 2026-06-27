@@ -23,12 +23,15 @@ const PageBuilder = () => {
   const [isDirty, setIsDirty] = useState(false);
   // [FIX] Adjusting state during rendering (React Best Practice)
   const [lastSyncedPageId, setLastSyncedPageId] = useState(page?.id);
+
   if (page?.id && page.id !== lastSyncedPageId) {
     setLastSyncedPageId(page.id);
     setSections(page.sections || []);
     setIsDirty(false);
   }
+
   const blocker = useBlocker(isDirty);
+
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       if (isDirty) {
@@ -39,6 +42,7 @@ const PageBuilder = () => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [isDirty]);
+
   const handleSave = useCallback(() => {
     updateSectionsMutation.mutate(
       { pageId, sections },
@@ -53,10 +57,12 @@ const PageBuilder = () => {
       },
     );
   }, [pageId, sections, updateSectionsMutation]);
+
   const handleAddSection = (newSection) => {
     setSections((prev) => [...prev, newSection]);
     setIsDirty(true);
   };
+
   const handleUpdateSectionProps = (sectionId, newProps) => {
     setSections((prev) =>
       prev.map((sec) =>
@@ -65,17 +71,20 @@ const PageBuilder = () => {
     );
     setIsDirty(true);
   };
+
   const handleDeleteSection = (sectionId) => {
     setSections((prev) => prev.filter((sec) => sec.id !== sectionId));
     setIsDirty(true);
     if (selectedSectionId === sectionId) clearSelection();
   };
+
   const moveSection = (index, direction) => {
     if (
       (direction === "up" && index === 0) ||
       (direction === "down" && index === sections.length - 1)
     )
       return;
+
     setSections((prev) => {
       const newSections = [...prev];
       const target = direction === "up" ? index - 1 : index + 1;
@@ -87,6 +96,7 @@ const PageBuilder = () => {
     });
     setIsDirty(true);
   };
+
   const renderSectionWithControls = (section, idx) => {
     const entry = getSection(section.type);
     if (!entry) {
@@ -96,6 +106,7 @@ const PageBuilder = () => {
         </div>
       );
     }
+
     const { Component } = entry;
     const isSelected = selectedSectionId === section.id;
     return (

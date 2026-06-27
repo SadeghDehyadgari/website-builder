@@ -1,8 +1,9 @@
 // src/sections/Process/ProcessSection.jsx
-// NEW: Process section component – renders title, description, CTA button and responsive image
-
+// [UPDATED] Added URL validation to prevent XSS via malicious URIs in links and images.
 import Button from "../../components/Button/Button";
 import styles from "./Process.module.css";
+// [NEW] Import security utility for URL validation
+import { isSafeUrl } from "../../utils/urlUtils";
 
 const ProcessSection = ({
   title = "روند تبدیل ایده به محصول",
@@ -18,7 +19,8 @@ const ProcessSection = ({
       {title && <h2 className={styles.title}>{title}</h2>}
       {description && <p className={styles.description}>{description}</p>}
 
-      {ctaText && ctaLink && (
+      {/* [UPDATED] Validate ctaLink before rendering the button to prevent XSS */}
+      {ctaText && ctaLink && isSafeUrl(ctaLink) && (
         <div className={styles.ctaWrapper}>
           <Button variant="primary" withArrow href={ctaLink}>
             {ctaText}
@@ -28,11 +30,20 @@ const ProcessSection = ({
 
       <div className={styles.imageWrapper}>
         <picture>
-          {/* Mobile version – loaded first for small screens */}
-          <source media="(max-width: 768px)" srcSet={mobileImage} />
-          {/* Desktop version – fallback */}
-          <source media="(min-width: 769px)" srcSet={desktopImage} />
-          <img src={desktopImage} alt={alt} loading="lazy" />
+          {/* [UPDATED] Validate image URLs before rendering to prevent malicious data: URIs */}
+          <source
+            media="(max-width: 768px)"
+            srcSet={isSafeUrl(mobileImage) ? mobileImage : ""}
+          />
+          <source
+            media="(min-width: 769px)"
+            srcSet={isSafeUrl(desktopImage) ? desktopImage : ""}
+          />
+          <img
+            src={isSafeUrl(desktopImage) ? desktopImage : ""}
+            alt={alt}
+            loading="lazy"
+          />
         </picture>
       </div>
     </section>

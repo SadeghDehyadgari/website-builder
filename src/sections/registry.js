@@ -239,7 +239,7 @@ const sectionRegistry = {
 };
 
 export function getSection(type) {
-  if (!type) return null;
+  if (!type || typeof type !== "string") return null;
   const normalizedType = type.toLowerCase();
   return sectionRegistry[normalizedType] ?? null;
 }

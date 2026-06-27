@@ -1,16 +1,186 @@
-# React + Vite
+# 🏗️ Website Builder - Karyar Studio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A visual website page builder with admin panel and public view, built as a frontend technical assessment project.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🎯 Features
 
-## React Compiler
+- **Admin Panel**: CRUD pages + Visual builder (add/remove/reorder sections + edit settings)
+- **Public View**: Render pages based on slug in URL
+- **10 Ready Sections**: Header, Hero, Features, Process, Banner, LogosStrip, ProjectsCarousel, TeamCarousel, Testimonials, Footer
+- **Responsive**: Mobile & desktop compatible
+- **RTL**: Full Persian language support
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Category     | Technology                   |
+| ------------ | ---------------------------- |
+| Build Tool   | Vite                         |
+| Framework    | React 19                     |
+| Routing      | React Router (Data Router)   |
+| Server State | TanStack Query (React Query) |
+| UI State     | Zustand                      |
+| Styling      | CSS Modules + CSS Variables  |
+| Dev API      | json-server                  |
+| Prod API     | JSONBin.io                   |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/   # Shared components (Button, Modal, Carousel, ...)
+├── pages/        # Main pages (AdminDashboard, PageBuilder, PublicView)
+├── sections/     # Builder sections (Hero, Features, ...)
+├── services/     # API layer (pagesApi.js)
+├── hooks/        # React Query hooks (usePages.js)
+├── store/        # State management (builderStore.js)
+├── styles/       # Global styles (variables.css, editor-shared.module.css)
+├── utils/        # Helper functions (idGenerator.js, urlUtils.js)
+├── App.jsx       # Main app component
+├── index.css     # Global CSS
+└── main.jsx      # Entry point
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/sadegh/website-builder.git
+cd website-builder
+
+# Install dependencies
+npm install
+```
+
+### Development
+
+```bash
+# Start json-server (API mock)
+json-server --watch db.json --port 3001 --host 0.0.0.0
+
+# Start Vite dev server (in another terminal)
+npm run dev
+
+# Or run both together
+npm run dev:all
+```
+
+**Access:**
+
+- Admin Panel: http://localhost:5173/admin
+- Page Builder: http://localhost:5173/admin/builder/1
+- Public View: http://localhost:5173/
+
+### Production Build
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+---
+
+## 🌐 Deployment
+
+This project is deployed on Vercel with automatic deployment from GitHub.
+
+**Live Demo:** https://karyar-website-builder.vercel.app
+
+### Deployment Steps
+
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Set environment variables in Vercel dashboard:
+   - `VITE_API_URL`: JSONBin.io API URL
+   - `VITE_JSONBIN_MASTER_KEY`: JSONBin master key
+4. Vercel automatically deploys on every push to `main`
+
+---
+
+## ⚠️ Security Note
+
+> **Important:** This project uses JSONBin.io for data persistence. The `X-Master-Key` is stored in frontend environment variables (`VITE_JSONBIN_MASTER_KEY`), which is a security risk for production applications.
+
+**For Production:**
+
+1. Build a backend (e.g., Node.js/Express)
+2. Store `X-Master-Key` in the backend
+3. Frontend sends requests only to the backend
+4. Backend proxies requests to JSONBin.io
+
+This is an MVP/demo project. For real-world applications, always use a backend proxy to protect sensitive API keys.
+
+---
+
+## 🔑 Key Architecture Decisions
+
+| Decision                   | Reason                                           |
+| -------------------------- | ------------------------------------------------ |
+| Vite + React (JS)          | Fast MVP, no TypeScript overhead                 |
+| React Router (Data Router) | Modern routing with `useBlocker` support         |
+| TanStack Query             | Automatic loading/error/caching for server state |
+| Zustand                    | Lightweight UI state management                  |
+| CSS Modules                | Scoped styles without Tailwind                   |
+| json-server (dev)          | Full API simulation for development              |
+| JSONBin.io (prod)          | Free JSON storage                                |
+| Section Registry           | Extensible architecture (Open-Closed Principle)  |
+
+---
+
+## 📝 Known Limitations
+
+- **Security**: Master key exposed in frontend (see Security Note above)
+- **Client-side Validation**: Slug uniqueness validated on client only
+- **JSONBin Limit**: 50MB storage limit (sufficient for this project)
+
+---
+
+## 🧪 Testing
+
+### Local Testing
+
+```bash
+# Test with json-server
+npm run dev:all
+
+# Test production build locally
+npm run build
+npm run preview
+```
+
+### Mobile Testing
+
+1. Find your laptop's IP: `ipconfig` (Windows) or `ifconfig` (Mac/Linux)
+2. Update `.env.development`: `VITE_API_URL=http://YOUR_IP:3001`
+3. Run json-server with `--host 0.0.0.0`
+4. Access on mobile: `http://YOUR_IP:5173`
+
+---
+
+## 📄 License
+
+This project is created for educational purposes as part of a technical assessment.
+
+---
+
+## 👨‍💻 Author
+
+**Sadegh Dehyadgari**  
+Junior Frontend Developer

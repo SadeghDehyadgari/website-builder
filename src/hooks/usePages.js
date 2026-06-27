@@ -1,3 +1,4 @@
+// src/hooks/usePages.js
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getPages,
@@ -6,7 +7,7 @@ import {
   createPage,
   deletePage,
   updatePageSections,
-  updatePage, // [NEW] Import updatePage for meta data updates
+  updatePage,
 } from "../services/pagesApi";
 
 // Query keys for caching and invalidation
@@ -32,19 +33,20 @@ export function usePages() {
  * Example: usePage({ slug: 'about' })
  */
 export function usePage({ id, slug } = {}) {
+  // [FIX] Determine if we have the necessary parameters to fetch
+  const isEnabled = Boolean(id || slug);
   const queryKey = pageKeys.detail(id || slug);
-  let queryFn;
-  if (id) {
-    queryFn = () => getPageById(id);
-  } else if (slug) {
-    queryFn = () => getPageBySlug(slug);
-  } else {
-    throw new Error("usePage requires either id or slug");
-  }
+
   return useQuery({
     queryKey,
-    queryFn,
-    enabled: !!(id || slug), // Only run if we have identifier
+    // [FIX] Provide a safe queryFn that returns null if disabled.
+    // React Query won't execute this if enabled is false, but it satisfies the API requirement.
+    queryFn: () => {
+      if (!isEnabled) return null;
+      return id ? getPageById(id) : getPageBySlug(slug);
+    },
+    // [FIX] Gracefully disable the query instead of crashing the render phase
+    enabled: isEnabled,
   });
 }
 
@@ -56,7 +58,6 @@ export function useCreatePage() {
   return useMutation({
     mutationFn: createPage,
     onSuccess: () => {
-      // Invalidate pages list to refetch
       queryClient.invalidateQueries({ queryKey: pageKeys.list() });
     },
   });
@@ -83,7 +84,6 @@ export function useUpdatePageSections() {
   return useMutation({
     mutationFn: ({ pageId, sections }) => updatePageSections(pageId, sections),
     onSuccess: (data, variables) => {
-      // Invalidate both list and the specific page detail
       queryClient.invalidateQueries({ queryKey: pageKeys.list() });
       queryClient.invalidateQueries({
         queryKey: pageKeys.detail(variables.pageId),
@@ -92,13 +92,14 @@ export function useUpdatePageSections() {
   });
 }
 
-// [NEW] Mutation to update page meta data (name, slug)
+/**
+ * Mutation to update page meta data (name, slug)
+ */
 export function useUpdatePage() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }) => updatePage(id, data),
     onSuccess: (data, variables) => {
-      // Invalidate both list and the specific page detail to keep UI in sync
       queryClient.invalidateQueries({ queryKey: pageKeys.list() });
       queryClient.invalidateQueries({
         queryKey: pageKeys.detail(variables.id),

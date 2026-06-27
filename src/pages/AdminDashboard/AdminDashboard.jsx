@@ -11,6 +11,8 @@ import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Modal from "../../components/Modal/Modal";
+// [NEW] Import the extracted form component
+import PageForm from "./PageForm";
 import styles from "./AdminDashboard.module.css";
 
 const AdminDashboard = () => {
@@ -25,14 +27,12 @@ const AdminDashboard = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null); // { id, name }
 
-  // [NEW] Edit modal states
+  // [UPDATED] Edit modal states
+  // We only need to track the target page. Form inputs are now managed inside PageForm.
   const [editTarget, setEditTarget] = useState(null); // { id, name, slug }
-  const [editPageName, setEditPageName] = useState("");
-  const [editPageSlug, setEditPageSlug] = useState("");
 
-  // Form state for create page (using 'name' not 'title')
-  const [newPageName, setNewPageName] = useState("");
-  const [newPageSlug, setNewPageSlug] = useState("");
+  // [REMOVED] newPageName, newPageSlug, editPageName, editPageSlug
+  // [NEW] Reason: PageForm now handles its own internal state, eliminating redundant parent state.
 
   // [UPDATED] Added excludeId to prevent duplicate error when editing the same page
   const isSlugDuplicate = (slug, excludeId = null) => {
@@ -53,61 +53,53 @@ const AdminDashboard = () => {
     return null;
   };
 
-  const handleCreatePage = (e) => {
-    e.preventDefault();
-    const slugError = validateSlug(newPageSlug); // excludeId is null by default
+  // [UPDATED] Now receives clean formData from PageForm instead of event object
+  const handleCreatePage = (formData) => {
+    const slugError = validateSlug(formData.slug); // excludeId is null by default
     if (slugError) {
       toast.error(slugError);
       return;
     }
-    if (!newPageName.trim()) {
+    if (!formData.name.trim()) {
       toast.error("نام صفحه الزامی است");
       return;
     }
 
     // Use 'name' and 'slug' as expected by pagesApi.createPage
-    createPageMutation.mutate(
-      { name: newPageName.trim(), slug: newPageSlug.trim() },
-      {
-        onSuccess: (newPage) => {
-          toast.success(`صفحه "${newPage.name}" با موفقیت ایجاد شد`);
-          setIsCreateModalOpen(false);
-          setNewPageName("");
-          setNewPageSlug("");
-          navigate(`/admin/builder/${newPage.id}`);
-        },
-        onError: (err) => {
-          toast.error(`خطا در ایجاد صفحه: ${err.message}`);
-        },
+    createPageMutation.mutate(formData, {
+      onSuccess: (newPage) => {
+        toast.success(`صفحه "${newPage.name}" با موفقیت ایجاد شد`);
+        closeFormModal();
+        navigate(`/admin/builder/${newPage.id}`);
       },
-    );
+      onError: (err) => {
+        toast.error(`خطا در ایجاد صفحه: ${err.message}`);
+      },
+    });
   };
 
   // [NEW] Handlers for Edit Modal (Command pattern)
   const handleEditClick = (page) => {
     setEditTarget({ id: page.id, name: page.name, slug: page.slug });
-    setEditPageName(page.name);
-    setEditPageSlug(page.slug);
   };
 
-  // [NEW] Centralized command to reset and close edit modal (Tell, don't ask)
-  const closeEditModal = () => {
+  // [NEW] Centralized command to reset and close form modal (Tell, don't ask)
+  const closeFormModal = () => {
+    setIsCreateModalOpen(false);
     setEditTarget(null);
-    setEditPageName("");
-    setEditPageSlug("");
   };
 
-  const handleUpdatePage = (e) => {
-    e.preventDefault();
+  // [UPDATED] Now receives clean formData from PageForm instead of event object
+  const handleUpdatePage = (formData) => {
     if (!editTarget) return;
 
     // Pass editTarget.id to exclude current page from duplicate check
-    const slugError = validateSlug(editPageSlug, editTarget.id);
+    const slugError = validateSlug(formData.slug, editTarget.id);
     if (slugError) {
       toast.error(slugError);
       return;
     }
-    if (!editPageName.trim()) {
+    if (!formData.name.trim()) {
       toast.error("نام صفحه الزامی است");
       return;
     }
@@ -115,12 +107,12 @@ const AdminDashboard = () => {
     updatePageMutation.mutate(
       {
         id: editTarget.id,
-        data: { name: editPageName.trim(), slug: editPageSlug.trim() },
+        data: formData,
       },
       {
         onSuccess: () => {
-          toast.success(`صفحه "${editPageName}" با موفقیت ویرایش شد`);
-          closeEditModal();
+          toast.success(`صفحه "${formData.name}" با موفقیت ویرایش شد`);
+          closeFormModal();
         },
         onError: (err) => {
           toast.error(`خطا در ویرایش صفحه: ${err.message}`);
@@ -162,6 +154,9 @@ const AdminDashboard = () => {
   if (isError) {
     return <ErrorMessage message={error?.message || "خطا در بارگذاری صفحات"} />;
   }
+
+  // [NEW] Derived state for cleaner JSX rendering
+  const isFormModalOpen = isCreateModalOpen || !!editTarget;
 
   return (
     <div className={styles.container}>
@@ -216,120 +211,26 @@ const AdminDashboard = () => {
         ))}
       </div>
 
-      {/* Modal for creating a new page */}
+      {/* [UPDATED] Unified Modal for both Create and Edit actions to eliminate JSX duplication */}
       <Modal
-        isOpen={isCreateModalOpen}
-        onClose={() => {
-          setIsCreateModalOpen(false);
-          setNewPageName("");
-          setNewPageSlug("");
-        }}
-        title="ایجاد صفحه جدید"
+        isOpen={isFormModalOpen}
+        onClose={closeFormModal}
+        title={editTarget ? "ویرایش اطلاعات صفحه" : "ایجاد صفحه جدید"}
       >
-        <form onSubmit={handleCreatePage} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="name">نام صفحه</label>
-            <input
-              id="name"
-              type="text"
-              value={newPageName}
-              onChange={(e) => setNewPageName(e.target.value)}
-              placeholder="مثال: درباره ما"
-              disabled={createPageMutation.isPending}
-              autoFocus
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="slug">Slug (آدرس یکتا)</label>
-            <input
-              id="slug"
-              type="text"
-              value={newPageSlug}
-              onChange={(e) => setNewPageSlug(e.target.value.toLowerCase())}
-              placeholder="مثال: about-us"
-              disabled={createPageMutation.isPending}
-              dir="ltr"
-            />
-            <small>فقط حروف انگلیسی، اعداد و خط تیره - بدون فاصله</small>
-          </div>
-          <div className={styles.formActions}>
-            <button
-              type="button"
-              className={styles.cancelBtn}
-              onClick={() => {
-                setIsCreateModalOpen(false);
-                setNewPageName("");
-                setNewPageSlug("");
-              }}
-              disabled={createPageMutation.isPending}
-            >
-              انصراف
-            </button>
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={createPageMutation.isPending}
-            >
-              {createPageMutation.isPending ? <LoadingSpinner /> : "ایجاد"}
-            </button>
-          </div>
-        </form>
-      </Modal>
-
-      {/* [NEW] Modal for editing page name and slug */}
-      <Modal
-        isOpen={!!editTarget}
-        onClose={closeEditModal}
-        title="ویرایش اطلاعات صفحه"
-      >
-        <form onSubmit={handleUpdatePage} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="edit-name">نام صفحه</label>
-            <input
-              id="edit-name"
-              type="text"
-              value={editPageName}
-              onChange={(e) => setEditPageName(e.target.value)}
-              placeholder="مثال: درباره ما"
-              disabled={updatePageMutation.isPending}
-              autoFocus
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="edit-slug">Slug (آدرس یکتا)</label>
-            <input
-              id="edit-slug"
-              type="text"
-              value={editPageSlug}
-              onChange={(e) => setEditPageSlug(e.target.value.toLowerCase())}
-              placeholder="مثال: about-us"
-              disabled={updatePageMutation.isPending}
-              dir="ltr"
-            />
-            <small>فقط حروف انگلیسی، اعداد و خط تیره - بدون فاصله</small>
-          </div>
-          <div className={styles.formActions}>
-            <button
-              type="button"
-              className={styles.cancelBtn}
-              onClick={closeEditModal}
-              disabled={updatePageMutation.isPending}
-            >
-              انصراف
-            </button>
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={updatePageMutation.isPending}
-            >
-              {updatePageMutation.isPending ? (
-                <LoadingSpinner />
-              ) : (
-                "ذخیره تغییرات"
-              )}
-            </button>
-          </div>
-        </form>
+        {/* [NEW] The 'key' prop forces React to unmount/remount the form when switching 
+            between create/edit modes. This guarantees a fresh internal state without 
+            needing complex useEffects or manual state resets. (React Best Practice) */}
+        <PageForm
+          key={editTarget?.id || "create-mode"}
+          initialName={editTarget?.name || ""}
+          initialSlug={editTarget?.slug || ""}
+          onSubmit={editTarget ? handleUpdatePage : handleCreatePage}
+          onCancel={closeFormModal}
+          isPending={
+            createPageMutation.isPending || updatePageMutation.isPending
+          }
+          submitLabel={editTarget ? "ذخیره تغییرات" : "ایجاد"}
+        />
       </Modal>
 
       {/* Delete confirmation modal */}

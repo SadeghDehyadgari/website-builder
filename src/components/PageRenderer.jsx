@@ -63,8 +63,6 @@ function SectionWrapper({ section, isPreview, onSectionClick }) {
 }
 
 function UnknownSectionFallback({ type, isPreview }) {
-  if (!isPreview) return null;
-
   return (
     <div
       style={{
@@ -75,9 +73,15 @@ function UnknownSectionFallback({ type, isPreview }) {
         color: "#ef4444",
         fontSize: "0.875rem",
         textAlign: "center",
+        background: isPreview ? "transparent" : "#fef2f2",
       }}
     >
       ⚠️ نوع سکشن ناشناخته: <strong>{type}</strong>
+      {!isPreview && (
+        <p style={{ fontSize: "0.75rem", marginTop: "0.5rem" }}>
+          لطفاً این سکشن را حذف کنید.
+        </p>
+      )}
     </div>
   );
 }
@@ -95,7 +99,7 @@ function EmptySectionsPlaceholder({ isPreview }) {
       }}
     >
       {/* CHANGED: Persian text */}
-      هنوز سکشنی اضافه نشده است. از منوی سمت چپ شروع کنید.
+      هنوز سکشنی اضافه نشده است. وارد پنل ادمین شوید.
     </div>
   );
 }

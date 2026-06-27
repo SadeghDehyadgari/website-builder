@@ -26,14 +26,7 @@ function PublicView() {
   // Show loading spinner while fetching
   if (isLoading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}
-      >
+      <div className={styles.loadingContainer}>
         <LoadingSpinner />
       </div>
     );

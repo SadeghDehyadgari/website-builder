@@ -1,88 +1,66 @@
+// src/sections/Hero/HeroEditor.jsx
+// [FIXED] Now using shared EditorField component (DRY principle)
+import EditorField from "../../components/EditorField/EditorField";
+import sharedStyles from "../../styles/editor-shared.module.css";
+
 /**
 HeroEditor — settings form for the Hero section.
-Receives current props and an onChange callback.
-Command pattern: onChange(updatedProps) — caller decides what to do with the update.
-Single Responsibility: collect user input for Hero props only.
-UPDATED: Removed subtitle field.
-// [FIXED] Changed prop name from 'sectionProps' to 'props' to match SectionSettingsPanel
-// This fixes the "Cannot read properties of undefined (reading 'title')" error
-@param {Object}   props.props  - current Hero props
-@param {Function} props.onChange      - called with the full updated props object
+Receives current data and an onChange callback.
+Command pattern: onChange(updatedData) — caller decides what to do with the update.
+Single Responsibility: collect user input for Hero data only.
+@param {Object}   props.data     - current Hero data
+@param {Function} props.onChange  - called with the full updated data object
 */
-function HeroEditor({ props, onChange }) {
-  // [FIXED] Changed 'sectionProps' to 'props' throughout the component
+function HeroEditor({ data, onChange }) {
   function handleFieldChange(field, value) {
-    onChange({ ...props, [field]: value });
+    onChange({ ...data, [field]: value });
   }
 
   return (
-    <div>
-      {/* CHANGED: Persian labels, no subtitle */}
-      <Field
-        label="عنوان "
-        value={props.title}
+    <div className={sharedStyles.editorContainer}>
+      <h3 className={sharedStyles.editorTitle}>تنظیمات بخش قهرمان</h3>
+
+      <EditorField
+        id="hero-title"
+        label="عنوان"
+        value={data.title}
         onChange={(v) => handleFieldChange("title", v)}
+        placeholder="عنوان اصلی صفحه"
       />
-      <Field
-        label="توضیحات "
-        value={props.description}
+
+      <EditorField
+        id="hero-description"
+        label="توضیحات"
+        value={data.description}
         onChange={(v) => handleFieldChange("description", v)}
         multiline
+        placeholder="توضیح کوتاه درباره صفحه"
       />
-      <Field
-        label="آدرس تصویر "
-        value={props.image}
+
+      <EditorField
+        id="hero-image"
+        label="آدرس تصویر"
+        value={data.image}
         onChange={(v) => handleFieldChange("image", v)}
+        placeholder="/images/hero.svg"
       />
-      <Field
-        label="متن دکمه CTA "
-        value={props.ctaText}
+
+      <EditorField
+        id="hero-ctaText"
+        label="متن دکمه CTA"
+        value={data.ctaText}
         onChange={(v) => handleFieldChange("ctaText", v)}
+        placeholder="مثلاً: شروع کنید"
       />
-      <Field
-        label="لینک دکمه CTA "
-        value={props.ctaLink}
+
+      <EditorField
+        id="hero-ctaLink"
+        label="لینک دکمه CTA"
+        value={data.ctaLink}
         onChange={(v) => handleFieldChange("ctaLink", v)}
+        placeholder="مثلاً: /contact"
       />
     </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Private helper (unchanged)
-// ---------------------------------------------------------------------------
-function Field({ label, value, onChange, multiline = false }) {
-  const inputStyle = {
-    width: "100%",
-    padding: "0.4rem 0.6rem",
-    marginTop: "0.25rem",
-    marginBottom: "0.75rem",
-    border: "1px solid #d1d5db",
-    borderRadius: "6px",
-    fontSize: "0.875rem",
-    fontFamily: "inherit",
-    boxSizing: "border-box",
-  };
-
-  return (
-    <label style={{ display: "block", fontSize: "0.8rem", color: "#374151" }}>
-      {label}
-      {multiline ? (
-        <textarea
-          value={value || ""}
-          rows={3}
-          style={{ ...inputStyle, resize: "vertical" }}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      ) : (
-        <input
-          type="text"
-          value={value || ""}
-          style={inputStyle}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      )}
-    </label>
   );
 }
 

@@ -111,6 +111,9 @@
 
 /* Responsive: still horizontal on mobile (no stacking) */
 @media (max-width: 768px) {
+  .title {
+    font-size: 1.4rem;
+  }
   .features {
     padding: 3rem 1.25rem;
   }
