@@ -2,6 +2,8 @@
 
 A visual website page builder with admin panel and public view, built as a frontend technical assessment project.
 
+Watch live on: https://website-builder-one-iota.vercel.app/
+
 ---
 
 ## 🎯 Features
@@ -111,21 +113,6 @@ This project is deployed on Vercel with automatic deployment from GitHub.
    - `VITE_API_URL`: JSONBin.io API URL
    - `VITE_JSONBIN_MASTER_KEY`: JSONBin master key
 4. Vercel automatically deploys on every push to `main`
-
----
-
-## ⚠️ Security Note
-
-> **Important:** This project uses JSONBin.io for data persistence. The `X-Master-Key` is stored in frontend environment variables (`VITE_JSONBIN_MASTER_KEY`), which is a security risk for production applications.
-
-**For Production:**
-
-1. Build a backend (e.g., Node.js/Express)
-2. Store `X-Master-Key` in the backend
-3. Frontend sends requests only to the backend
-4. Backend proxies requests to JSONBin.io
-
-This is an MVP/demo project. For real-world applications, always use a backend proxy to protect sensitive API keys.
 
 ---
 
