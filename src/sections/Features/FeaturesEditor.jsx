@@ -1,10 +1,7 @@
 // src/sections/Features/FeaturesEditor.jsx
 import { useState } from "react";
-// [EXISTING] Import shared EditorField component (DRY principle)
 import EditorField from "../../components/EditorField/EditorField";
-// [EXISTING] Import shared editor styles to eliminate inline styles
 import sharedStyles from "../../styles/editor-shared.module.css";
-// [EXISTING] Import shared ID generator for consistency and collision resistance
 import { generateId } from "../../utils/idGenerator";
 
 /**
@@ -16,7 +13,6 @@ Handles a dynamic list of feature items (add / remove / edit).
 @param {Function} props.onChange  - called with full updated data object
 */
 function FeaturesEditor({ data, onChange }) {
-  // [EXISTING] Changed 'props' to 'data' throughout the component
   function handleTopLevelChange(field, value) {
     onChange({ ...data, [field]: value });
   }
@@ -34,8 +30,8 @@ function FeaturesEditor({ data, onChange }) {
       // and ensure consistency across the entire application.
       id: generateId(),
       icon: "✨",
-      title: "ویژگی جدید", // [EXISTING] CHANGED: Persian default
-      description: "توضیح این ویژگی.", // [EXISTING] CHANGED
+      title: "ویژگی جدید",
+      description: "توضیح این ویژگی.",
     };
     onChange({ ...data, items: [...data.items, newItem] });
   }
@@ -50,9 +46,6 @@ function FeaturesEditor({ data, onChange }) {
     <div className={sharedStyles.editorContainer}>
       {/* [UPDATED] Added editorTitle for consistent UX across all editors */}
       <h3 className={sharedStyles.editorTitle}>تنظیمات ویژگی‌ها</h3>
-
-      {/* Top-level fields - [EXISTING] CHANGED: Persian labels */}
-      {/* [UPDATED] Added id and placeholder for accessibility and better UX */}
       <EditorField
         id="features-title"
         label="عنوان بخش"
@@ -60,6 +53,7 @@ function FeaturesEditor({ data, onChange }) {
         onChange={(v) => handleTopLevelChange("title", v)}
         placeholder="عنوان اصلی بخش ویژگی‌ها"
       />
+
       <EditorField
         id="features-ctaText"
         label="متن دکمه CTA"
@@ -75,7 +69,6 @@ function FeaturesEditor({ data, onChange }) {
         placeholder="مثلاً: /services"
       />
 
-      {/* [EXISTING] Replaced inline style with shared CSS class */}
       <p className={sharedStyles.sectionSubtitle}>آیتم‌های ویژگی‌ها</p>
 
       {data.items.map((item, index) => (
@@ -104,21 +97,16 @@ function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    // [EXISTING] Replaced inline style with shared CSS class
     <div className={sharedStyles.itemContainer}>
-      {/* [EXISTING] Replaced inline style with shared CSS class */}
       <div
         className={sharedStyles.itemHeader}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        {/* [EXISTING] Replaced inline style with shared CSS class */}
         <span className={sharedStyles.itemTitle}>
           {item.icon} {item.title || `مورد ${index + 1}`}
         </span>
 
-        {/* [EXISTING] Replaced inline style with shared CSS class */}
         <div className={sharedStyles.itemActions}>
-          {/* [EXISTING] Replaced inline style with shared CSS class */}
           <span className={sharedStyles.toggleIcon}>{isOpen ? "▲" : "▼"}</span>
 
           {isRemovable && (
@@ -137,9 +125,7 @@ function ItemEditor({ item, index, onChange, onRemove, isRemovable }) {
       </div>
 
       {isOpen && (
-        // [EXISTING] Replaced inline style with shared CSS class
         <div className={sharedStyles.itemBody}>
-          {/* [UPDATED] Added id and placeholder for accessibility and better UX */}
           <EditorField
             id={`features-item-${index}-icon`}
             label="آیکون (Emoji)"
