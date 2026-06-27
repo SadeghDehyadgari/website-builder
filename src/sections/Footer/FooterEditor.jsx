@@ -1,7 +1,4 @@
 // src/sections/Footer/FooterEditor.jsx
-// [UPDATED] Changed prop name from 'props' to 'data' to prevent shadowing.
-// [UPDATED] Replaced inline styles and local CSS classes with shared EditorField and sharedStyles (DRY).
-// [UPDATED] Removed local state for main fields to adhere to Single Source of Truth.
 import EditorField from "../../components/EditorField/EditorField";
 import sharedStyles from "../../styles/editor-shared.module.css";
 import { generateId } from "../../utils/idGenerator";
@@ -26,8 +23,7 @@ function FooterEditor({ data, onChange }) {
   }
 
   function addSocialLink() {
-    // [UPDATED] Added ID for new items to maintain consistency,
-    // but we still use index for operations to support legacy data without IDs (KISS).
+    // [UPDATED] Added ID for new items to maintain consistency
     const newLink = { id: generateId(), icon: "", url: "" };
     onChange({ ...data, socialLinks: [...socialLinks, newLink] });
   }
@@ -62,6 +58,22 @@ function FooterEditor({ data, onChange }) {
 
       {socialLinks.map((item, index) => (
         <div key={item.id || index} className={sharedStyles.itemContainer}>
+          {/* [UPDATED] Item Header with title and remove button */}
+          <div className={sharedStyles.itemHeader}>
+            <span className={sharedStyles.itemTitle}>
+              شبکه اجتماعی {index + 1}
+            </span>
+            {/* [UPDATED] Remove button in header, text changed to just "✕" */}
+            <button
+              onClick={() => removeSocialLink(index)}
+              className={sharedStyles.removeButton}
+              aria-label="حذف شبکه اجتماعی"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Item Body with fields */}
           <div className={sharedStyles.itemBody}>
             <EditorField
               id={`social-${index}-icon`}
@@ -77,22 +89,6 @@ function FooterEditor({ data, onChange }) {
               onChange={(v) => handleSocialLinkChange(index, "url", v)}
               placeholder="https://..."
             />
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginTop: "0.5rem",
-              }}
-            >
-              <button
-                onClick={() => removeSocialLink(index)}
-                className={sharedStyles.removeButton}
-                aria-label="حذف شبکه اجتماعی"
-              >
-                ✕ حذف
-              </button>
-            </div>
           </div>
         </div>
       ))}

@@ -25,7 +25,7 @@ const TestimonialsEditor = ({ data, onChange }) => {
 
   function addItem() {
     const newItem = {
-      id: generateId(), // [UPDATED] Use shared generateId()
+      id: generateId(),
       avatar: "/avatars/avatar-1.png",
       name: "نام کاربر",
       role: "نقش شغلی",
@@ -60,10 +60,6 @@ const TestimonialsEditor = ({ data, onChange }) => {
       />
 
       <p className={sharedStyles.sectionSubtitle}>لیست نظرات</p>
-
-      <button onClick={addItem} className={sharedStyles.addButton}>
-        + افزودن نظر جدید
-      </button>
 
       {items.map((item, index) => (
         <div key={item.id} className={sharedStyles.itemContainer}>
@@ -111,6 +107,11 @@ const TestimonialsEditor = ({ data, onChange }) => {
           </div>
         </div>
       ))}
+
+      {/* [UPDATED] Add button moved to bottom (after list) */}
+      <button onClick={addItem} className={sharedStyles.addButton}>
+        + افزودن نظر جدید
+      </button>
     </div>
   );
 };

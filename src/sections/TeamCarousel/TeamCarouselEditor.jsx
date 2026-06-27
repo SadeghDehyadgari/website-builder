@@ -1,9 +1,7 @@
 // src/sections/TeamCarousel/TeamCarouselEditor.jsx
 import { useState } from "react";
-// [UPDATED] Import shared EditorField and styles (DRY principle)
 import EditorField from "../../components/EditorField/EditorField";
 import sharedStyles from "../../styles/editor-shared.module.css";
-// [UPDATED] Import shared ID generator for consistency
 import { generateId } from "../../utils/idGenerator";
 
 /**
@@ -15,9 +13,7 @@ Command pattern: onChange(updatedData) — caller decides what to do.
 const TeamCarouselEditor = ({ data, onChange }) => {
   const members = data.members || [];
 
-  // [EXISTING] Local state for the "Add New" form is a "Draft" pattern.
-  // It's acceptable here because we don't want to update the main data
-  // until the user explicitly clicks "Add".
+  // [EXISTING] Draft State pattern (acceptable for 3-field form)
   const [newMember, setNewMember] = useState({
     avatar: "",
     name: "",
@@ -76,6 +72,60 @@ const TeamCarouselEditor = ({ data, onChange }) => {
         placeholder="توضیح کوتاه درباره تیم"
       />
 
+      {/* List of existing members */}
+      <p className={sharedStyles.sectionSubtitle}>
+        اعضای تیم ({members.length})
+      </p>
+
+      {members.length === 0 && (
+        <p className={sharedStyles.hint}>هیچ عضوی اضافه نشده است.</p>
+      )}
+
+      {members.map((member) => (
+        <div key={member.id} className={sharedStyles.itemContainer}>
+          {/* [UPDATED] Item Header with title and remove button */}
+          <div className={sharedStyles.itemHeader}>
+            <span className={sharedStyles.itemTitle}>
+              {member.name || "عضو تیم"}
+            </span>
+            {/* [UPDATED] Remove button in header, text changed to just "✕" */}
+            <button
+              onClick={() => removeMember(member.id)}
+              className={sharedStyles.removeButton}
+              aria-label="حذف عضو"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Item Body with fields */}
+          <div className={sharedStyles.itemBody}>
+            <EditorField
+              id={`member-${member.id}-avatar`}
+              label="آدرس تصویر"
+              value={member.avatar}
+              onChange={(v) => updateMember(member.id, "avatar", v)}
+              placeholder="/avatars/example.png"
+            />
+            <EditorField
+              id={`member-${member.id}-name`}
+              label="نام"
+              value={member.name}
+              onChange={(v) => updateMember(member.id, "name", v)}
+              placeholder="نام عضو"
+            />
+            <EditorField
+              id={`member-${member.id}-role`}
+              label="سمت"
+              value={member.role}
+              onChange={(v) => updateMember(member.id, "role", v)}
+              placeholder="سمت عضو"
+            />
+          </div>
+        </div>
+      ))}
+
+      {/* [UPDATED] Add new member form moved to bottom */}
       <p className={sharedStyles.sectionSubtitle}>افزودن عضو جدید</p>
 
       <EditorField
@@ -103,58 +153,6 @@ const TeamCarouselEditor = ({ data, onChange }) => {
       <button onClick={addMember} className={sharedStyles.addButton}>
         + افزودن عضو
       </button>
-
-      <p className={sharedStyles.sectionSubtitle}>
-        اعضای تیم ({members.length})
-      </p>
-
-      {members.length === 0 && (
-        <p className={sharedStyles.hint}>هیچ عضوی اضافه نشده است.</p>
-      )}
-
-      {members.map((member) => (
-        <div key={member.id} className={sharedStyles.itemContainer}>
-          <div className={sharedStyles.itemBody}>
-            <EditorField
-              id={`member-${member.id}-avatar`}
-              label="آدرس تصویر"
-              value={member.avatar}
-              onChange={(v) => updateMember(member.id, "avatar", v)}
-              placeholder="/avatars/example.png"
-            />
-            <EditorField
-              id={`member-${member.id}-name`}
-              label="نام"
-              value={member.name}
-              onChange={(v) => updateMember(member.id, "name", v)}
-              placeholder="نام عضو"
-            />
-            <EditorField
-              id={`member-${member.id}-role`}
-              label="سمت"
-              value={member.role}
-              onChange={(v) => updateMember(member.id, "role", v)}
-              placeholder="سمت عضو"
-            />
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginTop: "0.5rem",
-              }}
-            >
-              <button
-                onClick={() => removeMember(member.id)}
-                className={sharedStyles.removeButton}
-                aria-label="حذف عضو"
-              >
-                ✕ حذف
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
     </div>
   );
 };
