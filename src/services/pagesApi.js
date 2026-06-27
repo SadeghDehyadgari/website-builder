@@ -9,7 +9,7 @@ const MASTER_KEY = import.meta.env.VITE_JSONBIN_MASTER_KEY;
 const isJSONBin = () => !!MASTER_KEY;
 
 // Timeout wrapper for fetch (20 seconds for better mobile experience)
-async function fetchWithTimeout(resource, options = {}, timeout = 20000) {
+async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
