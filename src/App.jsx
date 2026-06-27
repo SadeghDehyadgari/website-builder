@@ -1,7 +1,11 @@
 // src/App.jsx
 // [UPDATED] Migrated from legacy BrowserRouter to Data Router (createBrowserRouter)
 // This is required to support the `useBlocker` hook in PageBuilder.jsx
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import PageBuilder from "./pages/PageBuilder/PageBuilder";
@@ -20,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <PublicView />,
+      },
+      {
+        path: "home",
+        element: <Navigate to="/" replace />,
       },
       {
         path: "/:slug",
